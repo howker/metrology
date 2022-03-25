@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wundertusk/resources/app_colors.dart';
-import 'package:wundertusk/resources/app_text_styles.dart';
+import 'package:infopoverka/key_packages.dart';
+//import 'package:wundertusk/resources/app_text_styles.dart';
 
 class AppThemes {
   static ThemeData mainTheme = ThemeData(
