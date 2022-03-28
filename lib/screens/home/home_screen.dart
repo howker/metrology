@@ -29,6 +29,14 @@ class HomeScreen extends StatelessWidget {
               width: double.infinity,
               child: TextFormField(),
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.search_rounded),
+              label: const Text('Искать'),
+            ),
           ],
         ),
       ),
