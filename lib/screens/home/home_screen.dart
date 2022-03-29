@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/key_packages.dart';
+import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/search/search_screen.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -42,6 +44,7 @@ class HomeScreen extends StatelessWidget {
             ),
             ElevatedButton.icon(
               onPressed: () {
+                context.read<ItemListProvider>().loadItemsList();
                 final Route route = MaterialPageRoute<dynamic>(
                   builder: (context) => SearchScreen(
                     searchRequest: searchRequest,

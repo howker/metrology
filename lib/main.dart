@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/home/home_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,13 +12,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ItemListProvider>(
+          create: (_) => ItemListProvider(),
+        ),
+      ],
+      child: const MaterialApp(
+        home: HomeScreen(),
+      ),
     );
   }
 }
-
-
-
 
 // flutter run -d chrome //TODO del

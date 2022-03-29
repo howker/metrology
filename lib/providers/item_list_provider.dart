@@ -3,7 +3,7 @@ import 'package:infopoverka/domain/items_repository.dart';
 import 'package:infopoverka/models/item.dart';
 
 class ItemListProvider extends ChangeNotifier {
-  late final ItemsRepository _itemsRepo;
+  final ItemsRepository _itemsRepo = ItemsRepository();
   List<Items>? get items => _items;
   List<Items>? _items;
 
@@ -13,5 +13,6 @@ class ItemListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getItemsList() async => _itemsRepo.getItems(search: '', year: '');
+  Future getItemsList() async =>
+      _itemsRepo.getItems(search: '01110425', year: '2020');
 }

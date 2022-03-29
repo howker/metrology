@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/key_packages.dart';
+import 'package:infopoverka/providers/item_list_provider.dart';
+import 'package:provider/provider.dart';
 
 class SearchScreen extends StatelessWidget {
   final String searchRequest;
@@ -11,6 +13,7 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final items = context.watch<ItemListProvider>().items;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -23,10 +26,12 @@ class SearchScreen extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
+        shrinkWrap: true,
+        itemCount: items?.length,
         itemBuilder: (context, index) {
           return Column(
             children: [
-              Text(searchRequest),
+              Text(items?[index].orgTitle ?? ''),
             ],
           );
         },

@@ -9,6 +9,12 @@
             "request": "launch",
             "name": "Open index.html",
             "file": "c:\\projects\\metrology\\web\\index.html"
-        }
+        },
+        {
+            "name": "Android",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "emulator-5554"
+          },
     ]
 }
