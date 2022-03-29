@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/key_packages.dart';
+import 'package:infopoverka/screens/search/search_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final textEditingController = TextEditingController();
+    var searchRequest = '';
     //  ItemsRepository()
     //     .getItems(search: '01110425', year: '2020'); // TODO(sergey): delete it
 
@@ -27,13 +30,25 @@ class HomeScreen extends StatelessWidget {
               ),
               height: 40,
               width: double.infinity,
-              child: TextFormField(),
+              child: TextFormField(
+                controller: textEditingController,
+                onChanged: (text) {
+                  searchRequest = text;
+                },
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                final Route route = MaterialPageRoute<dynamic>(
+                  builder: (context) => SearchScreen(
+                    searchRequest: searchRequest,
+                  ),
+                );
+                Navigator.push<void>(context, route);
+              },
               icon: const Icon(Icons.search_rounded),
               label: const Text('Искать'),
             ),
