@@ -5,10 +5,9 @@ import 'package:infopoverka/models/item.dart';
 class ItemsRepository {
   Future<List<Items>> getItems({
     required String search,
-    required String year,
   }) async {
     final url = Uri.parse(
-      'https://fgis.gost.ru/fundmetrology/eapi/vri?search=$search&year=$year',
+      'https://fgis.gost.ru/fundmetrologytest/eapi/vri?search=$search', //&year=2020
     );
     final response = await http.get(
       url,

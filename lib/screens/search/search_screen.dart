@@ -15,12 +15,38 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = context.watch<ItemListProvider>().items;
-    if (items != null) {
+    if (context.watch<ItemListProvider>().loadingState == true) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+    if (items != null && items.isEmpty) {
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              context.read<ItemListProvider>().clearItemsList();
+              Navigator.pop(context);
+            },
+          ),
+          title: const Text(
+            'результаты поиска',
+            style: AppTextStyles.kSFBody14,
+          ),
+        ),
+        body: const Center(
+          child: Text('Ничего не найдено'),
+        ),
+      );
+    } else if (items != null) {
+      return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           title: const Text(
             'Найдены результаты поверки СИ',

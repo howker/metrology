@@ -4,15 +4,28 @@ import 'package:infopoverka/models/item.dart';
 
 class ItemListProvider extends ChangeNotifier {
   final ItemsRepository _itemsRepo = ItemsRepository();
+
+  String search = '';
+  bool loadingState = false;
+
   List<Items>? get items => _items;
   List<Items>? _items;
 
-  Future<void> loadItemsList() async {
-    _items = await getItemsList() as List<Items>;
+  Future<void> loadItemsList(String userSearch) async {
+    search = userSearch;
+    loadingState = true;
+    _items = await getItemsList(userSearch) as List<Items>;
+    loadingState = false;
 
     notifyListeners();
   }
 
-  Future getItemsList() async =>
-      _itemsRepo.getItems(search: '01110425', year: '2020');
+  void clearItemsList() {
+    loadingState = false;
+    _items?.clear();
+    notifyListeners();
+  }
+
+  Future getItemsList(String userSearch) async =>
+      _itemsRepo.getItems(search: search);
 }

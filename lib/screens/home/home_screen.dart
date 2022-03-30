@@ -42,7 +42,8 @@ class HomeScreen extends StatelessWidget {
             ),
             ElevatedButton.icon(
               onPressed: () {
-                context.read<ItemListProvider>().loadItemsList();
+                context.read<ItemListProvider>().clearItemsList();
+                context.read<ItemListProvider>().loadItemsList(searchRequest);
                 final Route route = MaterialPageRoute<dynamic>(
                   builder: (context) => SearchScreen(
                     searchRequest: searchRequest,
