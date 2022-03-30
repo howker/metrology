@@ -34,49 +34,62 @@ class ItemCard extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            leading: const Text('Организация - поверитель'),
-            title: Text(orgTitle ?? ''),
+            title: const Text('Организация - поверитель'),
+            subtitle: Text(orgTitle ?? ''),
+            dense: true,
           ),
           ListTile(
-            leading: const Text('Рег № типа СИ'),
-            title: Text(mitNumber ?? ''),
+            title: const Text('Рег № типа СИ'),
+            subtitle: Text(mitNumber ?? ''),
+            dense: true,
           ),
           ListTile(
-            leading: const Text('Наименование типа СИ'),
-            title: Text(mitTitle ?? ''),
+            title: const Text('Наименование типа СИ'),
+            subtitle: Text(mitTitle ?? ''),
+            dense: true,
           ),
           ListTile(
-            leading: const Text('Обозначение типа СИ'),
-            title: Text(mitNotation ?? ''),
+            title: const Text('Обозначение типа СИ'),
+            subtitle: Text(mitNotation ?? ''),
+            dense: true,
           ),
           ListTile(
-            leading: const Text('Модификация СИ'),
-            title: Text(miModification ?? ''),
+            title: const Text('Модификация СИ'),
+            subtitle: Text(miModification ?? ''),
+            dense: true,
           ),
           ListTile(
-            leading: const Text('Заводской/серийный номер'),
-            title: Text(miNumber ?? ''),
+            title: const Text('Заводской/серийный номер'),
+            subtitle: Text(miNumber ?? ''),
+            dense: true,
           ),
           ListTile(
-            leading: const Text('Дата поверки'),
-            title: Text(verificationDate ?? ''),
+            title: const Text('Дата поверки'),
+            subtitle: Text(verificationDate ?? ''),
+            dense: true,
           ),
           ListTile(
-            leading: const Text('Действительна до'),
-            title: Text(validDate ?? ''),
+            title: const Text('Действительна до'),
+            subtitle: Text(validDate ?? ''),
+            dense: true,
           ),
           ListTile(
-            leading: const Text('Номер свидетельства'),
-            title: Text(resultDocnum ?? ''),
+            title: const Text('Номер свидетельства'),
+            subtitle: Text(resultDocnum ?? ''),
+            dense: true,
           ),
           ListTile(
-            leading: const Text('Номер свидетельства'),
-            title: applicability
-                ? const Text('Пригодно')
+            title: const Text('Пригодность'),
+            subtitle: applicability
+                ? const Text(
+                    'Пригодно',
+                    style: TextStyle(color: Colors.green),
+                  )
                 : const Text(
                     'Непригодно',
                     style: TextStyle(color: Colors.red),
                   ),
+            dense: true,
           ),
         ],
       ),
