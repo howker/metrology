@@ -7,7 +7,7 @@ class ItemsRepository {
     required String search,
   }) async {
     final url = Uri.parse(
-      'https://fgis.gost.ru/fundmetrologytest/eapi/vri?search=$search', //&year=2020
+      'https://fgis.gost.ru/fundmetrology/eapi/vri?search=$search&year=2020', //&year=2020
     );
     final response = await http.get(
       url,
@@ -19,7 +19,10 @@ class ItemsRepository {
 
       final itemsList = item.result.items;
 
-      return itemsList;
+      final accurateList =
+          itemsList.where((element) => element.miNumber == search).toList();
+
+      return accurateList;
     } else {
       throw Exception('Error: ${response.reasonPhrase}');
     }
