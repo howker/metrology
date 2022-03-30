@@ -34,51 +34,61 @@ class ItemCard extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
+            visualDensity: const VisualDensity(vertical: -4),
             title: const Text('Организация - поверитель'),
             subtitle: Text(orgTitle ?? ''),
             dense: true,
           ),
           ListTile(
+            visualDensity: const VisualDensity(vertical: -4),
             title: const Text('Рег № типа СИ'),
             subtitle: Text(mitNumber ?? ''),
             dense: true,
           ),
           ListTile(
+            visualDensity: const VisualDensity(vertical: -4),
             title: const Text('Наименование типа СИ'),
             subtitle: Text(mitTitle ?? ''),
             dense: true,
           ),
           ListTile(
+            visualDensity: const VisualDensity(vertical: -4),
             title: const Text('Обозначение типа СИ'),
             subtitle: Text(mitNotation ?? ''),
             dense: true,
           ),
           ListTile(
+            visualDensity: const VisualDensity(vertical: -4),
             title: const Text('Модификация СИ'),
             subtitle: Text(miModification ?? ''),
             dense: true,
           ),
           ListTile(
+            visualDensity: const VisualDensity(vertical: -4),
             title: const Text('Заводской/серийный номер'),
             subtitle: Text(miNumber ?? ''),
             dense: true,
           ),
           ListTile(
+            visualDensity: const VisualDensity(vertical: -4),
             title: const Text('Дата поверки'),
             subtitle: Text(verificationDate ?? ''),
             dense: true,
           ),
           ListTile(
+            visualDensity: const VisualDensity(vertical: -4),
             title: const Text('Действительна до'),
             subtitle: Text(validDate ?? ''),
             dense: true,
           ),
           ListTile(
+            visualDensity: const VisualDensity(vertical: -4),
             title: const Text('Номер свидетельства'),
             subtitle: Text(resultDocnum ?? ''),
             dense: true,
           ),
           ListTile(
+            visualDensity: const VisualDensity(vertical: -4),
             title: const Text('Пригодность'),
             subtitle: applicability
                 ? const Text(
