@@ -11,8 +11,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final textEditingController = TextEditingController();
     var searchRequest = '';
-    //  ItemsRepository()
-    //     .getItems(search: '01110425', year: '2020'); // TODO(sergey): delete it
 
     return Scaffold(
       appBar: AppBar(
