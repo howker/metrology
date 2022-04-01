@@ -6,6 +6,7 @@ class ItemListProvider extends ChangeNotifier {
   final ItemsRepository _itemsRepo = ItemsRepository();
 
   String search = '';
+  String year = '';
   bool loadingState = false;
 
   List<Items>? get items => _items;
@@ -27,5 +28,5 @@ class ItemListProvider extends ChangeNotifier {
   }
 
   Future getItemsList(String userSearch) async =>
-      _itemsRepo.getItems(search: search);
+      _itemsRepo.getItems(search: search, year: year);
 }
