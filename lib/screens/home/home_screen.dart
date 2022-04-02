@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:infopoverka/key_packages.dart';
+import 'package:infopoverka/screens/home/finish_data_button.dart';
 import 'package:infopoverka/screens/home/search_elevated_button.dart';
+import 'package:infopoverka/screens/home/start_data_button.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -50,31 +51,9 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text('Искать с'),
-                TextButton(
-                  onPressed: () {
-                    showModalBottomSheet<dynamic>(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(20)),
-                      ),
-                      context: context,
-                      builder: (context) => Center(
-                        child: CupertinoDatePicker(
-                          initialDateTime: DateTime(2018),
-                          maximumYear: 2099,
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (value) {},
-                        ),
-                      ),
-                    );
-                  },
-                  child: Text(startDate),
-                ),
+                StartDataButton(startDate: startDate),
                 const Text('по'),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(finishDate),
-                ),
+                FinishDataButton(finishDate: finishDate),
               ],
             ),
             const SizedBox(
