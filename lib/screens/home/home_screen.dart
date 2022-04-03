@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/key_packages.dart';
-import 'package:infopoverka/screens/home/finish_data_button.dart';
+import 'package:infopoverka/providers/data_range_provider.dart';
+import 'package:infopoverka/screens/home/change_range_button.dart';
 import 'package:infopoverka/screens/home/search_elevated_button.dart';
-import 'package:infopoverka/screens/home/start_data_button.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,11 +12,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final textEditingController = TextEditingController();
     var searchRequest = '';
-    var startDate = '2018';
-
-    final dateFormat = DateFormat('yyyy');
-
-    var finishDate = dateFormat.format(DateTime.now());
 
     return Scaffold(
       appBar: AppBar(
@@ -47,18 +42,10 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Искать с'),
-                StartDataButton(startDate: startDate),
-                const Text('по'),
-                FinishDataButton(finishDate: finishDate),
-              ],
+            Text(
+              'Искать с ${context.watch<DataRangeProvider>().startDate} по ${context.watch<DataRangeProvider>().finishDate} год',
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const ChangeRangeButton(),
             SearchElevatedButton(searchRequest: searchRequest),
           ],
         ),

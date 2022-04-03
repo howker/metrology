@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<ItemListProvider>(
           create: (_) => ItemListProvider(),
+        ),
+        ChangeNotifierProvider<DataRangeProvider>(
+          create: (_) => DataRangeProvider(),
         ),
       ],
       child: const MaterialApp(

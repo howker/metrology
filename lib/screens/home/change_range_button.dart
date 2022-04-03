@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:infopoverka/providers/data_range_provider.dart';
+import 'package:provider/provider.dart';
 
-class StartDataButton extends StatelessWidget {
-  final String startDate;
-
-  const StartDataButton({
-    required this.startDate,
+class ChangeRangeButton extends StatelessWidget {
+  const ChangeRangeButton({
     Key? key,
   }) : super(key: key);
 
@@ -13,9 +12,12 @@ class StartDataButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final yearsList = List<Widget>.generate(
       20,
-      (index) => Text((int.parse(startDate) + index).toString()),
+      (index) => Text(
+        (int.parse(context.watch<DataRangeProvider>().startDate) + index)
+            .toString(),
+      ),
     );
-    return TextButton(
+    return ElevatedButton(
       onPressed: () {
         showModalBottomSheet<dynamic>(
           isDismissible: false,
@@ -82,7 +84,7 @@ class StartDataButton extends StatelessWidget {
           ),
         );
       },
-      child: Text(startDate),
+      child: const Text('Изменить диапазон поиска'),
     );
   }
 }
