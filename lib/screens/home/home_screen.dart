@@ -4,6 +4,7 @@ import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/screens/home/change_range_button.dart';
 import 'package:infopoverka/screens/home/search_elevated_button.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

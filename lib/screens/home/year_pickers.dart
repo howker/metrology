@@ -9,13 +9,23 @@ class YearPickers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final yearsList = List<Widget>.generate(
+    final yearsNumbersStart = List<int>.generate(20, (index) => index + 2018);
+    final yearsNumbersFinish = List<int>.generate(20, (index) => index + 2022);
+
+    final yearsListStart = List<Widget>.generate(
       20,
       (index) => Text(
-        (int.parse(context.watch<DataRangeProvider>().startDate) + index)
-            .toString(),
+        (int.parse('2018') + index).toString(),
       ),
     );
+
+    final yearsListFinish = List<Widget>.generate(
+      20,
+      (index) => Text(
+        (int.parse('2022') + index).toString(),
+      ),
+    );
+
     return SizedBox(
       width: double.infinity,
       height: 200,
@@ -28,9 +38,11 @@ class YearPickers extends StatelessWidget {
               magnification: 1.5,
               itemExtent: 25,
               onSelectedItemChanged: (value) {
-                context.read<DataRangeProvider>().setStartDate('2000');
+                context
+                    .read<DataRangeProvider>()
+                    .setStartDate('${yearsNumbersStart[value]}');
               },
-              children: yearsList,
+              children: yearsListStart,
             ),
           ),
           Expanded(
@@ -40,9 +52,11 @@ class YearPickers extends StatelessWidget {
               magnification: 1.5,
               itemExtent: 25,
               onSelectedItemChanged: (value) {
-                context.read<DataRangeProvider>().setFinishDate('2030');
+                context
+                    .read<DataRangeProvider>()
+                    .setFinishDate('${yearsNumbersFinish[value]}');
               },
-              children: yearsList,
+              children: yearsListFinish,
             ),
           ),
         ],
