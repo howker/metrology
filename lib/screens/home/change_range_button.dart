@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:infopoverka/screens/home/cancel_button.dart';
 import 'package:infopoverka/screens/home/ok_button.dart';
 import 'package:infopoverka/screens/home/year_pickers.dart';
 
@@ -22,19 +21,10 @@ class ChangeRangeButton extends StatelessWidget {
           builder: (context) => Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      CancelButton(),
-                      OkButton(),
-                    ],
-                  ),
-                ),
-                const Text('Выбор диапазона поиска'),
-                const YearPickers(),
+              children: const [
+                Text('Выбор диапазона поиска'),
+                YearPickers(),
+                OkButton(),
               ],
             ),
           ),

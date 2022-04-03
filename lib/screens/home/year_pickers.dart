@@ -27,7 +27,9 @@ class YearPickers extends StatelessWidget {
               useMagnifier: true,
               magnification: 1.5,
               itemExtent: 25,
-              onSelectedItemChanged: (value) {},
+              onSelectedItemChanged: (value) {
+                context.read<DataRangeProvider>().setStartDate('2000');
+              },
               children: yearsList,
             ),
           ),
@@ -37,7 +39,9 @@ class YearPickers extends StatelessWidget {
               useMagnifier: true,
               magnification: 1.5,
               itemExtent: 25,
-              onSelectedItemChanged: (value) {},
+              onSelectedItemChanged: (value) {
+                context.read<DataRangeProvider>().setFinishDate('2030');
+              },
               children: yearsList,
             ),
           ),

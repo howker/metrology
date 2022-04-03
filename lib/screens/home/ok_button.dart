@@ -7,7 +7,7 @@ class OkButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return ElevatedButton(
       onPressed: () {
         Navigator.pop(context);
       },
