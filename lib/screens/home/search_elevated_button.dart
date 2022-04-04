@@ -16,6 +16,13 @@ class SearchElevatedButton extends StatelessWidget {
     return ElevatedButton.icon(
       onPressed: () {
         context.read<ItemListProvider>().clearItemsList();
+
+        //получить даты через провайдер
+
+        //цикл с по
+
+        //в цикле управлять состоянием загрузки меняя года поиска
+
         context.read<ItemListProvider>().loadItemsList(searchRequest);
         final Route route = MaterialPageRoute<dynamic>(
           builder: (context) => SearchScreen(
