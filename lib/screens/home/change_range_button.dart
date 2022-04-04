@@ -1,8 +1,8 @@
-// ignore_for_file: avoid_dynamic_calls
-
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class ChangeRangeButton extends StatelessWidget {
   final DateRangePickerController _datePickerController =
@@ -34,6 +34,21 @@ class ChangeRangeButton extends StatelessWidget {
               cancelText: 'ОТМЕНА',
               controller: _datePickerController,
               onSubmit: (value) {
+                final startYear = DateFormat('yyyy').format(
+                  _datePickerController.selectedRange?.startDate as DateTime,
+                );
+
+                String endYear;
+
+                _datePickerController.selectedRange?.endDate != null
+                    ? endYear = DateFormat('yyyy').format(_datePickerController
+                        .selectedRange?.endDate as DateTime)
+                    : endYear = DateFormat('yyyy').format(_datePickerController
+                        .selectedRange?.startDate as DateTime);
+
+                context.read<DataRangeProvider>().setStartDate(startYear);
+                context.read<DataRangeProvider>().setFinishDate(endYear);
+
                 Navigator.pop(context);
               },
               onCancel: () {
@@ -50,21 +65,5 @@ class ChangeRangeButton extends StatelessWidget {
     );
   }
 
-  void _onSelectionChanged(
-    DateRangePickerSelectionChangedArgs args,
-  ) {
-    final argsStartDate = args.value.startDate as DateTime;
-    DateTime argsEndDate;
-
-    args.value.endDate != null
-        ? argsEndDate = args.value.endDate as DateTime
-        : argsEndDate = args.value.startDate as DateTime;
-
-    final startYear = DateFormat('yyyy').format(argsStartDate);
-
-    final endYear = DateFormat('yyyy').format(argsEndDate);
-
-    // ignore: avoid_print
-    print('$startYear --------- $endYear');
-  }
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {}
 }
