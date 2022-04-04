@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
             Text(
               'Искать с ${context.watch<DataRangeProvider>().startDate} по ${context.watch<DataRangeProvider>().finishDate} год',
             ),
-            const ChangeRangeButton(),
+            ChangeRangeButton(),
             SearchElevatedButton(searchRequest: searchRequest),
           ],
         ),
