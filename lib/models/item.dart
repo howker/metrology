@@ -33,6 +33,7 @@ class Result {
     rows = json['rows'] as int;
 
     items = List<dynamic>.from(json['items'] as Iterable)
+        // ignore: avoid_annotating_with_dynamic
         .map((dynamic e) => Items.fromJson(e as Map<String, dynamic>))
         .toList();
   }

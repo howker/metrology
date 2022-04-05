@@ -32,6 +32,10 @@ class ItemListProvider extends ChangeNotifier {
       _items = await getItemsList(userSearch, _year.toString()) as List<Items>;
       _loadingState = false;
 
+      //TODO(howker): добавить продолжение цикла если найден например в 2020 году номер 40791720 (искал меркурий а нашёл Бетар)
+      //то, нужно искать дальше до конца диапазона и в 2021 и в 2022 году и строить список всех найденных,
+      //затем фильтровать по типу прибора
+
       if (_items.isEmpty) {
         if (startYear != finishYear) {
           _year++;
