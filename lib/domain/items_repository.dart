@@ -8,7 +8,7 @@ class ItemsRepository {
     required String year,
   }) async {
     final url = Uri.parse(
-      'https://fgis.gost.ru/fundmetrology/eapi/vri?search=$search&year=$year', //&year=2020
+      'https://fgis.gost.ru/fundmetrology/eapi/vri?search=$search&year=$year',
     );
     final response = await http.get(
       url,

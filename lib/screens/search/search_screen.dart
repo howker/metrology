@@ -5,41 +5,53 @@ import 'package:infopoverka/screens/search/item_card_widget.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatelessWidget {
-  final String searchRequest;
-
   const SearchScreen({
-    required this.searchRequest,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final items = context.watch<ItemListProvider>().items;
+    final currentSearchingYear =
+        context.watch<ItemListProvider>().currentSearchingYear;
+
     if (context.watch<ItemListProvider>().loadingState == true) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
+      return SafeArea(
+        child: Scaffold(
+          appBar: AppBar(),
+          body: Center(
+            child: Column(
+              children: [
+                Text(currentSearchingYear),
+                const CircularProgressIndicator(),
+              ],
+            ),
+          ), //
+        ),
       );
     }
-    if (items != null && items.isEmpty) {
-      return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              context.read<ItemListProvider>().clearItemsList();
-              Navigator.pop(context);
-            },
+    if (items.isEmpty) {
+      return SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                context.read<ItemListProvider>().clearItemsList();
+                Navigator.pop(context);
+              },
+            ),
+            title: const Text(
+              'результаты поиска',
+              style: AppTextStyles.kSFBody14,
+            ),
           ),
-          title: const Text(
-            'результаты поиска',
-            style: AppTextStyles.kSFBody14,
+          body: const Center(
+            child: Text('Ничего не найдено'),
           ),
-        ),
-        body: const Center(
-          child: Text('Ничего не найдено'),
         ),
       );
-    } else if (items != null) {
+    } else {
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -77,8 +89,6 @@ class SearchScreen extends StatelessWidget {
           },
         ),
       );
-    } else {
-      return const Center(child: CircularProgressIndicator());
     }
   }
 }

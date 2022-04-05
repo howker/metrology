@@ -5,28 +5,59 @@ import 'package:infopoverka/models/item.dart';
 class ItemListProvider extends ChangeNotifier {
   final ItemsRepository _itemsRepo = ItemsRepository();
 
-  String search = '';
-  String year = '';
-  bool loadingState = false;
+  String startYear = '';
+  String finishYear = '';
 
-  List<Items>? get items => _items;
-  List<Items>? _items;
+  String get currentSearchingYear => _currentSearchingYear;
+  List<Items> get items => _items;
+  bool get loadingState => _loadingState;
+  String get search => _search;
 
-  Future<void> loadItemsList(String userSearch) async {
-    search = userSearch;
-    loadingState = true;
-    _items = await getItemsList(userSearch) as List<Items>;
-    loadingState = false;
+  String _search = '';
+  String _currentSearchingYear = '';
+  List<Items> _items = [];
+  bool _loadingState = false;
+  int _year = 2018;
 
+  Future<void> loadItemsList({
+    required String userSearch,
+    required String startYear,
+    required String finishYear,
+  }) async {
+    final intFinishYear = int.parse(finishYear);
+
+    for (_year = int.parse(startYear); _year <= intFinishYear;) {
+      _loadingState = true;
+      _currentSearchingYear = _year.toString();
+      _items = await getItemsList(userSearch, _year.toString()) as List<Items>;
+      _loadingState = false;
+
+      if (_items.isEmpty) {
+        if (startYear != finishYear) {
+          _year++;
+        } else {
+          break;
+        }
+      } else {
+        break;
+      }
+      notifyListeners();
+    }
+
+    notifyListeners();
+  }
+
+  void setSearchRequest(String searchRequest) {
+    _search = searchRequest;
     notifyListeners();
   }
 
   void clearItemsList() {
-    loadingState = false;
-    _items?.clear();
+    _loadingState = false;
+    _items.clear();
     notifyListeners();
   }
 
-  Future getItemsList(String userSearch) async =>
+  Future getItemsList(String userSearch, String year) async =>
       _itemsRepo.getItems(search: search, year: year);
 }

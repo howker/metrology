@@ -29,5 +29,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// flutter run -d chrome //TODO del

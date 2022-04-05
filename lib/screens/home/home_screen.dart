@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/key_packages.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
+import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/home/change_range_button.dart';
 import 'package:infopoverka/screens/home/search_elevated_button.dart';
 import 'package:provider/provider.dart';
@@ -37,16 +38,31 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 controller: textEditingController,
+                onFieldSubmitted: (text) {
+                  searchRequest = text;
+                  context
+                      .read<ItemListProvider>()
+                      .setSearchRequest(searchRequest);
+                },
+                onEditingComplete: () {
+                  searchRequest = textEditingController.text;
+                  context
+                      .read<ItemListProvider>()
+                      .setSearchRequest(searchRequest);
+                },
                 onChanged: (text) {
                   searchRequest = text;
+                  context
+                      .read<ItemListProvider>()
+                      .setSearchRequest(searchRequest);
                 },
               ),
             ),
             Text(
-              'Искать с ${context.watch<DataRangeProvider>().startDate} по ${context.watch<DataRangeProvider>().finishDate} год',
+              'Искать с ${context.watch<DataRangeProvider>().startDateValue} по ${context.watch<DataRangeProvider>().finishDateValue} год',
             ),
             ChangeRangeButton(),
-            SearchElevatedButton(searchRequest: searchRequest),
+            const SearchElevatedButton(),
           ],
         ),
       ),
