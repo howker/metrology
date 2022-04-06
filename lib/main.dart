@@ -1,10 +1,25 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
+///this block is solution for error:
+///CERTIFICATE_VERIFY_FAILED: unable to get local issuer certificate Error
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (cert, host, port) => true;
+  }
+}
+
 void main() {
+  ///this block is solution for error:
+  ///CERTIFICATE_VERIFY_FAILED: unable to get local issuer certificate Error
+  HttpOverrides.global = MyHttpOverrides();
+
   runApp(const MyApp());
 }
 

@@ -4,6 +4,7 @@ import 'package:infopoverka/models/item.dart';
 
 class ItemListProvider extends ChangeNotifier {
   final ItemsRepository _itemsRepo = ItemsRepository();
+  final List<Items> _items = [];
 
   String startYear = '';
   String finishYear = '';
@@ -15,7 +16,7 @@ class ItemListProvider extends ChangeNotifier {
 
   String _search = '';
   String _currentSearchingYear = '';
-  List<Items> _items = [];
+
   bool _loadingState = false;
   int _year = 2018;
 
@@ -29,7 +30,13 @@ class ItemListProvider extends ChangeNotifier {
     for (_year = int.parse(startYear); _year <= intFinishYear;) {
       _loadingState = true;
       _currentSearchingYear = _year.toString();
-      _items = await getItemsList(userSearch, _year.toString()) as List<Items>;
+      // _items = await getItemsList(userSearch, _year.toString()) as List<Items>;
+
+      //TODO add try cath
+      _items.addAll(
+        await getItemsList(userSearch, _year.toString()) as List<Items>,
+      );
+
       _loadingState = false;
 
       //TODO(howker): добавить продолжение цикла если найден например в 2020 году номер 40791720 (искал меркурий а нашёл Бетар)

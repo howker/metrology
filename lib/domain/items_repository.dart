@@ -13,6 +13,7 @@ class ItemsRepository {
     final response = await http.get(
       url,
     );
+//TODO add try catch
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       final item =
@@ -25,6 +26,7 @@ class ItemsRepository {
 
       return accurateList;
     } else {
+      //TODO implement Exceptions catch (e.g. too many requests)
       throw Exception('Error: ${response.reasonPhrase}');
     }
   }
