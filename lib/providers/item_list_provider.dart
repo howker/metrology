@@ -27,31 +27,19 @@ class ItemListProvider extends ChangeNotifier {
   }) async {
     final intFinishYear = int.parse(finishYear);
 
-    for (_year = int.parse(startYear); _year <= intFinishYear;) {
+    for (_year = int.parse(startYear); _year <= intFinishYear; _year++) {
       _loadingState = true;
       _currentSearchingYear = _year.toString();
-      // _items = await getItemsList(userSearch, _year.toString()) as List<Items>;
 
-      //TODO add try cath
       _items.addAll(
         await getItemsList(userSearch, _year.toString()) as List<Items>,
       );
 
       _loadingState = false;
 
-      //TODO(howker): добавить продолжение цикла если найден например в 2020 году номер 40791720 (искал меркурий а нашёл Бетар)
-      //то, нужно искать дальше до конца диапазона и в 2021 и в 2022 году и строить список всех найденных,
-      //затем фильтровать по типу прибора
+      //TODO  для примера если искать с 2015 по 2017  номер 21247002  = будет 2 одинаковых номера но приборы разные
+      // в результате список - нужно реализовать сортировку по разным полям
 
-      if (_items.isEmpty) {
-        if (startYear != finishYear) {
-          _year++;
-        } else {
-          break;
-        }
-      } else {
-        break;
-      }
       notifyListeners();
     }
 
