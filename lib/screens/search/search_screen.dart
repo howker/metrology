@@ -27,7 +27,7 @@ class SearchScreen extends StatelessWidget {
                 const CircularProgressIndicator(),
                 ElevatedButton(
                   onPressed: () {
-                    token.cancel('cccccccccccccccccccccccccccccc');
+                    token.cancel('Запрос отменён');
                   },
                   child: const Text('CANCEL'),
                 ),
