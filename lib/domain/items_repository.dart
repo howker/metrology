@@ -1,18 +1,20 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:infopoverka/domain/dio_base_options.dart';
+import 'package:infopoverka/main.dart';
 import 'package:infopoverka/models/item.dart';
 
 class ItemsRepository {
-  final dio = Dio(baseOptions);
-
   Future<List<Items>> getItems({
     required String search,
     required String year,
   }) async {
     initInterceptors();
+
     final response = await dio.get<dynamic>(
       'search=$search&year=$year',
+      cancelToken: token,
       onReceiveProgress: (count, total) =>
           // ignore: avoid_print
           print('Count...: $count ---------- Total:$total'),
@@ -54,5 +56,9 @@ class ItemsRepository {
         },
       ),
     );
+  }
+
+  void cancelRequest() {
+    token.cancel('cancelled');
   }
 }
