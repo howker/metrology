@@ -1,7 +1,4 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:infopoverka/domain/items_repository.dart';
-
 import 'package:infopoverka/key_packages.dart';
 import 'package:infopoverka/main.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
