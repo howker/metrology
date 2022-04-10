@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:infopoverka/domain/dio_base_options.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/home/home_screen.dart';
@@ -16,11 +14,6 @@ class MyHttpOverrides extends HttpOverrides {
       ..badCertificateCallback = (cert, host, port) => true;
   }
 }
-
-//TODO get_id or Provider as DI ???
-
-final dio = Dio(baseOptions);
-final token = CancelToken();
 
 void main() {
   ///this block is solution for error:
