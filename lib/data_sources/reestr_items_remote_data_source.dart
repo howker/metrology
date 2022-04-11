@@ -6,8 +6,6 @@ import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/utils/ui_messages.dart';
 
 class ReestrItemsRemoteDataSource {
-//TODO inject apiClient;
-
   final apiClient = sl.get<ApiClient>();
 
   final List<Items> items = [];
@@ -16,9 +14,9 @@ class ReestrItemsRemoteDataSource {
     required String year,
   }) async {
     try {
-      final response = await dio.get<dynamic>(
+      final response = await apiClient.dio.get<dynamic>(
         'search=$search&year=$year',
-        //cancelToken: token,
+        cancelToken: apiClient.token,
         onReceiveProgress: (count, total) =>
             // ignore: avoid_print
             print('Count...: $count ---------- Total:$total'),

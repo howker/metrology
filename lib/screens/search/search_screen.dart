@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:infopoverka/data_sources/api_client.dart';
 import 'package:infopoverka/key_packages.dart';
-import 'package:infopoverka/main.dart';
+import 'package:infopoverka/locator_service.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/search/item_card_widget.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,7 @@ class SearchScreen extends StatelessWidget {
                 const CircularProgressIndicator(),
                 ElevatedButton(
                   onPressed: () {
-                    token.cancel('Запрос отменён');
+                    sl.get<ApiClient>().token.cancel('Запрос отменён');
                   },
                   child: const Text('CANCEL'),
                 ),

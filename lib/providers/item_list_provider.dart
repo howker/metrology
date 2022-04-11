@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:infopoverka/domain/items_repository.dart';
+import 'package:infopoverka/data/items_repository.dart';
 import 'package:infopoverka/models/item.dart';
 
 class ItemListProvider extends ChangeNotifier {
-  final ItemsRepository _itemsRepo = ItemsRepository();
-  final List<Items> _items = [];
+  final ItemsRepository itemsRepo;
 
+  final List<Items> _items = [];
   String startYear = '';
   String finishYear = '';
 
@@ -19,6 +19,8 @@ class ItemListProvider extends ChangeNotifier {
 
   bool _loadingState = false;
   int _year = 2018;
+
+  ItemListProvider({required this.itemsRepo});
 
   Future<void> loadItemsList({
     required String userSearch,
@@ -58,5 +60,5 @@ class ItemListProvider extends ChangeNotifier {
   }
 
   Future getItemsList(String userSearch, String year) async =>
-      _itemsRepo.getItems(search: search, year: year);
+      itemsRepo.getItems(search: search, year: year);
 }
