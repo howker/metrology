@@ -30,6 +30,39 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Expanded(
+      child: Card(
+        child: Column(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.error),
+              trailing: const ExpansionTile(
+                title: Text('MORE..'),
+                children: [
+                  Text('1..'),
+                  Text('1..'),
+                  Text('1..'),
+                  Text('1..'),
+                  Text('1..'),
+                ],
+              ),
+              visualDensity: const VisualDensity(vertical: -4),
+              subtitle: Text(mitTitle ?? ''),
+              dense: true,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              subtitle: Text(mitNotation ?? ''),
+              dense: true,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              subtitle: Text(miNumber ?? ''),
+              dense: true,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
