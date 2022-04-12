@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: 55,
               width: double.infinity,
-              //TODO(howker): убирать клавиатуру
+              // TODO(me): убирать клавиатуру
               child: TextFormField(
                 decoration: const InputDecoration(
                   hintStyle: TextStyle(color: Colors.blue),

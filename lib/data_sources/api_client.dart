@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class ApiClient {
   Dio dio = Dio(
     BaseOptions(
-      baseUrl: 'https://fgis.gost.ru/fundmetrology/eapi/vri?',
+      baseUrl: 'https://fgis.gost.ru/fundmetrologytest/eapi/vri?',
       connectTimeout: 5000,
       receiveTimeout: 50000,
       sendTimeout: 5000,

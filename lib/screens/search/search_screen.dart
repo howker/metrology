@@ -20,7 +20,7 @@ class SearchScreen extends StatelessWidget {
     if (context.watch<ItemListProvider>().loadingState == true) {
       return SafeArea(
         child: Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(), // TODO(me): add check all for sharing
           body: Center(
             child: Column(
               children: [
