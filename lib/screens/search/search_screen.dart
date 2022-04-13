@@ -74,6 +74,7 @@ class SearchScreen extends StatelessWidget {
           ),
         ),
         body: ListView.builder(
+          padding: const EdgeInsets.only(top: 5),
           shrinkWrap: true,
           itemCount: items.length,
           itemBuilder: (context, index) {

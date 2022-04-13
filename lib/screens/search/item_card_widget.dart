@@ -30,39 +30,66 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Card(
-        child: Column(
-          children: [
-            ListTile(
-              leading: const Icon(Icons.error),
-              trailing: const ExpansionTile(
-                title: Text('MORE..'),
-                children: [
-                  Text('1..'),
-                  Text('1..'),
-                  Text('1..'),
-                  Text('1..'),
-                  Text('1..'),
-                ],
+    return Material(
+      child: Stack(
+        children: [
+          ClipRRect(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.black12,
               ),
-              visualDensity: const VisualDensity(vertical: -4),
-              subtitle: Text(mitTitle ?? ''),
-              dense: true,
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width - 10,
+                maxHeight: 140,
+              ),
+              child: Container(),
             ),
-            ListTile(
-              visualDensity: const VisualDensity(vertical: -4),
-              subtitle: Text(mitNotation ?? ''),
-              dense: true,
-            ),
-            ListTile(
-              visualDensity: const VisualDensity(vertical: -4),
-              subtitle: Text(miNumber ?? ''),
-              dense: true,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
+    
+    
+    
+    
+    
+    
+    
+//     Card(
+//       child: Column(
+//         children: [
+//           ListTile(
+//             leading: const Icon(Icons.error),
+//             trailing: const ExpansionTile(
+//               title: Text('MORE..'),
+//               children: [
+//                 Text('1..'),
+//                 Text('1..'),
+//                 Text('1..'),
+//                 Text('1..'),
+//                 Text('1..'),
+//               ],
+//             ),
+//             visualDensity: const VisualDensity(vertical: -4),
+//             subtitle: Text(mitTitle ?? ''),
+//             dense: true,
+//           ),
+//           ListTile(
+//             visualDensity: const VisualDensity(vertical: -4),
+//             subtitle: Text(mitNotation ?? ''),
+//             dense: true,
+//           ),
+//           ListTile(
+//             visualDensity: const VisualDensity(vertical: -4),
+//             subtitle: Text(miNumber ?? ''),
+//             dense: true,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+//
