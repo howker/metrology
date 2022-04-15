@@ -4,6 +4,7 @@ import 'package:infopoverka/key_packages.dart';
 import 'package:infopoverka/locator_service.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/search/item_card_widget.dart';
+import 'package:infopoverka/screens/search/loading_year_indicator.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -14,8 +15,6 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = context.watch<ItemListProvider>().items;
-    final currentSearchingYear =
-        context.watch<ItemListProvider>().currentSearchingYear;
 
     if (context.watch<ItemListProvider>().loadingState == true) {
       return SafeArea(
@@ -24,7 +23,7 @@ class SearchScreen extends StatelessWidget {
           body: Center(
             child: Column(
               children: [
-                Text(currentSearchingYear),
+                const LoadingYearIndicator(),
                 const CircularProgressIndicator(),
                 ElevatedButton(
                   onPressed: () {
