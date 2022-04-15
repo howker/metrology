@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ItemCard extends StatelessWidget {
   final bool applicability;
@@ -31,65 +32,132 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Stack(
-        children: [
-          ClipRRect(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.black12,
+      child: PhysicalModel(
+        color: Colors.white,
+        elevation: 2,
+        child: ExpansionTile(
+          title: Text(mitTitle ?? ''),
+          subtitle: Row(
+            children: [
+              Icon(
+                Icons.access_time_outlined,
+                color: validStatus(validDate!) ? Colors.green : Colors.red,
               ),
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width - 10,
-                maxHeight: 140,
+              Icon(
+                Icons.assignment_turned_in_outlined,
+                color: applicability ? Colors.green : Colors.red,
               ),
-              child: Container(),
-            ),
+            ],
           ),
-        ],
+          children: [
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              title: const Text('Организация - поверитель'),
+              subtitle: Text(orgTitle ?? ''),
+              dense: true,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              title: const Text('Рег № типа СИ'),
+              subtitle: Text(mitNumber ?? ''),
+              dense: true,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              title: const Text('Наименование типа СИ'),
+              subtitle: Text(mitTitle ?? ''),
+              dense: true,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              title: const Text('Обозначение типа СИ'),
+              subtitle: Text(mitNotation ?? ''),
+              dense: true,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              title: const Text('Модификация СИ'),
+              subtitle: Text(miModification ?? ''),
+              dense: true,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              title: const Text('Заводской/серийный номер'),
+              subtitle: Text(miNumber ?? ''),
+              dense: true,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              title: const Text('Дата поверки'),
+              subtitle: Text(
+                verificationDate ?? '',
+                style: TextStyle(
+                  color: validStatus(validDate!) ? Colors.green : Colors.red,
+                ),
+              ),
+              dense: true,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              title: const Text('Действительна до'),
+              subtitle: Text(
+                validDate ?? '',
+                style: TextStyle(
+                  color: validStatus(validDate!) ? Colors.green : Colors.red,
+                ),
+              ),
+              dense: true,
+              trailing: Icon(
+                Icons.access_time_outlined,
+                color: validStatus(validDate!) ? Colors.green : Colors.red,
+              ),
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              title: const Text('Номер свидетельства'),
+              subtitle: Text(resultDocnum ?? ''),
+              dense: true,
+            ),
+            ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
+              title: const Text('Пригодность'),
+              subtitle: applicability
+                  ? const Text(
+                      'Пригодно',
+                      style: TextStyle(color: Colors.green),
+                    )
+                  : const Text(
+                      'Непригодно',
+                      style: TextStyle(color: Colors.red),
+                    ),
+              dense: true,
+              trailing: Icon(
+                Icons.assignment_turned_in_outlined,
+                color: applicability ? Colors.green : Colors.red,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-    
-    
-    
-    
-    
-    
-    
-//     Card(
-//       child: Column(
-//         children: [
-//           ListTile(
-//             leading: const Icon(Icons.error),
-//             trailing: const ExpansionTile(
-//               title: Text('MORE..'),
-//               children: [
-//                 Text('1..'),
-//                 Text('1..'),
-//                 Text('1..'),
-//                 Text('1..'),
-//                 Text('1..'),
-//               ],
-//             ),
-//             visualDensity: const VisualDensity(vertical: -4),
-//             subtitle: Text(mitTitle ?? ''),
-//             dense: true,
-//           ),
-//           ListTile(
-//             visualDensity: const VisualDensity(vertical: -4),
-//             subtitle: Text(mitNotation ?? ''),
-//             dense: true,
-//           ),
-//           ListTile(
-//             visualDensity: const VisualDensity(vertical: -4),
-//             subtitle: Text(miNumber ?? ''),
-//             dense: true,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-//
+
+bool validStatus(String dataToCheck) {
+  if (dataToCheck == '') {
+    return false;
+  }
+
+  try {
+    final currentDate =
+        DateFormat('dd.MM.yyyy').format(DateTime.now()) as DateTime;
+    final endDate = DateFormat('dd.MM.yyyy').parse(dataToCheck);
+
+    if (endDate.compareTo(currentDate) < 0) {
+      return true;
+    }
+  } on Exception {
+    return false;
+  }
+  return false;
+}
