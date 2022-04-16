@@ -9,14 +9,18 @@ class ReestrItemsRemoteDataSource {
   final apiClient = sl.get<ApiClient>();
 
   final List<Items> items = [];
+
+  CancelToken token = CancelToken();
+
   Future<List<Items>?> getItems({
     required String search,
     required String year,
   }) async {
     try {
+      apiClient.initInterceptors();
       final response = await apiClient.dio.get<dynamic>(
         'search=$search&year=$year',
-        cancelToken: apiClient.token,
+        cancelToken: token,
         onReceiveProgress: (count, total) =>
             // ignore: avoid_print
             print('Count...: $count ---------- Total:$total'),
@@ -37,6 +41,9 @@ class ReestrItemsRemoteDataSource {
         throw Exception('HTTP request error: ${response.statusCode}');
       }
     } on DioError catch (e) {
+      if (token.isCancelled) {
+        token = CancelToken();
+      }
       await UIMessages.showSimpleToast(e.message);
 
       return items;

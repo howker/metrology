@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:infopoverka/data_sources/api_client.dart';
+import 'package:infopoverka/data_sources/reestr_items_remote_data_source.dart';
 import 'package:infopoverka/key_packages.dart';
 import 'package:infopoverka/locator_service.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
@@ -27,7 +27,10 @@ class SearchScreen extends StatelessWidget {
                 const CircularProgressIndicator(),
                 ElevatedButton(
                   onPressed: () {
-                    sl.get<ApiClient>().token.cancel('Запрос отменён');
+                    sl
+                        .get<ReestrItemsRemoteDataSource>()
+                        .token
+                        .cancel('Запрос отменён');
                   },
                   child: const Text('CANCEL'),
                 ),
@@ -81,16 +84,16 @@ class SearchScreen extends StatelessWidget {
               children: [
                 ItemCard(
                   applicability: items[index].applicability ?? false,
-                  vriId: items[index].vriId,
-                  orgTitle: items[index].orgTitle,
-                  mitNumber: items[index].miNumber,
-                  mitTitle: items[index].mitTitle,
-                  mitNotation: items[index].mitNotation,
-                  miModification: items[index].miModification,
-                  miNumber: items[index].miNumber,
-                  verificationDate: items[index].verificationDate,
-                  validDate: items[index].validDate,
-                  resultDocnum: items[index].resultDocnum,
+                  vriId: items[index].vriId ?? '',
+                  orgTitle: items[index].orgTitle ?? '',
+                  mitNumber: items[index].miNumber ?? '',
+                  mitTitle: items[index].mitTitle ?? '',
+                  mitNotation: items[index].mitNotation ?? '',
+                  miModification: items[index].miModification ?? '',
+                  miNumber: items[index].miNumber ?? '',
+                  verificationDate: items[index].verificationDate ?? '',
+                  validDate: items[index].validDate ?? '',
+                  resultDocnum: items[index].resultDocnum ?? '',
                 ),
               ],
             );
