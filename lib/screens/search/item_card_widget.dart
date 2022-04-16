@@ -91,9 +91,6 @@ class ItemCard extends StatelessWidget {
               title: const Text('Дата поверки'),
               subtitle: Text(
                 verificationDate ?? '',
-                style: TextStyle(
-                  color: validStatus(validDate!) ? Colors.green : Colors.red,
-                ),
               ),
               dense: true,
             ),
@@ -149,11 +146,9 @@ bool validStatus(String dataToCheck) {
   }
 
   try {
-    final currentDate =
-        DateFormat('dd.MM.yyyy').format(DateTime.now()) as DateTime;
     final endDate = DateFormat('dd.MM.yyyy').parse(dataToCheck);
 
-    if (endDate.compareTo(currentDate) < 0) {
+    if (DateTime.now().compareTo(endDate) < 0) {
       return true;
     }
   } on Exception {
