@@ -25,6 +25,7 @@ class SearchElevatedButton extends StatelessWidget {
               userSearch: searchRequest,
               startYear: startDate,
               finishYear: finishDate,
+              startRecord: 0,
             );
 
         final Route route = MaterialPageRoute<dynamic>(

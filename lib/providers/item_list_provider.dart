@@ -8,6 +8,9 @@ class ItemListProvider extends ChangeNotifier {
   final List<Items> _items = [];
   String startYear = '';
   String finishYear = '';
+  int startRecord = 0;
+
+  Result result = Result(count: 0, items: [], rows: 0, start: 0);
 
   String get currentSearchingYear => _currentSearchingYear;
   List<Items> get items => _items;
@@ -26,6 +29,7 @@ class ItemListProvider extends ChangeNotifier {
     required String userSearch,
     required String startYear,
     required String finishYear,
+    required int startRecord,
   }) async {
     final intFinishYear = int.parse(finishYear);
 
@@ -33,20 +37,32 @@ class ItemListProvider extends ChangeNotifier {
       _loadingState = true;
       _currentSearchingYear = _year.toString();
 
-      _items.addAll(
-        await getItemsList(userSearch, _year.toString()) as List<Items>,
-      );
+      result = await getResult(userSearch, _year.toString()) as Result;
+
+      _items.addAll(result.items);
 
       _loadingState = false;
-
-      // TODO(me):  для примера если искать с 2015 по 2017  номер 21247002  = будет 2 одинаковых номера но приборы разные
-      // в результате список - нужно реализовать сортировку по разным полям
 
       notifyListeners();
     }
 
     notifyListeners();
   }
+
+  // if (response.statusCode! >= 200 && response.statusCode! < 300) {
+  //   final item = Item.fromJson(
+  //     json.decode(response.toString()) as Map<String, dynamic>,
+  //   );
+
+  //   final itemsList = item.result.items;
+
+  //   final accurateList =
+  //       itemsList.where((element) => element.miNumber == search).toList();
+
+  //   return accurateList;
+  // } else {
+  //   throw Exception('HTTP request error: ${response.statusCode}');
+  // }
 
   void setSearchRequest(String searchRequest) {
     _search = searchRequest;
@@ -59,6 +75,6 @@ class ItemListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getItemsList(String userSearch, String year) async =>
-      itemsRepo.getItems(search: search, year: year);
+  Future getResult(String userSearch, String year) async =>
+      itemsRepo.getResult(search: search, year: year, startRecord: startRecord);
 }
