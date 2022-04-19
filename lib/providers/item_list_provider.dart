@@ -5,7 +5,6 @@ import 'package:infopoverka/models/item.dart';
 class ItemListProvider extends ChangeNotifier {
   final ItemsRepository itemsRepo;
 
-  final List<Items> _items = [];
   String startYear = '';
   String finishYear = '';
   int startRecord = 0;
@@ -16,6 +15,7 @@ class ItemListProvider extends ChangeNotifier {
   List<Items> get items => _items;
   bool get loadingState => _loadingState;
   String get search => _search;
+  List<Items> _items = [];
 
   String _search = '';
   String _currentSearchingYear = '';
@@ -41,6 +41,11 @@ class ItemListProvider extends ChangeNotifier {
 
       _items.addAll(item.result.items);
 
+      final accurateList =
+          _items.where((element) => element.miNumber == search).toList();
+
+      _items = accurateList;
+
       _loadingState = false;
 
       notifyListeners();
@@ -48,21 +53,6 @@ class ItemListProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
-  // if (response.statusCode! >= 200 && response.statusCode! < 300) {
-  //   final item = Item.fromJson(
-  //     json.decode(response.toString()) as Map<String, dynamic>,
-  //   );
-
-  //   final itemsList = item.result.items;
-
-  //   final accurateList =
-  //       itemsList.where((element) => element.miNumber == search).toList();
-
-  //   return accurateList;
-  // } else {
-  //   throw Exception('HTTP request error: ${response.statusCode}');
-  // }
 
   void setSearchRequest(String searchRequest) {
     _search = searchRequest;
