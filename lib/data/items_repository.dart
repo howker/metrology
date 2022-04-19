@@ -4,24 +4,24 @@ import 'package:infopoverka/models/item.dart';
 class ItemsRepository {
   final ReestrItemsRemoteDataSource reestrItemsRemoteDataSource;
 
-  final Result result = Result(count: 0, items: [], rows: 0, start: 0);
+  Item item = Item(result: Result(count: 0, start: 0, rows: 0, items: []));
 
   ItemsRepository({required this.reestrItemsRemoteDataSource});
 
-  Future<Result> getResult({
+  Future<Item> getItem({
     required String search,
     required String year,
     required int startRecord,
   }) async {
     try {
-      final items = await reestrItemsRemoteDataSource.getResult(
+      final item = await reestrItemsRemoteDataSource.getItem(
         search: search,
         year: year,
         startRecord: startRecord,
       );
-      return items;
+      return item;
     } on Exception {
-      return result;
+      return item;
     }
   }
 }

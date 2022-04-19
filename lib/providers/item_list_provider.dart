@@ -10,7 +10,7 @@ class ItemListProvider extends ChangeNotifier {
   String finishYear = '';
   int startRecord = 0;
 
-  Result result = Result(count: 0, items: [], rows: 0, start: 0);
+  Item item = Item(result: Result(count: 0, start: 0, rows: 0, items: []));
 
   String get currentSearchingYear => _currentSearchingYear;
   List<Items> get items => _items;
@@ -37,9 +37,9 @@ class ItemListProvider extends ChangeNotifier {
       _loadingState = true;
       _currentSearchingYear = _year.toString();
 
-      result = await getResult(userSearch, _year.toString()) as Result;
+      item = await getItem(userSearch, _year.toString()) as Item;
 
-      _items.addAll(result.items);
+      _items.addAll(item.result.items);
 
       _loadingState = false;
 
@@ -75,6 +75,6 @@ class ItemListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getResult(String userSearch, String year) async =>
-      itemsRepo.getResult(search: search, year: year, startRecord: startRecord);
+  Future getItem(String userSearch, String year) async =>
+      itemsRepo.getItem(search: search, year: year, startRecord: startRecord);
 }

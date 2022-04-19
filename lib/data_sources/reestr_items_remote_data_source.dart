@@ -8,11 +8,11 @@ import 'package:infopoverka/utils/ui_messages.dart';
 class ReestrItemsRemoteDataSource {
   final apiClient = sl.get<ApiClient>();
 
-  Result result = Result(count: 0, items: [], rows: 0, start: 0);
+  Item item = Item(result: Result(count: 0, items: [], rows: 0, start: 0));
 
   CancelToken token = CancelToken();
 
-  Future<Result> getResult({
+  Future<Item> getItem({
     required String search,
     required String year,
     required int startRecord,
@@ -28,7 +28,7 @@ class ReestrItemsRemoteDataSource {
       );
 
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        result = Result.fromJson(
+        item = Item.fromJson(
           json.decode(response.toString()) as Map<String, dynamic>,
         );
       }
@@ -37,8 +37,8 @@ class ReestrItemsRemoteDataSource {
         token = CancelToken();
       }
       await UIMessages.showSimpleToast(e.message);
-      return result;
+      return item;
     }
-    return result;
+    return item;
   }
 }
