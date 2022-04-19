@@ -14,6 +14,8 @@ class ChangeRangeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var startYear = DateFormat('yyyy').format(DateTime.now());
+    var endYear = DateFormat('yyyy').format(DateTime.now());
     return ElevatedButton(
       onPressed: () {
         showModalBottomSheet<dynamic>(
@@ -34,17 +36,23 @@ class ChangeRangeButton extends StatelessWidget {
               cancelText: 'ОТМЕНА',
               controller: _datePickerController,
               onSubmit: (value) {
-                final startYear = DateFormat('yyyy').format(
-                  _datePickerController.selectedRange?.startDate as DateTime,
-                );
+                if (_datePickerController.selectedRange?.startDate != null) {
+                  startYear = DateFormat('yyyy').format(
+                    _datePickerController.selectedRange?.startDate as DateTime,
+                  );
+                }
 
-                String endYear;
-
-                _datePickerController.selectedRange?.endDate != null
-                    ? endYear = DateFormat('yyyy').format(_datePickerController
-                        .selectedRange?.endDate as DateTime)
-                    : endYear = DateFormat('yyyy').format(_datePickerController
-                        .selectedRange?.startDate as DateTime);
+                if (_datePickerController.selectedRange?.startDate != null) {
+                  _datePickerController.selectedRange?.endDate != null
+                      ? endYear = DateFormat('yyyy').format(
+                          _datePickerController.selectedRange?.endDate
+                              as DateTime,
+                        )
+                      : endYear = DateFormat('yyyy').format(
+                          _datePickerController.selectedRange?.startDate
+                              as DateTime,
+                        );
+                }
 
                 context.read<DataRangeProvider>().setStartDate(startYear);
                 context.read<DataRangeProvider>().setFinishDate(endYear);
