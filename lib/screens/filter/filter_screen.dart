@@ -6,10 +6,9 @@
 По поверителю org_title
  */
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:infopoverka/models/item.dart';
+import 'package:infopoverka/providers/filter_switch_provider.dart';
 
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/filter/clear_all_filters_elevated_button.dart';
@@ -22,7 +21,9 @@ class FilterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final filteredList = context.watch<ItemListProvider>().filteredList;
-    var onlyActualData = false;
+    final onlyActualData =
+        context.watch<FilterSwitchProvider>().onlyActualDataSwitcherState;
+
     var userFilteredList = <Items>[];
 
     return SafeArea(
@@ -39,7 +40,9 @@ class FilterScreen extends StatelessWidget {
               Switch.adaptive(
                 value: onlyActualData,
                 onChanged: (newValue) {
-                  onlyActualData = newValue;
+                  context
+                      .read<FilterSwitchProvider>()
+                      .setOnlyActualDataSwitcherState();
                   if (onlyActualData) {
                     userFilteredList = filteredList
                         .where((element) =>

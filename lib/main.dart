@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:infopoverka/data/items_repository.dart';
 import 'package:infopoverka/locator_service.dart' as di;
 import 'package:infopoverka/providers/data_range_provider.dart';
+import 'package:infopoverka/providers/filter_switch_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<DataRangeProvider>(
           create: (_) => DataRangeProvider(),
+        ),
+        ChangeNotifierProvider<FilterSwitchProvider>(
+          create: (_) => FilterSwitchProvider(),
         ),
       ],
       child: const MaterialApp(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infopoverka/providers/filter_switch_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,7 @@ class ClearAllFiltersElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         context.read<ItemListProvider>().setFilteredList(items);
+        context.read<FilterSwitchProvider>().clearAllSwitcherStates();
       },
       child: const Text('Очистить все фильтры'),
     );
