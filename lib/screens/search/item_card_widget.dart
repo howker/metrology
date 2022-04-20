@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:infopoverka/utils/valid_data_check.dart';
 
 class ItemCard extends StatelessWidget {
   final bool applicability;
@@ -41,7 +41,9 @@ class ItemCard extends StatelessWidget {
             children: [
               Icon(
                 Icons.access_time_outlined,
-                color: validStatus(validDate!) ? Colors.green : Colors.red,
+                color: ValidDataCheck.validStatus(validDate!)
+                    ? Colors.green
+                    : Colors.red,
               ),
               Icon(
                 Icons.assignment_turned_in_outlined,
@@ -100,13 +102,17 @@ class ItemCard extends StatelessWidget {
               subtitle: Text(
                 validDate ?? '',
                 style: TextStyle(
-                  color: validStatus(validDate!) ? Colors.green : Colors.red,
+                  color: ValidDataCheck.validStatus(validDate!)
+                      ? Colors.green
+                      : Colors.red,
                 ),
               ),
               dense: true,
               trailing: Icon(
                 Icons.access_time_outlined,
-                color: validStatus(validDate!) ? Colors.green : Colors.red,
+                color: ValidDataCheck.validStatus(validDate!)
+                    ? Colors.green
+                    : Colors.red,
               ),
             ),
             ListTile(
@@ -138,21 +144,4 @@ class ItemCard extends StatelessWidget {
       ),
     );
   }
-}
-
-bool validStatus(String dataToCheck) {
-  if (dataToCheck == '') {
-    return false;
-  }
-
-  try {
-    final endDate = DateFormat('dd.MM.yyyy').parse(dataToCheck);
-
-    if (DateTime.now().compareTo(endDate) < 0) {
-      return true;
-    }
-  } on Exception {
-    return false;
-  }
-  return false;
 }

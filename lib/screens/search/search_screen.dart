@@ -15,7 +15,7 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = context.watch<ItemListProvider>().items;
+    final items = context.watch<ItemListProvider>().filteredList;
 
     if (context.watch<ItemListProvider>().loadingState == true) {
       return SafeArea(

@@ -7,6 +7,7 @@
  */
 
 import 'package:flutter/material.dart';
+
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,11 +16,13 @@ class FilterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = context.watch<ItemListProvider>().items;
+    var filteredList = context.watch<ItemListProvider>().filteredList;
+    var onlyActualData = false;
+
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          child: Text('Показать ${items.length}'),
+          child: Text('Показать ${filteredList.length}'),
           onPressed: () {},
         ),
         appBar: AppBar(),
@@ -28,14 +31,21 @@ class FilterScreen extends StatelessWidget {
           child: Column(
             children: [
               Switch.adaptive(
-                value: true,
-                onChanged: (newValue) {},
+                value: onlyActualData,
+                onChanged: (newValue) {
+                  onlyActualData = newValue;
+                  filteredList.where((element) => false);
+                },
               ),
               const Text('с актуальной поверкой'),
               const Divider(thickness: 3),
               Switch.adaptive(
-                value: true,
-                onChanged: (newValue) {},
+                value: false,
+                onChanged: (newValue) {
+                  // context
+                  //     .read<ItemListProvider>()
+                  //     .setFilteredList(userFilteredList);
+                },
               ),
               const Text('с просроченной поверкой'),
               TextFormField(

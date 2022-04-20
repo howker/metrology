@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:dio/dio.dart';
 
 class ApiClient {
@@ -14,19 +15,17 @@ class ApiClient {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          // ignore: avoid_print
-          print(
+          log(
             'Request is sending: ${options.method} ${options.baseUrl}${options.path}',
           );
           return handler.next(options);
         },
         onResponse: (responce, handler) {
-          //print('Answer was received: ${responce.data}');
+          log('Answer was received: ${responce.data}');
           return handler.next(responce);
         },
         onError: (error, handler) {
-          // ignore: avoid_print
-          print('It was error: $error');
+          log('It was error: $error');
         },
       ),
     );

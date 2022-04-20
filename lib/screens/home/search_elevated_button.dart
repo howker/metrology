@@ -15,6 +15,7 @@ class SearchElevatedButton extends StatelessWidget {
     final searchRequest = context.watch<ItemListProvider>().search;
     final startDate = context.watch<DataRangeProvider>().startDateValue;
     final finishDate = context.watch<DataRangeProvider>().finishDateValue;
+
     return ElevatedButton.icon(
       onPressed: () {
         InputUtils.unFocus();

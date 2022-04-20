@@ -4,26 +4,30 @@ import 'package:infopoverka/models/item.dart';
 
 class ItemListProvider extends ChangeNotifier {
   final ItemsRepository itemsRepo;
-
+  final List<Items> _items = [];
+  Item item = Item(result: Result(count: 0, start: 0, rows: 0, items: []));
   String startYear = '';
   String finishYear = '';
   int startRecord = 0;
-
-  Item item = Item(result: Result(count: 0, start: 0, rows: 0, items: []));
 
   String get currentSearchingYear => _currentSearchingYear;
   List<Items> get items => _items;
   bool get loadingState => _loadingState;
   String get search => _search;
-  List<Items> _items = [];
+  List<Items> get filteredList => _filteredList;
 
+  List<Items> _filteredList = [];
   String _search = '';
   String _currentSearchingYear = '';
-
   bool _loadingState = false;
   int _year = 2018;
 
   ItemListProvider({required this.itemsRepo});
+
+  void setFilteredList(List<Items> userFilteredList) {
+    _filteredList = userFilteredList;
+    notifyListeners();
+  }
 
   Future<void> loadItemsList({
     required String userSearch,
@@ -46,6 +50,8 @@ class ItemListProvider extends ChangeNotifier {
       //     _items.where((element) => element.miNumber == search).toList();
 
       // _items = accurateList;
+
+      setFilteredList(_items);
 
       _loadingState = false;
 
