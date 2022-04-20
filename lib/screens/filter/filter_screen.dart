@@ -6,9 +6,14 @@
 По поверителю org_title
  */
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:infopoverka/models/item.dart';
 
 import 'package:infopoverka/providers/item_list_provider.dart';
+import 'package:infopoverka/screens/filter/clear_all_filters_elevated_button.dart';
+import 'package:infopoverka/utils/valid_data_check.dart';
 import 'package:provider/provider.dart';
 
 class FilterScreen extends StatelessWidget {
@@ -16,8 +21,9 @@ class FilterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var filteredList = context.watch<ItemListProvider>().filteredList;
+    final filteredList = context.watch<ItemListProvider>().filteredList;
     var onlyActualData = false;
+    var userFilteredList = <Items>[];
 
     return SafeArea(
       child: Scaffold(
@@ -34,7 +40,19 @@ class FilterScreen extends StatelessWidget {
                 value: onlyActualData,
                 onChanged: (newValue) {
                   onlyActualData = newValue;
-                  filteredList.where((element) => false);
+                  if (onlyActualData) {
+                    userFilteredList = filteredList
+                        .where((element) =>
+                            ValidDataCheck.validStatus(element.validDate ?? ''))
+                        .toList();
+                    context
+                        .read<ItemListProvider>()
+                        .setFilteredList(userFilteredList);
+                  } else {
+                    context
+                        .read<ItemListProvider>()
+                        .setFilteredList(filteredList);
+                  }
                 },
               ),
               const Text('с актуальной поверкой'),
@@ -84,6 +102,7 @@ class FilterScreen extends StatelessWidget {
                 onEditingComplete: () {},
                 onChanged: (text) {},
               ),
+              const ClearAllFiltersElevatedButton(),
             ],
           ),
         ),
