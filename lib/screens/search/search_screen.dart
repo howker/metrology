@@ -3,6 +3,7 @@ import 'package:infopoverka/data_sources/reestr_items_remote_data_source.dart';
 import 'package:infopoverka/key_packages.dart';
 import 'package:infopoverka/locator_service.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
+import 'package:infopoverka/screens/filter/filter_screen.dart';
 import 'package:infopoverka/screens/search/item_card_widget.dart';
 import 'package:infopoverka/screens/search/loading_year_indicator.dart';
 import 'package:provider/provider.dart';
@@ -63,6 +64,15 @@ class SearchScreen extends StatelessWidget {
       );
     } else {
       return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.sort_by_alpha_rounded),
+          onPressed: () {
+            final Route route = MaterialPageRoute<dynamic>(
+              builder: (context) => const FilterScreen(),
+            );
+            Navigator.push<dynamic>(context, route);
+          },
+        ),
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),

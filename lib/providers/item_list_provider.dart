@@ -42,10 +42,10 @@ class ItemListProvider extends ChangeNotifier {
       _items.addAll(item.result.items);
 
       // TODO(me): add user settings fo enable/disable accurate search,
-      final accurateList =
-          _items.where((element) => element.miNumber == search).toList();
+      // final accurateList =
+      //     _items.where((element) => element.miNumber == search).toList();
 
-      _items = accurateList;
+      // _items = accurateList;
 
       _loadingState = false;
 
