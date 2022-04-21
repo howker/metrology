@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:infopoverka/utils/ui_messages.dart';
 
 class ApiClient {
   Dio dio = Dio(
@@ -25,6 +26,9 @@ class ApiClient {
           return handler.next(responce);
         },
         onError: (error, handler) {
+          if (error.type == DioErrorType.connectTimeout) {
+            UIMessages.showSimpleToast('connectTimeout');
+          }
           log('It was error: $error');
         },
       ),

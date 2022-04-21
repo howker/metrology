@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:infopoverka/data_sources/api_client.dart';
 import 'package:infopoverka/locator_service.dart';
@@ -23,8 +24,7 @@ class ReestrItemsRemoteDataSource {
         'search=$search&year=$year&start=$startRecord',
         cancelToken: token,
         onReceiveProgress: (count, total) =>
-            // ignore: avoid_print
-            print('Count...: $count ---------- Total:$total'),
+            log('Count...: $count ---------- Total:$total'),
       );
 
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -37,6 +37,7 @@ class ReestrItemsRemoteDataSource {
         token = CancelToken();
       }
       await UIMessages.showSimpleToast(e.message);
+
       return item;
     }
     return item;

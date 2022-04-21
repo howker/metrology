@@ -18,12 +18,12 @@ class FilterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filteredList = context.watch<ItemListProvider>().filteredList;
+    final items = context.watch<ItemListProvider>().filteredList;
 
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          child: Text('Показать ${filteredList.length}'),
+          child: Text('Показать ${items.length}'),
           onPressed: () {},
         ),
         appBar: AppBar(),
