@@ -20,9 +20,8 @@ class FilterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final items = context.watch<ItemListProvider>().items;
     final filteredList = context.watch<ItemListProvider>().filteredList;
-    final onlyActualData =
-        context.watch<FilterSwitchProvider>().onlyActualDataSwitcherState;
 
     var userFilteredList = <Items>[];
 
@@ -38,12 +37,16 @@ class FilterScreen extends StatelessWidget {
           child: Column(
             children: [
               Switch.adaptive(
-                value: onlyActualData,
+                value: context
+                    .read<FilterSwitchProvider>()
+                    .onlyActualDataSwitcherState,
                 onChanged: (newValue) {
                   context
                       .read<FilterSwitchProvider>()
                       .setOnlyActualDataSwitcherState();
-                  if (onlyActualData) {
+                  if (context
+                      .read<FilterSwitchProvider>()
+                      .onlyActualDataSwitcherState) {
                     userFilteredList = filteredList
                         .where((element) =>
                             ValidDataCheck.validStatus(element.validDate ?? ''))
@@ -52,9 +55,7 @@ class FilterScreen extends StatelessWidget {
                         .read<ItemListProvider>()
                         .setFilteredList(userFilteredList);
                   } else {
-                    context
-                        .read<ItemListProvider>()
-                        .setFilteredList(filteredList);
+                    context.read<ItemListProvider>().setFilteredList(items);
                   }
                 },
               ),
