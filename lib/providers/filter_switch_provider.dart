@@ -9,11 +9,13 @@ class FilterSwitchProvider extends ChangeNotifier {
 
   void setOnlyActualDataSwitcherState() {
     _onlyActualDataSwitcherState = !_onlyActualDataSwitcherState;
+    _onlyInvalidDataSwitcherState = false;
     notifyListeners();
   }
 
-  void setOnlyInvalidDataSwitcherState(String finish) {
+  void setOnlyInvalidDataSwitcherState() {
     _onlyInvalidDataSwitcherState = !_onlyInvalidDataSwitcherState;
+    _onlyActualDataSwitcherState = false;
     notifyListeners();
   }
 
