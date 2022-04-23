@@ -12,7 +12,7 @@ class InvalidDataSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = context.watch<ItemListProvider>().items;
+    final items = context.watch<ItemListProvider>().filteredList;
     var userFilteredList = <Items>[];
 
     return Switch.adaptive(
