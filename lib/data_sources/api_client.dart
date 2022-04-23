@@ -6,7 +6,7 @@ class ApiClient {
   Dio dio = Dio(
     BaseOptions(
       baseUrl: 'https://fgis.gost.ru/fundmetrology/eapi/vri?rows=100&',
-      connectTimeout: 5000,
+      connectTimeout: 50000,
       receiveTimeout: 50000,
       sendTimeout: 5000,
     ),

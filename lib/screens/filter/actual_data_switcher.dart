@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/models/item.dart';
-import 'package:infopoverka/providers/filter_switch_provider.dart';
+import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/utils/valid_data_check.dart';
 import 'package:provider/provider.dart';
@@ -16,10 +16,10 @@ class ActualDataSwitcher extends StatelessWidget {
     var userFilteredList = <Items>[];
 
     return Switch.adaptive(
-      value: context.read<FilterSwitchProvider>().onlyActualDataSwitcherState,
+      value: context.read<FilterProvider>().onlyActualDataSwitcherState,
       onChanged: (newValue) {
-        context.read<FilterSwitchProvider>().setOnlyActualDataSwitcherState();
-        if (context.read<FilterSwitchProvider>().onlyActualDataSwitcherState) {
+        context.read<FilterProvider>().setOnlyActualDataSwitcherState();
+        if (context.read<FilterProvider>().onlyActualDataSwitcherState) {
           userFilteredList = items
               .where((element) =>
                   ValidDataCheck.validStatus(element.validDate ?? ''))

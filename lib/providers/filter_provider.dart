@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-class FilterSwitchProvider extends ChangeNotifier {
+class FilterProvider extends ChangeNotifier {
   bool get onlyActualDataSwitcherState => _onlyActualDataSwitcherState;
   bool get onlyInvalidDataSwitcherState => _onlyInvalidDataSwitcherState;
+  String get mitTitleFormFieldText => _mitTitleFormFieldText;
 
   bool _onlyActualDataSwitcherState = false;
   bool _onlyInvalidDataSwitcherState = false;
+  String _mitTitleFormFieldText = '';
 
   void setOnlyActualDataSwitcherState() {
     _onlyActualDataSwitcherState = !_onlyActualDataSwitcherState;
@@ -19,9 +21,15 @@ class FilterSwitchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clearAllSwitcherStates() {
+  void setMitTitleFormFieldText(String text) {
+    _mitTitleFormFieldText = text;
+    notifyListeners();
+  }
+
+  void clearAllSwitcherAndFieldsStates() {
     _onlyActualDataSwitcherState = false;
     _onlyInvalidDataSwitcherState = false;
+    _mitTitleFormFieldText = '';
     notifyListeners();
   }
 }
