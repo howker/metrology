@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:infopoverka/screens/filter/actual_data_switcher.dart';
 import 'package:infopoverka/screens/filter/clear_all_filters_elevated_button.dart';
 import 'package:infopoverka/screens/filter/invalid_data_switcher.dart';
+import 'package:infopoverka/screens/filter/mit_notation_form_field.dart';
 import 'package:infopoverka/screens/filter/mit_title_form_field.dart';
 import 'package:infopoverka/screens/filter/show_floating_button.dart';
 
@@ -34,10 +35,13 @@ class FilterScreen extends StatelessWidget {
               ),
               ActualDataSwitcher(),
               Text('с актуальной поверкой'),
-              Divider(thickness: 3),
+              Divider(thickness: 1),
               InvalidDataSwitcher(),
               Text('с просроченной поверкой'),
+              Divider(),
               MitTitleFormField(),
+              Divider(),
+              MitNotationFormField(),
             ],
           ),
         ),

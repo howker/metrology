@@ -25,15 +25,11 @@ class ItemListProvider extends ChangeNotifier {
 
   ItemListProvider({required this.itemsRepo});
 
-  // void setFilteredList(List<Items> userFilteredList) {
-  //   _filteredList = userFilteredList;
-  //   notifyListeners();
-  // }
-
   void setFilteredList({
     required bool onlyActualData,
     required bool onlyInvalidData,
     required String mitTitleFilter,
+    required String mitNotation,
   }) {
     _filteredList = items;
     if (onlyActualData) {
@@ -57,7 +53,17 @@ class ItemListProvider extends ChangeNotifier {
           )
           .toList();
     }
-    if (!onlyActualData && !onlyInvalidData && mitTitleFilter == '') {
+    if (mitNotation != '') {
+      _filteredList = _filteredList
+          .where(
+            (element) => element.mitNotation == mitNotation,
+          )
+          .toList();
+    }
+    if (!onlyActualData &&
+        !onlyInvalidData &&
+        mitTitleFilter == '' &&
+        mitNotation == '') {
       _filteredList = items;
     }
 

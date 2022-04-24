@@ -22,6 +22,7 @@ class ClearAllFiltersTextButton extends StatelessWidget {
               onlyInvalidData:
                   context.read<FilterProvider>().onlyInvalidDataSwitcherState,
               mitTitleFilter: '',
+              mitNotation: context.read<FilterProvider>().mitNotationFieldText,
             );
       },
       child: const Text('Очистить все фильтры'),

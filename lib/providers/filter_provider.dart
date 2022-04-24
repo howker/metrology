@@ -4,10 +4,12 @@ class FilterProvider extends ChangeNotifier {
   bool get onlyActualDataSwitcherState => _onlyActualDataSwitcherState;
   bool get onlyInvalidDataSwitcherState => _onlyInvalidDataSwitcherState;
   String get mitTitleFormFieldText => _mitTitleFormFieldText;
+  String get mitNotationFieldText => _mitNotationFieldText;
 
   bool _onlyActualDataSwitcherState = false;
   bool _onlyInvalidDataSwitcherState = false;
   String _mitTitleFormFieldText = '';
+  String _mitNotationFieldText = '';
 
   void setOnlyActualDataSwitcherState() {
     _onlyActualDataSwitcherState = !_onlyActualDataSwitcherState;
@@ -23,6 +25,11 @@ class FilterProvider extends ChangeNotifier {
 
   void setMitTitleFormFieldText(String text) {
     _mitTitleFormFieldText = text;
+    notifyListeners();
+  }
+
+  void setMitNotationFieldText(String text) {
+    _mitNotationFieldText = text;
     notifyListeners();
   }
 

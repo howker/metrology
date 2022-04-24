@@ -5,8 +5,8 @@ import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:provider/provider.dart';
 
-class MitTitleFormField extends StatelessWidget {
-  const MitTitleFormField({
+class MitNotationFormField extends StatelessWidget {
+  const MitNotationFormField({
     Key? key,
   }) : super(key: key);
 
@@ -17,7 +17,7 @@ class MitTitleFormField extends StatelessWidget {
     final onlyInvalidDataSwitcherState =
         context.watch<FilterProvider>().onlyInvalidDataSwitcherState;
     final typeAheadController = TextEditingController(
-      text: context.watch<FilterProvider>().mitTitleFormFieldText,
+      text: context.watch<FilterProvider>().mitNotationFieldText,
     );
     final items = context.watch<ItemListProvider>().filteredList;
     return TypeAheadFormField(
@@ -28,17 +28,17 @@ class MitTitleFormField extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyLarge,
         decoration: const InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          labelText: 'Фильтровать по типу СИ',
+          labelText: 'Фильтровать по модификации СИ',
           border: OutlineInputBorder(),
         ),
       ),
       itemBuilder: (context, Items suggestion) {
-        return Text(suggestion.mitTitle!);
+        return Text(suggestion.mitNotation!);
       },
       onSuggestionSelected: (Items suggestion) {
         context
             .read<FilterProvider>()
-            .setMitTitleFormFieldText(suggestion.mitTitle!);
+            .setMitNotationFieldText(suggestion.mitNotation!);
 
         context.read<ItemListProvider>().setFilteredList(
               onlyActualData: onlyActualDataSwitcherState,
@@ -49,7 +49,13 @@ class MitTitleFormField extends StatelessWidget {
       },
       suggestionsCallback: (pattern) {
         return items.where(
-          (element) => element.mitTitle!.toLowerCase().contains(pattern),
+          (element) {
+            if (element.mitNotation != null) {
+              return element.mitNotation!.toLowerCase().contains(pattern);
+            } else {
+              return false;
+            }
+          },
         );
       },
     );
