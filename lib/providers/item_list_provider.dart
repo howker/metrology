@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/data/items_repository.dart';
 import 'package:infopoverka/models/item.dart';
+import 'package:infopoverka/utils/valid_data_check.dart';
 
 class ItemListProvider extends ChangeNotifier {
   final ItemsRepository itemsRepo;
@@ -24,8 +25,42 @@ class ItemListProvider extends ChangeNotifier {
 
   ItemListProvider({required this.itemsRepo});
 
-  void setFilteredList(List<Items> userFilteredList) {
-    _filteredList = userFilteredList;
+  // void setFilteredList(List<Items> userFilteredList) {
+  //   _filteredList = userFilteredList;
+  //   notifyListeners();
+  // }
+
+  void setFilteredList({
+    required bool onlyActualData,
+    required bool onlyInvalidData,
+    required String mitTitleFilter,
+  }) {
+    _filteredList = items;
+    if (onlyActualData) {
+      _filteredList = _filteredList
+          .where(
+            (element) => ValidDataCheck.validStatus(element.validDate ?? ''),
+          )
+          .toList();
+    }
+    if (onlyInvalidData) {
+      _filteredList = _filteredList
+          .where((element) => !ValidDataCheck.validStatus(
+                element.validDate ?? '',
+              ))
+          .toList();
+    }
+    if (mitTitleFilter != '') {
+      _filteredList = _filteredList
+          .where(
+            (element) => element.mitTitle == mitTitleFilter,
+          )
+          .toList();
+    }
+    if (!onlyActualData && !onlyInvalidData && mitTitleFilter == '') {
+      _filteredList = items;
+    }
+
     notifyListeners();
   }
 
@@ -51,7 +86,7 @@ class ItemListProvider extends ChangeNotifier {
 
       // _items = accurateList;
 
-      setFilteredList(_items);
+      //  setFilteredList(onlyActualData: false, onlyInvalidData: false);
 
       _loadingState = false;
 
@@ -68,7 +103,7 @@ class ItemListProvider extends ChangeNotifier {
 
   void clearItemsList() {
     _loadingState = false;
-    _items.clear();
+    _filteredList = items;
     notifyListeners();
   }
 

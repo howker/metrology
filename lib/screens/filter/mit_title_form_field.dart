@@ -12,6 +12,10 @@ class MitTitleFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onlyActualDataSwitcherState =
+        context.watch<FilterProvider>().onlyActualDataSwitcherState;
+    final onlyInvalidDataSwitcherState =
+        context.watch<FilterProvider>().onlyInvalidDataSwitcherState;
     final typeAheadController = TextEditingController(
       text: context.watch<FilterProvider>().mitTitleFormFieldText,
     );
@@ -36,13 +40,11 @@ class MitTitleFormField extends StatelessWidget {
             .read<FilterProvider>()
             .setMitTitleFormFieldText(suggestion.mitTitle!);
 
-        final userFilteredList = items
-            .where(
-              (element) => element.mitTitle == suggestion.mitTitle,
-            )
-            .toList();
-
-        context.read<ItemListProvider>().setFilteredList(userFilteredList);
+        context.read<ItemListProvider>().setFilteredList(
+              onlyActualData: onlyActualDataSwitcherState,
+              onlyInvalidData: onlyInvalidDataSwitcherState,
+              mitTitleFilter: suggestion.mitTitle!,
+            );
       },
       suggestionsCallback: (pattern) {
         return items.where(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
-import 'package:infopoverka/utils/valid_data_check.dart';
 import 'package:provider/provider.dart';
 
 class ActualDataSwitcher extends StatelessWidget {
@@ -12,22 +10,19 @@ class ActualDataSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = context.watch<ItemListProvider>().filteredList;
-    var userFilteredList = <Items>[];
-
     return Switch.adaptive(
-      value: context.read<FilterProvider>().onlyActualDataSwitcherState,
+      value: context.watch<FilterProvider>().onlyActualDataSwitcherState,
       onChanged: (newValue) {
         context.read<FilterProvider>().setOnlyActualDataSwitcherState();
-        if (context.read<FilterProvider>().onlyActualDataSwitcherState) {
-          userFilteredList = items
-              .where((element) =>
-                  ValidDataCheck.validStatus(element.validDate ?? ''))
-              .toList();
-          context.read<ItemListProvider>().setFilteredList(userFilteredList);
-        } else {
-          context.read<ItemListProvider>().setFilteredList(items);
-        }
+
+        context.read<ItemListProvider>().setFilteredList(
+              onlyActualData:
+                  context.read<FilterProvider>().onlyActualDataSwitcherState,
+              onlyInvalidData:
+                  context.read<FilterProvider>().onlyInvalidDataSwitcherState,
+              mitTitleFilter:
+                  context.read<FilterProvider>().mitTitleFormFieldText,
+            );
       },
     );
   }

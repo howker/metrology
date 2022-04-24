@@ -11,12 +11,18 @@ class ClearAllFiltersElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = context.watch<ItemListProvider>().items;
     return ElevatedButton(
       onPressed: () {
         InputUtils.hideKeyboard();
-        context.read<ItemListProvider>().setFilteredList(items);
+
         context.read<FilterProvider>().clearAllSwitcherAndFieldsStates();
+        context.read<ItemListProvider>().setFilteredList(
+              onlyActualData:
+                  context.read<FilterProvider>().onlyActualDataSwitcherState,
+              onlyInvalidData:
+                  context.read<FilterProvider>().onlyInvalidDataSwitcherState,
+              mitTitleFilter: '',
+            );
       },
       child: const Text('Очистить все фильтры'),
     );
