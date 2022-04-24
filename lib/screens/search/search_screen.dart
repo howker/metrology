@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/data_sources/reestr_items_remote_data_source.dart';
-import 'package:infopoverka/key_packages.dart';
 import 'package:infopoverka/locator_service.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/filter/filter_screen.dart';
@@ -71,19 +70,7 @@ class SearchScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             return Column(
               children: [
-                ItemCard(
-                  applicability: items[index].applicability ?? false,
-                  vriId: items[index].vriId ?? '',
-                  orgTitle: items[index].orgTitle ?? '',
-                  mitNumber: items[index].miNumber ?? '',
-                  mitTitle: items[index].mitTitle ?? '',
-                  mitNotation: items[index].mitNotation ?? '',
-                  miModification: items[index].miModification ?? '',
-                  miNumber: items[index].miNumber ?? '',
-                  verificationDate: items[index].verificationDate ?? '',
-                  validDate: items[index].validDate ?? '',
-                  resultDocnum: items[index].resultDocnum ?? '',
-                ),
+                ItemCard(item: items[index]),
               ],
             );
           },
