@@ -18,9 +18,13 @@ class ShowFloatingButton extends StatelessWidget {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(16.0)),
           ),
-          label: Text('Показать ${filteredList.length}'),
+          label: filteredList.isNotEmpty
+              ? Text('Показать ${filteredList.length}')
+              : const Text('Ничего не найдено'),
           onPressed: () {
-            Navigator.pop(context);
+            if (filteredList.isNotEmpty) {
+              Navigator.pop(context);
+            }
           },
         ),
       ),
