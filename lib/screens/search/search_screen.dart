@@ -4,8 +4,10 @@ import 'package:infopoverka/key_packages.dart';
 import 'package:infopoverka/locator_service.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/filter/filter_screen.dart';
+import 'package:infopoverka/screens/search/empty_appbar.dart';
 import 'package:infopoverka/screens/search/item_card_widget.dart';
 import 'package:infopoverka/screens/search/loading_year_indicator.dart';
+import 'package:infopoverka/screens/search/search_screen_appbar.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -42,22 +44,10 @@ class SearchScreen extends StatelessWidget {
       );
     }
     if (items.isEmpty) {
-      return SafeArea(
+      return const SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                context.read<ItemListProvider>().clearItemsList();
-                Navigator.pop(context);
-              },
-            ),
-            title: const Text(
-              'результаты поиска',
-              style: AppTextStyles.kSFBody14,
-            ),
-          ),
-          body: const Center(
+          appBar: EmptyAppBar(),
+          body: Center(
             child: Text('Ничего не найдено'),
           ),
         ),
@@ -73,24 +63,7 @@ class SearchScreen extends StatelessWidget {
             Navigator.push<dynamic>(context, route);
           },
         ),
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.checklist_rtl),
-            ),
-          ],
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: const Text(
-            'Найдены результаты поверки СИ',
-            style: AppTextStyles.kSFBody14,
-          ),
-        ),
+        appBar: const SearchScreenAppBar(),
         body: ListView.builder(
           padding: const EdgeInsets.only(top: 5),
           shrinkWrap: true,
