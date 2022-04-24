@@ -4,14 +4,14 @@ import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/utils/input_utils.dart';
 import 'package:provider/provider.dart';
 
-class ClearAllFiltersElevatedButton extends StatelessWidget {
-  const ClearAllFiltersElevatedButton({
+class ClearAllFiltersTextButton extends StatelessWidget {
+  const ClearAllFiltersTextButton({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return TextButton(
       onPressed: () {
         InputUtils.hideKeyboard();
 
