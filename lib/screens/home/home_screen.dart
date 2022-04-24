@@ -4,6 +4,7 @@ import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/home/change_range_button.dart';
 import 'package:infopoverka/screens/home/search_elevated_button.dart';
+import 'package:infopoverka/utils/input_utils.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,6 +14,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final textEditingController = TextEditingController();
     var searchRequest = '';
+    InputUtils.hideKeyboard();
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +31,6 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: 55,
               width: double.infinity,
-              // TODO(me): убирать клавиатуру
               child: TextFormField(
                 decoration: const InputDecoration(
                   hintStyle: TextStyle(color: Colors.blue),
@@ -40,12 +41,14 @@ class HomeScreen extends StatelessWidget {
                 ),
                 controller: textEditingController,
                 onFieldSubmitted: (text) {
+                  InputUtils.hideKeyboard();
                   searchRequest = text;
                   context
                       .read<ItemListProvider>()
                       .setSearchRequest(searchRequest);
                 },
                 onEditingComplete: () {
+                  InputUtils.hideKeyboard();
                   searchRequest = textEditingController.text;
                   context
                       .read<ItemListProvider>()
