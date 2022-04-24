@@ -12,6 +12,7 @@ import 'package:infopoverka/screens/filter/clear_all_filters_elevated_button.dar
 import 'package:infopoverka/screens/filter/invalid_data_switcher.dart';
 import 'package:infopoverka/screens/filter/mit_notation_form_field.dart';
 import 'package:infopoverka/screens/filter/mit_title_form_field.dart';
+import 'package:infopoverka/screens/filter/org_title_form_field.dart';
 import 'package:infopoverka/screens/filter/show_floating_button.dart';
 
 class FilterScreen extends StatelessWidget {
@@ -33,15 +34,18 @@ class FilterScreen extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: ClearAllFiltersTextButton(),
               ),
+              MitTitleFormField(),
+              SizedBox(height: 6),
+              MitNotationFormField(),
+              SizedBox(height: 6),
+              OrgTitleFormField(),
+              Spacer(),
               ActualDataSwitcher(),
               Text('с актуальной поверкой'),
               Divider(thickness: 1),
               InvalidDataSwitcher(),
               Text('с просроченной поверкой'),
-              Divider(),
-              MitTitleFormField(),
-              Divider(),
-              MitNotationFormField(),
+              Spacer(flex: 5),
             ],
           ),
         ),

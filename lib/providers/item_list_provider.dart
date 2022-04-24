@@ -30,6 +30,7 @@ class ItemListProvider extends ChangeNotifier {
     required bool onlyInvalidData,
     required String mitTitleFilter,
     required String mitNotation,
+    required String orgTitle,
   }) {
     _filteredList = items;
     if (onlyActualData) {
@@ -60,10 +61,18 @@ class ItemListProvider extends ChangeNotifier {
           )
           .toList();
     }
+    if (orgTitle != '') {
+      _filteredList = _filteredList
+          .where(
+            (element) => element.orgTitle == orgTitle,
+          )
+          .toList();
+    }
     if (!onlyActualData &&
         !onlyInvalidData &&
         mitTitleFilter == '' &&
-        mitNotation == '') {
+        mitNotation == '' &&
+        orgTitle == '') {
       _filteredList = items;
     }
 

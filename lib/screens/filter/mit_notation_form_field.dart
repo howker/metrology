@@ -45,6 +45,7 @@ class MitNotationFormField extends StatelessWidget {
               onlyInvalidData: onlyInvalidDataSwitcherState,
               mitTitleFilter: suggestion.mitTitle!,
               mitNotation: suggestion.mitNotation!,
+              orgTitle: suggestion.orgTitle!,
             );
       },
       suggestionsCallback: (pattern) {

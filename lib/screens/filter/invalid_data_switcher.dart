@@ -23,6 +23,7 @@ class InvalidDataSwitcher extends StatelessWidget {
               mitTitleFilter:
                   context.read<FilterProvider>().mitTitleFormFieldText,
               mitNotation: context.read<FilterProvider>().mitNotationFieldText,
+              orgTitle: context.read<FilterProvider>().orgTitleFieldText,
             );
       },
     );
