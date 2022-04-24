@@ -17,6 +17,10 @@ class HomeScreen extends StatelessWidget {
     InputUtils.hideKeyboard();
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.qr_code),
+        onPressed: () {},
+      ),
       appBar: AppBar(
         title: const Text(
           'Поиск сведений о результатах поверки СИ',

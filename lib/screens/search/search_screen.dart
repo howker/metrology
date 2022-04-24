@@ -65,7 +65,7 @@ class SearchScreen extends StatelessWidget {
     } else {
       return Scaffold(
         floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.sort_by_alpha_rounded),
+          child: const Icon(Icons.filter_list_alt),
           onPressed: () {
             final Route route = MaterialPageRoute<dynamic>(
               builder: (context) => const FilterScreen(),
@@ -74,6 +74,12 @@ class SearchScreen extends StatelessWidget {
           },
         ),
         appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.checklist_rtl),
+            ),
+          ],
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
