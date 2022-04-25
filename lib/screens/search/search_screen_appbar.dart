@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/key_packages.dart';
+import 'package:infopoverka/providers/item_list_provider.dart';
+import 'package:infopoverka/providers/select_provider.dart';
+import 'package:provider/provider.dart';
 
 class SearchScreenAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -12,24 +15,40 @@ class SearchScreenAppBar extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    final items = context.watch<ItemListProvider>().filteredList;
+
+    final selectedList = context.watch<SelectProvider>().selectedList;
     return AppBar(
       centerTitle: true,
       actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.checklist_rtl),
-        ),
+        if (selectedList.isEmpty)
+          const SizedBox.shrink()
+        else
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.star_outline_outlined),
+          ),
+        if (selectedList.isEmpty)
+          const SizedBox.shrink()
+        else
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.checklist_rtl),
+          ),
       ],
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
+          context.read<SelectProvider>().clearSelectedList();
           Navigator.pop(context);
         },
       ),
-      title: const Text(
-        'Найдены результаты поверки СИ',
-        style: AppTextStyles.kSFBody14,
-      ),
+      title: selectedList.isEmpty
+          ? Text(
+              'Найдено ${items.length}',
+              style: AppTextStyles.kSFBody14,
+            )
+          : Text(selectedList.length.toString()),
     );
   }
 }

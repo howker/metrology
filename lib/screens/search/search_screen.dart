@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infopoverka/data_sources/reestr_items_remote_data_source.dart';
 import 'package:infopoverka/locator_service.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
+import 'package:infopoverka/providers/select_provider.dart';
 import 'package:infopoverka/screens/filter/filter_screen.dart';
 import 'package:infopoverka/screens/search/empty_appbar.dart';
 import 'package:infopoverka/screens/search/item_card_widget.dart';
@@ -53,15 +54,19 @@ class SearchScreen extends StatelessWidget {
       );
     } else {
       return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.filter_list_alt),
-          onPressed: () {
-            final Route route = MaterialPageRoute<dynamic>(
-              builder: (context) => const FilterScreen(),
-            );
-            Navigator.push<dynamic>(context, route);
-          },
-        ),
+        floatingActionButton:
+            context.watch<SelectProvider>().selectedList.isEmpty
+                ? FloatingActionButton(
+                    child: const Icon(Icons.filter_list_alt),
+                    onPressed: () {
+                      context.read<SelectProvider>().clearSelectedList();
+                      final Route route = MaterialPageRoute<dynamic>(
+                        builder: (context) => const FilterScreen(),
+                      );
+                      Navigator.push<dynamic>(context, route);
+                    },
+                  )
+                : const SizedBox.shrink(),
         appBar: const SearchScreenAppBar(),
         body: ListView.builder(
           padding: const EdgeInsets.only(top: 5),

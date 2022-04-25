@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/models/item.dart';
+import 'package:infopoverka/providers/select_provider.dart';
 import 'package:infopoverka/utils/valid_data_check.dart';
+import 'package:provider/provider.dart';
 
 class ItemCard extends StatefulWidget {
   final Items item;
@@ -18,6 +20,7 @@ class _ItemCardState extends State<ItemCard> {
   @override
   void setState(VoidCallback fn) {
     widget.item.isSelected = !widget.item.isSelected;
+
     super.setState(fn);
   }
 
@@ -29,6 +32,14 @@ class _ItemCardState extends State<ItemCard> {
         elevation: 2,
         child: InkWell(
           onLongPress: () {
+            !widget.item.isSelected
+                ? context
+                    .read<SelectProvider>()
+                    .addItemToSelectedList(item: widget.item)
+                : context
+                    .read<SelectProvider>()
+                    .removeItemFromSelectedList(item: widget.item);
+
             setState(() {});
           },
           child: DecoratedBox(
