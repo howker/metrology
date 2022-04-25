@@ -15,11 +15,9 @@ class ItemCard extends StatefulWidget {
 }
 
 class _ItemCardState extends State<ItemCard> {
-  bool isSelected = false;
   @override
   void setState(VoidCallback fn) {
-    isSelected = !isSelected;
-    debugPrint(isSelected.toString());
+    widget.item.isSelected = !widget.item.isSelected;
     super.setState(fn);
   }
 
@@ -35,7 +33,7 @@ class _ItemCardState extends State<ItemCard> {
           },
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: isSelected ? Colors.blueGrey : Colors.white,
+              color: widget.item.isSelected ? Colors.blueGrey : Colors.white,
             ),
             child: ExpansionTile(
               title: Text(widget.item.mitTitle ?? ''),

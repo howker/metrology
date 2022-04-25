@@ -5,6 +5,7 @@ import 'package:infopoverka/locator_service.dart' as di;
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
+import 'package:infopoverka/providers/select_provider.dart';
 import 'package:infopoverka/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<FilterProvider>(
           create: (_) => FilterProvider(),
+        ),
+        ChangeNotifierProvider<SelectProvider>(
+          create: (_) => SelectProvider(),
         ),
       ],
       child: const MaterialApp(

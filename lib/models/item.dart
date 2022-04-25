@@ -60,6 +60,8 @@ class Items {
   late final String? validDate;
   late final String? resultDocnum;
   late final bool? applicability;
+  bool isSelected = false;
+  bool isFavorite = false;
   Items({
     required this.vriId,
     required this.orgTitle,
