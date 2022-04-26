@@ -21,7 +21,23 @@ dependencies:
   http: ^0.13.4
   intl: ^0.17.0
   json_annotation: ^4.4.0
+
+  # save file
+  path_provider: ^2.0.9
+
+  # create pdf document
+  pdf: ^3.7.4
+
   provider: ^6.0.2
+
+  # qr gen & scan
+  qr_code_scanner: ^0.7.0
+  qr_flutter:
+    git:
+      url: https://github.com/theyakka/qr.flutter.git #and Rename QrImage to QrImageView
+  
+  
+
   share_plus: ^4.0.4
   shimmer: ^2.0.0
   syncfusion_flutter_datepicker: ^19.4.56
