@@ -10,8 +10,9 @@ class ShareButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       child: const Icon(Icons.share),
-      onPressed: () {
-        PdfApi.generateTable();
+      onPressed: () async {
+        final pdfFile = await PdfApi.generateTable();
+        await PdfApi.openFile(pdfFile);
 
         // final Route route = MaterialPageRoute<dynamic>(
         //   builder: (context) => const FilterScreen(),
