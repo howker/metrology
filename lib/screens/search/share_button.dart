@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infopoverka/data_sources/pdf_api.dart';
 
 class ShareButton extends StatelessWidget {
   const ShareButton({
@@ -10,6 +11,8 @@ class ShareButton extends StatelessWidget {
     return FloatingActionButton(
       child: const Icon(Icons.share),
       onPressed: () {
+        PdfApi.generateTable();
+
         // final Route route = MaterialPageRoute<dynamic>(
         //   builder: (context) => const FilterScreen(),
         // );

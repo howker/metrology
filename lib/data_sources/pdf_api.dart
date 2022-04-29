@@ -4,32 +4,19 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 
-class User {
-  final String name;
-  final int age;
-
-  const User({required this.name, required this.age});
-}
-
 class PdfApi {
   static Future<File> generateTable() async {
-    final pdf = Document();
-
-    final headers = ['Name', 'Age'];
-
-    final users = [
-      User(name: 'James', age: 19),
-      User(name: 'Sarah', age: 21),
-      User(name: 'Emma', age: 28),
-    ];
-    final data = users.map((user) => [user.name, user.age]).toList();
-
-    pdf.addPage(Page(
-      build: (context) => Table.fromTextArray(
-        headers: headers,
-        data: data,
-      ),
-    ));
+    final font = await rootBundle.load('assets/fonts/Helvetica.ttf');
+    final ttf = Font.ttf(font);
+    final pdf = Document()
+      ..addPage(
+        Page(
+          build: (context) => Text(
+            'Testo Testo Testo Testo',
+            style: TextStyle(font: ttf, fontSize: 40),
+          ),
+        ),
+      );
 
     return saveDocument(name: 'my_example.pdf', pdf: pdf);
   }
