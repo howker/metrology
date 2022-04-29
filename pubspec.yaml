@@ -22,6 +22,9 @@ dependencies:
   intl: ^0.17.0
   json_annotation: ^4.4.0
 
+  # open pdf document
+  open_file: ^3.2.1
+
   # save file
   path_provider: ^2.0.9
 
@@ -35,6 +38,8 @@ dependencies:
   qr_flutter:
     git:
       url: https://github.com/theyakka/qr.flutter.git #and Rename QrImage to QrImageView
+
+  
   
   
 
