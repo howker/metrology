@@ -1,95 +1,79 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:infopoverka/models/item.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class PdfApi {
-  static Future<File> generateTable() async {
+  static Future<File> generatePdfDoc(List<Items> items) async {
+    final data = items
+        .map((items) => [
+              items.orgTitle,
+              items.mitNumber,
+              items.mitTitle,
+              items.mitNotation,
+              items.miModification,
+              items.miNumber,
+              items.verificationDate,
+              items.validDate,
+              items.resultDocnum,
+              items.applicability.toString(),
+            ])
+        .toList();
+    const pageTheme = pw.PageTheme(
+      pageFormat: PdfPageFormat.a4,
+    );
     final font = await rootBundle.load('assets/fonts/Helvetica.ttf');
-    final ttf = Font.ttf(font);
-    final pdf = Document()
+    final ttf = pw.Font.ttf(font);
+    final pdf = pw.Document()
       ..addPage(
-        Page(
-          build: (context) => Text(
-            'Testo Testo Testo Testo',
-            style: TextStyle(font: ttf, fontSize: 40),
-          ),
+        pw.MultiPage(
+          build: (context) => [
+            pw.Text(
+              'Заголовок',
+              style: pw.TextStyle(font: ttf, fontSize: 20),
+            ),
+            pw.Table.fromTextArray(
+              headerStyle: pw.TextStyle(font: ttf, fontSize: 12),
+              cellStyle: pw.TextStyle(font: ttf, fontSize: 12),
+              headers: <String>[
+                'заг 1',
+                'заг 1',
+                'заг 1',
+                'заг 1',
+                'заг 1',
+                'заг 1',
+                'заг 1',
+                'заг 1',
+                'заг 1',
+                'заг 1',
+              ],
+              data: data,
+            ),
+            pw.Container(
+              height: pageTheme.pageFormat.availableHeight - 650,
+              child: qrCreation(stringForQrData: ''),
+            ),
+          ],
         ),
       );
 
-    return saveDocument(name: 'my_example.pdf', pdf: pdf);
+    return saveDocument(name: 'infopoverka_info.pdf', pdf: pdf);
   }
 
-  static Future<File> generateImage() async {
-    final pdf = Document();
-
-    final imageSvg = await rootBundle.loadString('assets/fruit.svg');
-    final imageJpg =
-        (await rootBundle.load('assets/person.jpg')).buffer.asUint8List();
-
-    final pageTheme = PageTheme(
-      pageFormat: PdfPageFormat.a4,
-      buildBackground: (context) {
-        if (context.pageNumber == 1) {
-          return FullPage(
-            ignoreMargins: true,
-            child: Image(MemoryImage(imageJpg), fit: BoxFit.cover),
-          );
-        } else {
-          return Container();
-        }
-      },
+  static pw.BarcodeWidget qrCreation({required String stringForQrData}) {
+    return pw.BarcodeWidget(
+      color: PdfColor.fromHex('#000000'),
+      barcode: pw.Barcode.qrCode(),
+      data: stringForQrData,
     );
-
-    pdf.addPage(
-      MultiPage(
-        pageTheme: pageTheme,
-        build: (context) => [
-          Container(
-            height: pageTheme.pageFormat.availableHeight - 1,
-            child: Center(
-              child: Text(
-                'Foreground Text',
-                style: TextStyle(color: PdfColors.white, fontSize: 48),
-              ),
-            ),
-          ),
-          SvgImage(svg: imageSvg),
-          Image(MemoryImage(imageJpg)),
-          Center(
-            child: ClipRRect(
-              horizontalRadius: 32,
-              verticalRadius: 32,
-              child: Image(
-                MemoryImage(imageJpg),
-                width: pageTheme.pageFormat.availableWidth / 2,
-              ),
-            ),
-          ),
-          GridView(
-            crossAxisCount: 3,
-            childAspectRatio: 1,
-            children: [
-              SvgImage(svg: imageSvg),
-              SvgImage(svg: imageSvg),
-              SvgImage(svg: imageSvg),
-              SvgImage(svg: imageSvg),
-              SvgImage(svg: imageSvg),
-              SvgImage(svg: imageSvg),
-            ],
-          )
-        ],
-      ),
-    );
-
-    return saveDocument(name: 'my_example.pdf', pdf: pdf);
   }
 
   static Future<File> saveDocument({
     required String name,
-    required Document pdf,
+    required pw.Document pdf,
   }) async {
     final bytes = await pdf.save();
 
