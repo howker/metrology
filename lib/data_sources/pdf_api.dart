@@ -15,14 +15,12 @@ class PdfApi {
     final font = await rootBundle.load('assets/fonts/Helvetica.ttf');
     final ttf = pw.Font.ttf(font);
     var applicability = '';
-    var stringForQrData = '';
 
     final pdf = pw.Document()
       ..addPage(
         pw.Page(
           pageTheme: pageTheme,
           build: (context) {
-            stringForQrData = '';
             if (items[0].applicability != null) {
               items[0].applicability!
                   ? applicability = 'Да'
@@ -269,7 +267,7 @@ class PdfApi {
                 pw.Container(
                   alignment: pw.Alignment.center,
                   height: pageTheme.pageFormat.availableHeight - 650,
-                  child: qrCreation(stringForQrData: ''),
+                  child: qrCreation(stringForQrData: items[0].vriId ?? ''),
                 ),
               ],
             );
@@ -527,7 +525,7 @@ class PdfApi {
                   pw.Container(
                     alignment: pw.Alignment.center,
                     height: pageTheme.pageFormat.availableHeight - 650,
-                    child: qrCreation(stringForQrData: ''),
+                    child: qrCreation(stringForQrData: items[i].vriId ?? ''),
                   ),
                 ],
               );
