@@ -14,7 +14,6 @@ class ShareButton extends StatelessWidget {
     return FloatingActionButton(
       child: const Icon(Icons.share),
       onPressed: () async {
-        PdfApi.qrCreation(stringForQrData: 'stringForQrData');
         final pdfFile = await PdfApi.generatePdfDoc(selectedList);
         await PdfApi.openFile(pdfFile);
       },

@@ -8,20 +8,6 @@ import 'package:pdf/widgets.dart' as pw;
 
 class PdfApi {
   static Future<File> generatePdfDoc(List<Items> items) async {
-    final data = items
-        .map((items) => [
-              items.orgTitle,
-              items.mitNumber,
-              items.mitTitle,
-              items.mitNotation,
-              items.miModification,
-              items.miNumber,
-              items.verificationDate,
-              items.validDate,
-              items.resultDocnum,
-              items.applicability.toString(),
-            ])
-        .toList();
     const pageTheme = pw.PageTheme(
       pageFormat: PdfPageFormat.a4,
     );
@@ -29,38 +15,86 @@ class PdfApi {
     final ttf = pw.Font.ttf(font);
     final pdf = pw.Document()
       ..addPage(
-        pw.MultiPage(
-          build: (context) => [
-            pw.Text(
-              'Заголовок',
-              style: pw.TextStyle(font: ttf, fontSize: 20),
-            ),
-            pw.Table.fromTextArray(
-              headerStyle: pw.TextStyle(font: ttf, fontSize: 12),
-              cellStyle: pw.TextStyle(font: ttf, fontSize: 12),
-              headers: <String>[
-                'заг 1',
-                'заг 1',
-                'заг 1',
-                'заг 1',
-                'заг 1',
-                'заг 1',
-                'заг 1',
-                'заг 1',
-                'заг 1',
-                'заг 1',
-              ],
-              data: data,
-            ),
-            pw.Container(
-              height: pageTheme.pageFormat.availableHeight - 650,
-              child: qrCreation(stringForQrData: ''),
-            ),
-          ],
-        ),
+        buildMultiPage(ttf, items, pageTheme),
       );
 
     return saveDocument(name: 'infopoverka_info.pdf', pdf: pdf);
+  }
+
+  static pw.MultiPage buildMultiPage(
+    pw.Font ttf,
+    List<Items> items,
+    pw.PageTheme pageTheme,
+  ) {
+    return pw.MultiPage(
+      build: (context) => [
+        pw.Text(
+          'Сведения о результатах поверки СИ',
+          textAlign: pw.TextAlign.center,
+          style: pw.TextStyle(
+            font: ttf,
+            fontSize: 20,
+          ),
+        ),
+        pw.SizedBox(height: 10),
+        pw.GridView(
+          childAspectRatio: 0.1,
+          crossAxisCount: 2,
+          children: [
+            pw.Container(
+              alignment: pw.Alignment.centerLeft,
+              color: PdfColors.blue50,
+              child: pw.Text(
+                'Организация - поверитель: ',
+                style: pw.TextStyle(
+                  font: ttf,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+            pw.Container(
+              alignment: pw.Alignment.centerLeft,
+              color: PdfColors.blue50,
+              child: pw.Text(
+                '${items[0].orgTitle}555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555',
+                style: pw.TextStyle(
+                  font: ttf,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+            pw.Container(
+              alignment: pw.Alignment.centerLeft,
+              color: PdfColors.yellow50,
+              child: pw.Text(
+                'Регистрационный номер типа СИ: ',
+                style: pw.TextStyle(
+                  font: ttf,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+            pw.Container(
+              alignment: pw.Alignment.centerLeft,
+              color: PdfColors.yellow50,
+              child: pw.Text(
+                '${items[0].mitNumber}555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555',
+                style: pw.TextStyle(
+                  font: ttf,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+            pw.SizedBox(height: 200),
+          ],
+        ),
+        pw.Container(
+          alignment: pw.Alignment.center,
+          height: pageTheme.pageFormat.availableHeight - 650,
+          child: qrCreation(stringForQrData: ''),
+        ),
+      ],
+    );
   }
 
   static pw.BarcodeWidget qrCreation({required String stringForQrData}) {
