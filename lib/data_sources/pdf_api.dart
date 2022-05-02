@@ -11,90 +11,170 @@ class PdfApi {
     const pageTheme = pw.PageTheme(
       pageFormat: PdfPageFormat.a4,
     );
+
     final font = await rootBundle.load('assets/fonts/Helvetica.ttf');
     final ttf = pw.Font.ttf(font);
+
     final pdf = pw.Document()
       ..addPage(
-        buildMultiPage(ttf, items, pageTheme),
+        //buildPage(ttf, items, pageTheme),
+
+        pw.Page(
+          pageTheme: pageTheme,
+          build: (context) {
+            return pw.Column(
+              children: [
+                pw.Text(
+                  'Сведения о результатах поверки СИ',
+                  textAlign: pw.TextAlign.center,
+                  style: pw.TextStyle(
+                    font: ttf,
+                    fontSize: 20,
+                  ),
+                ),
+                pw.SizedBox(height: 10),
+                pw.GridView(
+                  childAspectRatio: 0.1,
+                  crossAxisCount: 2,
+                  children: [
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.blue50,
+                      child: pw.Text(
+                        'Организация - поверитель: ',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.blue50,
+                      child: pw.Text(
+                        '${items[0].orgTitle}',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.yellow50,
+                      child: pw.Text(
+                        'Регистрационный номер типа СИ: ',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.yellow50,
+                      child: pw.Text(
+                        '${items[0].mitNumber}555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                pw.Spacer(),
+                pw.Container(
+                  alignment: pw.Alignment.center,
+                  height: pageTheme.pageFormat.availableHeight - 650,
+                  child: qrCreation(stringForQrData: ''),
+                ),
+              ],
+            );
+          },
+        ),
       );
+    if (items.length > 1) {
+      for (var i = 1; i < items.length; i++) {
+        pdf.addPage(
+          pw.Page(
+            build: (context) {
+              return pw.Column(
+                children: [
+                  pw.Text(
+                    'Сведения о результатах поверки СИ',
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                      font: ttf,
+                      fontSize: 20,
+                    ),
+                  ),
+                  pw.SizedBox(height: 10),
+                  pw.GridView(
+                    childAspectRatio: 0.1,
+                    crossAxisCount: 2,
+                    children: [
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.blue50,
+                        child: pw.Text(
+                          'Организация - поверитель: ',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.blue50,
+                        child: pw.Text(
+                          '${items[i].orgTitle}',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.yellow50,
+                        child: pw.Text(
+                          'Регистрационный номер типа СИ: ',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.yellow50,
+                        child: pw.Text(
+                          '${items[i].mitNumber}',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  pw.Spacer(),
+                  pw.Container(
+                    alignment: pw.Alignment.center,
+                    height: pageTheme.pageFormat.availableHeight - 650,
+                    child: qrCreation(stringForQrData: ''),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      }
+    }
 
     return saveDocument(name: 'infopoverka_info.pdf', pdf: pdf);
-  }
-
-  static pw.MultiPage buildMultiPage(
-    pw.Font ttf,
-    List<Items> items,
-    pw.PageTheme pageTheme,
-  ) {
-    return pw.MultiPage(
-      build: (context) => [
-        pw.Text(
-          'Сведения о результатах поверки СИ',
-          textAlign: pw.TextAlign.center,
-          style: pw.TextStyle(
-            font: ttf,
-            fontSize: 20,
-          ),
-        ),
-        pw.SizedBox(height: 10),
-        pw.GridView(
-          childAspectRatio: 0.1,
-          crossAxisCount: 2,
-          children: [
-            pw.Container(
-              alignment: pw.Alignment.centerLeft,
-              color: PdfColors.blue50,
-              child: pw.Text(
-                'Организация - поверитель: ',
-                style: pw.TextStyle(
-                  font: ttf,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-            pw.Container(
-              alignment: pw.Alignment.centerLeft,
-              color: PdfColors.blue50,
-              child: pw.Text(
-                '${items[0].orgTitle}555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555',
-                style: pw.TextStyle(
-                  font: ttf,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-            pw.Container(
-              alignment: pw.Alignment.centerLeft,
-              color: PdfColors.yellow50,
-              child: pw.Text(
-                'Регистрационный номер типа СИ: ',
-                style: pw.TextStyle(
-                  font: ttf,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-            pw.Container(
-              alignment: pw.Alignment.centerLeft,
-              color: PdfColors.yellow50,
-              child: pw.Text(
-                '${items[0].mitNumber}555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555',
-                style: pw.TextStyle(
-                  font: ttf,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-            pw.SizedBox(height: 200),
-          ],
-        ),
-        pw.Container(
-          alignment: pw.Alignment.center,
-          height: pageTheme.pageFormat.availableHeight - 650,
-          child: qrCreation(stringForQrData: ''),
-        ),
-      ],
-    );
   }
 
   static pw.BarcodeWidget qrCreation({required String stringForQrData}) {
