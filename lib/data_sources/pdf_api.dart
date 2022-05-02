@@ -14,14 +14,20 @@ class PdfApi {
 
     final font = await rootBundle.load('assets/fonts/Helvetica.ttf');
     final ttf = pw.Font.ttf(font);
+    var applicability = '';
+    var stringForQrData = '';
 
     final pdf = pw.Document()
       ..addPage(
-        //buildPage(ttf, items, pageTheme),
-
         pw.Page(
           pageTheme: pageTheme,
           build: (context) {
+            stringForQrData = '';
+            if (items[0].applicability != null) {
+              items[0].applicability!
+                  ? applicability = 'Да'
+                  : applicability = 'Нет';
+            }
             return pw.Column(
               children: [
                 pw.Text(
@@ -52,7 +58,7 @@ class PdfApi {
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.blue50,
                       child: pw.Text(
-                        '${items[0].orgTitle}',
+                        items[0].orgTitle ?? '-',
                         style: pw.TextStyle(
                           font: ttf,
                           fontSize: 12,
@@ -74,7 +80,183 @@ class PdfApi {
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.yellow50,
                       child: pw.Text(
-                        '${items[0].mitNumber}555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555',
+                        items[0].mitNumber ?? '-',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.blue50,
+                      child: pw.Text(
+                        'Наименование типа СИ: ',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.blue50,
+                      child: pw.Text(
+                        items[0].mitTitle ?? '-',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.yellow50,
+                      child: pw.Text(
+                        'Обозначение типа СИ: ',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.yellow50,
+                      child: pw.Text(
+                        items[0].mitNotation ?? '-',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.blue50,
+                      child: pw.Text(
+                        'Модификация СИ: ',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.blue50,
+                      child: pw.Text(
+                        items[0].miModification ?? '-',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.yellow50,
+                      child: pw.Text(
+                        'Заводской/серийный номер/\nбуквенно-цифровое обозначение: ',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.yellow50,
+                      child: pw.Text(
+                        items[0].miNumber ?? '-',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.blue50,
+                      child: pw.Text(
+                        'Дата поверки: ',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.blue50,
+                      child: pw.Text(
+                        items[0].verificationDate ?? '-',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.yellow50,
+                      child: pw.Text(
+                        'Действительна до: ',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.yellow50,
+                      child: pw.Text(
+                        items[0].validDate ?? '-',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.blue50,
+                      child: pw.Text(
+                        'Номер свидетельства/\nизвещения/выписки: ',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.blue50,
+                      child: pw.Text(
+                        items[0].resultDocnum ?? '-',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.yellow50,
+                      child: pw.Text(
+                        'СИ пригодно: ',
+                        style: pw.TextStyle(
+                          font: ttf,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    pw.Container(
+                      alignment: pw.Alignment.centerLeft,
+                      color: PdfColors.yellow50,
+                      child: pw.Text(
+                        applicability,
                         style: pw.TextStyle(
                           font: ttf,
                           fontSize: 12,
@@ -99,6 +281,11 @@ class PdfApi {
         pdf.addPage(
           pw.Page(
             build: (context) {
+              if (items[i].applicability != null) {
+                items[i].applicability!
+                    ? applicability = 'Да'
+                    : applicability = 'Нет';
+              }
               return pw.Column(
                 children: [
                   pw.Text(
@@ -129,7 +316,7 @@ class PdfApi {
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.blue50,
                         child: pw.Text(
-                          '${items[i].orgTitle}',
+                          items[i].orgTitle ?? '-',
                           style: pw.TextStyle(
                             font: ttf,
                             fontSize: 12,
@@ -151,7 +338,183 @@ class PdfApi {
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.yellow50,
                         child: pw.Text(
-                          '${items[i].mitNumber}',
+                          items[i].mitNumber ?? '-',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.blue50,
+                        child: pw.Text(
+                          'Наименование типа СИ: ',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.blue50,
+                        child: pw.Text(
+                          items[i].mitTitle ?? '-',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.yellow50,
+                        child: pw.Text(
+                          'Обозначение типа СИ: ',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.yellow50,
+                        child: pw.Text(
+                          items[i].mitNotation ?? '-',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.blue50,
+                        child: pw.Text(
+                          'Модификация СИ: ',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.blue50,
+                        child: pw.Text(
+                          items[i].miModification ?? '-',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.yellow50,
+                        child: pw.Text(
+                          'Заводской/серийный номер/\nбуквенно-цифровое обозначение: ',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.yellow50,
+                        child: pw.Text(
+                          items[i].miNumber ?? '-',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.blue50,
+                        child: pw.Text(
+                          'Дата поверки: ',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.blue50,
+                        child: pw.Text(
+                          items[i].verificationDate ?? '-',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.yellow50,
+                        child: pw.Text(
+                          'Действительна до: ',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.yellow50,
+                        child: pw.Text(
+                          items[i].validDate ?? '-',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.blue50,
+                        child: pw.Text(
+                          'Номер свидетельства/\nизвещения/выписки: ',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.blue50,
+                        child: pw.Text(
+                          items[i].resultDocnum ?? '-',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.yellow50,
+                        child: pw.Text(
+                          'СИ пригодно: ',
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        alignment: pw.Alignment.centerLeft,
+                        color: PdfColors.yellow50,
+                        child: pw.Text(
+                          applicability,
                           style: pw.TextStyle(
                             font: ttf,
                             fontSize: 12,
