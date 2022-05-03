@@ -24,4 +24,17 @@ class ItemsRepository {
       return item;
     }
   }
+
+  Future<Item> getItemByVriId({
+    required String vriId,
+  }) async {
+    try {
+      final item = await reestrItemsRemoteDataSource.getItemByVriId(
+        vriId: vriId,
+      );
+      return item;
+    } on Exception {
+      return item;
+    }
+  }
 }

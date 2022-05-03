@@ -124,4 +124,17 @@ class ItemListProvider extends ChangeNotifier {
 
   Future getItem(String userSearch, String year) async =>
       itemsRepo.getItem(search: search, year: year, startRecord: startRecord);
+
+  Future<void> loadItemsByVriId({
+    required String vriId,
+  }) async {
+    _loadingState = true;
+    item = getItemByVriId as Item;
+    _loadingState = false;
+
+    notifyListeners();
+  }
+
+  Future getItemByVriId(String vriId) async =>
+      itemsRepo.getItemByVriId(vriId: vriId);
 }

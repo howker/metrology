@@ -3,6 +3,7 @@ import 'package:infopoverka/key_packages.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/home/change_range_button.dart';
+import 'package:infopoverka/screens/home/qr_floating_button.dart';
 import 'package:infopoverka/screens/home/search_elevated_button.dart';
 import 'package:infopoverka/utils/input_utils.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +18,7 @@ class HomeScreen extends StatelessWidget {
     InputUtils.hideKeyboard();
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.qr_code),
-        onPressed: () {},
-      ),
+      floatingActionButton: const QrFloatingButton(),
       appBar: AppBar(
         title: const Text(
           'Поиск сведений о результатах поверки СИ',

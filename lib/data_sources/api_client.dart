@@ -5,7 +5,7 @@ import 'package:infopoverka/utils/ui_messages.dart';
 class ApiClient {
   Dio dio = Dio(
     BaseOptions(
-      baseUrl: 'https://fgis.gost.ru/fundmetrology/eapi/vri?rows=100&',
+      baseUrl: 'https://fgis.gost.ru/fundmetrology/eapi/',
       connectTimeout: 50000,
       receiveTimeout: 50000,
       sendTimeout: 5000,

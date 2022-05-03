@@ -1,12 +1,12 @@
 class Element {
-  late final Result result;
+  late final ElementResult result;
 
   Element({
     required this.result,
   });
 
   Element.fromJson(Map<String, dynamic> json) {
-    result = Result.fromJson(json['result'] as Map<String, dynamic>);
+    result = ElementResult.fromJson(json['result'] as Map<String, dynamic>);
   }
 
   Map<String, dynamic> toJson() {
@@ -16,15 +16,15 @@ class Element {
   }
 }
 
-class Result {
+class ElementResult {
   late final MiInfo miInfo;
   late final VriInfo vriInfo;
-  Result({
+  ElementResult({
     required this.miInfo,
     required this.vriInfo,
   });
 
-  Result.fromJson(Map<String, dynamic> json) {
+  ElementResult.fromJson(Map<String, dynamic> json) {
     miInfo = MiInfo.fromJson(json['miInfo'] as Map<String, dynamic>);
     vriInfo = VriInfo.fromJson(json['vriInfo'] as Map<String, dynamic>);
   }
