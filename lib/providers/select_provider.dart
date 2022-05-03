@@ -4,16 +4,21 @@ import 'package:infopoverka/models/item.dart';
 class SelectProvider extends ChangeNotifier {
   final List<Items> _selectedList = [];
   List<Items> get selectedList => _selectedList;
-  // bool get selectPressedState => _selectPressedState;
-  // bool _selectPressedState = false;
+  bool get selectAllState => _selectAllState;
+  bool _selectAllState = false;
 
-  // void setSelectPressedState() {
-  //   _selectPressedState = !_selectPressedState;
-  //   notifyListeners();
-  // }
+  void setSelectAllState() {
+    _selectAllState = !_selectAllState;
+    notifyListeners();
+  }
 
   void addItemToSelectedList({required Items item}) {
     _selectedList.add(item);
+    notifyListeners();
+  }
+
+  void addAllItemsToSelectedList({required List<Items> items}) {
+    _selectedList.addAll(items);
     notifyListeners();
   }
 
