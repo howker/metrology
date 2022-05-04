@@ -45,7 +45,7 @@ class ReestrItemsRemoteDataSource {
     return item;
   }
 
-  Future<Item> getItemByVriId({
+  Future<Items?> getItemByVriId({
     required String vriId,
   }) async {
     try {
@@ -59,15 +59,27 @@ class ReestrItemsRemoteDataSource {
         var element = ElementResult.fromJson(
           json.decode(response.toString()) as Map<String, dynamic>,
         );
+        final items = Items(
+          vriId: vriId,
+          orgTitle: 'orgTitle',
+          mitNumber: 'mitNumber',
+          mitTitle: 'mitTitle',
+          mitNotation: 'mitNotation',
+          miModification: 'miModification',
+          miNumber: 'miNumber',
+          verificationDate: 'verificationDate',
+          validDate: 'validDate',
+          resultDocnum: 'resultDocnum',
+          applicability: false,
+        );
+        return items;
       }
     } on DioError catch (e) {
       if (token.isCancelled) {
         token = CancelToken();
       }
       await UIMessages.showSimpleToast(e.message);
-
-      return item;
     }
-    return item;
+    return null;
   }
 }

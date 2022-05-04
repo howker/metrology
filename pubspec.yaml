@@ -34,7 +34,8 @@ dependencies:
   provider: ^6.0.2
 
   # qr gen & scan
-  qr_code_scanner: ^0.7.0
+  #qr_code_scanner: ^0.7.0
+  mobile_scanner: ^1.0.0
   qr_flutter:
     git:
       url: https://github.com/theyakka/qr.flutter.git #and Rename QrImage to QrImageView  

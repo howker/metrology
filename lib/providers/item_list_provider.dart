@@ -16,12 +16,14 @@ class ItemListProvider extends ChangeNotifier {
   bool get loadingState => _loadingState;
   String get search => _search;
   List<Items> get filteredList => _filteredList;
+  Items get itemByVriId => _itemByVriId;
 
   List<Items> _filteredList = [];
   String _search = '';
   String _currentSearchingYear = '';
   bool _loadingState = false;
   int _year = 2018;
+  late Items _itemByVriId;
 
   ItemListProvider({required this.itemsRepo});
 
@@ -129,7 +131,7 @@ class ItemListProvider extends ChangeNotifier {
     required String vriId,
   }) async {
     _loadingState = true;
-    item = getItemByVriId as Item;
+    _itemByVriId = getItemByVriId as Items;
     _loadingState = false;
 
     notifyListeners();
