@@ -44,7 +44,8 @@ class _ItemCardState extends State<ItemCard> {
           },
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: widget.item.isSelected ? Colors.blueGrey : Colors.white,
+              color:
+                  widget.item.isSelected ? Colors.blue.shade100 : Colors.white,
             ),
             child: ExpansionTile(
               title: Text(widget.item.mitTitle ?? ''),
