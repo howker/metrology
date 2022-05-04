@@ -23,7 +23,19 @@ class ItemListProvider extends ChangeNotifier {
   String _currentSearchingYear = '';
   bool _loadingState = false;
   int _year = 2018;
-  late Items _itemByVriId;
+  Items _itemByVriId = Items(
+    vriId: '',
+    orgTitle: '',
+    mitNumber: '',
+    mitTitle: '',
+    mitNotation: '',
+    miModification: '',
+    miNumber: '',
+    verificationDate: '',
+    validDate: '',
+    resultDocnum: '',
+    applicability: false,
+  );
 
   ItemListProvider({required this.itemsRepo});
 
@@ -131,12 +143,12 @@ class ItemListProvider extends ChangeNotifier {
     required String vriId,
   }) async {
     _loadingState = true;
-    _itemByVriId = getItemByVriId as Items;
+    _itemByVriId = await getItemByVriId(vriId) as Items;
     _loadingState = false;
 
     notifyListeners();
   }
 
-  Future getItemByVriId(String vriId) async =>
+  Future<Items?> getItemByVriId(String vriId) async =>
       itemsRepo.getItemByVriId(vriId: vriId);
 }
