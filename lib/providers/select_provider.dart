@@ -5,7 +5,18 @@ class SelectProvider extends ChangeNotifier {
   final List<Items> _selectedList = [];
   List<Items> get selectedList => _selectedList;
   bool get selectAllState => _selectAllState;
+
   bool _selectAllState = false;
+
+  bool isSelected(Items item) {
+    return item.isSelected;
+  }
+
+  void setItemSelected(Items item) {
+    item.isSelected = !item.isSelected;
+    //isSelected(item);
+    notifyListeners();
+  }
 
   void setSelectAllState() {
     _selectAllState = !_selectAllState;

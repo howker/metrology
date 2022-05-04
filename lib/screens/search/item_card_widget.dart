@@ -4,7 +4,7 @@ import 'package:infopoverka/providers/select_provider.dart';
 import 'package:infopoverka/utils/valid_data_check.dart';
 import 'package:provider/provider.dart';
 
-class ItemCard extends StatefulWidget {
+class ItemCard extends StatelessWidget {
   final Items item;
 
   const ItemCard({
@@ -13,58 +13,44 @@ class ItemCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ItemCard> createState() => _ItemCardState();
-}
-
-class _ItemCardState extends State<ItemCard> {
-  @override
-  void setState(VoidCallback fn) {
-    widget.item.isSelected = !widget.item.isSelected;
-
-    super.setState(fn);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    item.isSelected = context.watch<SelectProvider>().isSelected(item);
     return Material(
       child: PhysicalModel(
         color: Colors.white,
         elevation: 2,
         child: InkWell(
           onLongPress: () {
-            !widget.item.isSelected
+            !item.isSelected
                 ? context
                     .read<SelectProvider>()
-                    .addItemToSelectedList(item: widget.item)
+                    .addItemToSelectedList(item: item)
                 : context
                     .read<SelectProvider>()
-                    .removeItemFromSelectedList(item: widget.item);
-
-            setState(() {});
+                    .removeItemFromSelectedList(item: item);
+            context.read<SelectProvider>().setItemSelected(item);
+            //setState(() {});
           },
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color:
-                  widget.item.isSelected ? Colors.blue.shade100 : Colors.white,
+              color: item.isSelected ? Colors.blue.shade100 : Colors.white,
             ),
             child: ExpansionTile(
-              title: Text(widget.item.mitTitle ?? ''),
+              title: Text(item.mitTitle ?? ''),
               subtitle: AbsorbPointer(
                 child: Row(
                   children: [
                     Icon(
                       Icons.access_time_outlined,
                       color: ValidDataCheck.validStatus(
-                        widget.item.validDate ?? '',
+                        item.validDate ?? '',
                       )
                           ? Colors.green
                           : Colors.red,
                     ),
                     Icon(
                       Icons.assignment_turned_in_outlined,
-                      color: widget.item.applicability!
-                          ? Colors.green
-                          : Colors.red,
+                      color: item.applicability! ? Colors.green : Colors.red,
                     ),
                   ],
                 ),
@@ -73,44 +59,44 @@ class _ItemCardState extends State<ItemCard> {
                 ListTile(
                   visualDensity: const VisualDensity(vertical: -4),
                   title: const Text('Организация - поверитель'),
-                  subtitle: Text(widget.item.orgTitle ?? ''),
+                  subtitle: Text(item.orgTitle ?? ''),
                   dense: true,
                 ),
                 ListTile(
                   visualDensity: const VisualDensity(vertical: -4),
                   title: const Text('Рег № типа СИ'),
-                  subtitle: Text(widget.item.mitNumber ?? ''),
+                  subtitle: Text(item.mitNumber ?? ''),
                   dense: true,
                 ),
                 ListTile(
                   visualDensity: const VisualDensity(vertical: -4),
                   title: const Text('Наименование типа СИ'),
-                  subtitle: Text(widget.item.mitTitle ?? ''),
+                  subtitle: Text(item.mitTitle ?? ''),
                   dense: true,
                 ),
                 ListTile(
                   visualDensity: const VisualDensity(vertical: -4),
                   title: const Text('Обозначение типа СИ'),
-                  subtitle: Text(widget.item.mitNotation ?? ''),
+                  subtitle: Text(item.mitNotation ?? ''),
                   dense: true,
                 ),
                 ListTile(
                   visualDensity: const VisualDensity(vertical: -4),
                   title: const Text('Модификация СИ'),
-                  subtitle: Text(widget.item.miModification ?? ''),
+                  subtitle: Text(item.miModification ?? ''),
                   dense: true,
                 ),
                 ListTile(
                   visualDensity: const VisualDensity(vertical: -4),
                   title: const Text('Заводской/серийный номер'),
-                  subtitle: Text(widget.item.miNumber ?? ''),
+                  subtitle: Text(item.miNumber ?? ''),
                   dense: true,
                 ),
                 ListTile(
                   visualDensity: const VisualDensity(vertical: -4),
                   title: const Text('Дата поверки'),
                   subtitle: Text(
-                    widget.item.verificationDate ?? '',
+                    item.verificationDate ?? '',
                   ),
                   dense: true,
                 ),
@@ -118,10 +104,10 @@ class _ItemCardState extends State<ItemCard> {
                   visualDensity: const VisualDensity(vertical: -4),
                   title: const Text('Действительна до'),
                   subtitle: Text(
-                    widget.item.validDate ?? '',
+                    item.validDate ?? '',
                     style: TextStyle(
                       color: ValidDataCheck.validStatus(
-                        widget.item.validDate ?? '',
+                        item.validDate ?? '',
                       )
                           ? Colors.green
                           : Colors.red,
@@ -130,22 +116,21 @@ class _ItemCardState extends State<ItemCard> {
                   dense: true,
                   trailing: Icon(
                     Icons.access_time_outlined,
-                    color:
-                        ValidDataCheck.validStatus(widget.item.validDate ?? '')
-                            ? Colors.green
-                            : Colors.red,
+                    color: ValidDataCheck.validStatus(item.validDate ?? '')
+                        ? Colors.green
+                        : Colors.red,
                   ),
                 ),
                 ListTile(
                   visualDensity: const VisualDensity(vertical: -4),
                   title: const Text('Номер свидетельства'),
-                  subtitle: Text(widget.item.resultDocnum ?? ''),
+                  subtitle: Text(item.resultDocnum ?? ''),
                   dense: true,
                 ),
                 ListTile(
                   visualDensity: const VisualDensity(vertical: -4),
                   title: const Text('Пригодность'),
-                  subtitle: widget.item.applicability!
+                  subtitle: item.applicability!
                       ? const Text(
                           'Пригодно',
                           style: TextStyle(color: Colors.green),
@@ -157,8 +142,7 @@ class _ItemCardState extends State<ItemCard> {
                   dense: true,
                   trailing: Icon(
                     Icons.assignment_turned_in_outlined,
-                    color:
-                        widget.item.applicability! ? Colors.green : Colors.red,
+                    color: item.applicability! ? Colors.green : Colors.red,
                   ),
                 ),
               ],
