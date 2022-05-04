@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:infopoverka/screens/home/home_screen.dart';
-import 'package:infopoverka/screens/search/search_screen.dart';
+import 'package:infopoverka/providers/screen_provider.dart';
+import 'package:provider/provider.dart';
 
-class BottomNaviBar extends StatefulWidget {
+class BottomNaviBar extends StatelessWidget {
   const BottomNaviBar({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<BottomNaviBar> createState() => _BottomNaviBarState();
-}
-
-class _BottomNaviBarState extends State<BottomNaviBar> {
-  @override
   Widget build(BuildContext context) {
-    var index = 0;
-    final screens = [
-      const HomeScreen(),
-      //FavoriteScreen(),
-      //SettingsScreen(),
-    ];
+    final index = context.watch<ScreenProvider>().currentScreenIndex;
+
     return NavigationBarTheme(
       data: NavigationBarThemeData(
         indicatorColor: Colors.blue.shade100,
@@ -32,9 +23,8 @@ class _BottomNaviBarState extends State<BottomNaviBar> {
         selectedIndex: index,
         height: 60,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        onDestinationSelected: (currentIndex) {
-          index = currentIndex;
-          setState(() {});
+        onDestinationSelected: (selectedIndex) {
+          context.read<ScreenProvider>().setCurrentScreenIndex(selectedIndex);
         },
         animationDuration: const Duration(seconds: 3),
         destinations: const [
