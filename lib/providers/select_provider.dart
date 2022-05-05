@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:infopoverka/models/item.dart';
 
 class SelectProvider extends ChangeNotifier {
-  final List<Items> _selectedList = [];
-  List<Items> get selectedList => _selectedList;
+  final Set<Items> _selectedList = {};
+  Set<Items> get selectedList => _selectedList;
   bool get selectAllState => _selectAllState;
 
   bool _selectAllState = false;
@@ -12,14 +12,8 @@ class SelectProvider extends ChangeNotifier {
     return item.isSelected;
   }
 
-  void setItemSelected(Items item) {
+  void toggleItemSelected(Items item) {
     item.isSelected = !item.isSelected;
-    //isSelected(item);
-    notifyListeners();
-  }
-
-  void setSelectAllState() {
-    _selectAllState = !_selectAllState;
     notifyListeners();
   }
 
@@ -28,8 +22,22 @@ class SelectProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addAllItemsToSelectedList({required List<Items> items}) {
-    _selectedList.addAll(items);
+  void addAllItemsToSelectedList({required List<Items> itemsList}) {
+    if (!_selectAllState) {
+      for (final item in itemsList) {
+        if (!item.isSelected) {
+          _selectedList.add(item);
+          toggleItemSelected(item);
+        }
+      }
+    } else {
+      for (final item in _selectedList) {
+        toggleItemSelected(item);
+      }
+      _selectedList.clear();
+    }
+
+    _selectAllState = !_selectAllState;
     notifyListeners();
   }
 
@@ -40,7 +48,6 @@ class SelectProvider extends ChangeNotifier {
 
   void clearSelectedList() {
     _selectedList.clear();
-    //_selectPressedState = false;
     notifyListeners();
   }
 }

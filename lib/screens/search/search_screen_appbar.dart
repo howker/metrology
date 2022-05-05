@@ -32,7 +32,14 @@ class SearchScreenAppBar extends StatelessWidget
           const SizedBox.shrink()
         else
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              // context
+              //     .read<SelectProvider>()
+              //     .setSelectAllState(itemsList: items);
+              context
+                  .read<SelectProvider>()
+                  .addAllItemsToSelectedList(itemsList: items);
+            },
             icon: const Icon(Icons.checklist_rtl),
           ),
       ],

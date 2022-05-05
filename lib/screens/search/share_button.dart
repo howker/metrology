@@ -15,7 +15,7 @@ class ShareButton extends StatelessWidget {
     return FloatingActionButton(
       child: const Icon(Icons.share),
       onPressed: () async {
-        final pdfFile = await PdfApi.generatePdfDoc(selectedList);
+        final pdfFile = await PdfApi.generatePdfDoc(selectedList.toList());
         await Share.shareFiles(
           [pdfFile.path],
           text: 'Сведения о поверке от "Инфоповерки"',

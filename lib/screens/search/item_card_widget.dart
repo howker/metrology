@@ -28,7 +28,7 @@ class ItemCard extends StatelessWidget {
                 : context
                     .read<SelectProvider>()
                     .removeItemFromSelectedList(item: item);
-            context.read<SelectProvider>().setItemSelected(item);
+            context.read<SelectProvider>().toggleItemSelected(item);
             //setState(() {});
           },
           child: DecoratedBox(

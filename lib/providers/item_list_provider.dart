@@ -5,14 +5,16 @@ import 'package:infopoverka/utils/valid_data_check.dart';
 
 class ItemListProvider extends ChangeNotifier {
   final ItemsRepository itemsRepo;
-  final List<Items> _items = [];
+  final Set<Items> _items = {};
+  final Set<Items> _accurateList = {};
+
   Item item = Item(result: Result(count: 0, start: 0, rows: 0, items: []));
   String startYear = '';
   String finishYear = '';
   int startRecord = 0;
 
   String get currentSearchingYear => _currentSearchingYear;
-  List<Items> get items => _items;
+  Set<Items> get items => _items;
   bool get loadingState => _loadingState;
   String get search => _search;
   List<Items> get filteredList => _filteredList;
@@ -46,7 +48,7 @@ class ItemListProvider extends ChangeNotifier {
     required String mitNotation,
     required String orgTitle,
   }) {
-    _filteredList = items;
+    _filteredList = items.toList();
     if (onlyActualData) {
       _filteredList = _filteredList
           .where(
@@ -87,7 +89,7 @@ class ItemListProvider extends ChangeNotifier {
         mitTitleFilter == '' &&
         mitNotation == '' &&
         orgTitle == '') {
-      _filteredList = items;
+      _filteredList = items.toList();
     }
 
     notifyListeners();
@@ -99,6 +101,8 @@ class ItemListProvider extends ChangeNotifier {
     required String finishYear,
     required int startRecord,
   }) async {
+    _items.clear();
+    _accurateList.clear();
     final intFinishYear = int.parse(finishYear);
 
     for (_year = int.parse(startYear); _year <= intFinishYear; _year++) {
@@ -110,12 +114,19 @@ class ItemListProvider extends ChangeNotifier {
       _items.addAll(item.result.items);
 
       // TODO(me): add user settings fo enable/disable accurate search,
-      // final accurateList =
-      //     _items.where((element) => element.miNumber == search).toList();
+      _accurateList.addAll(
+        _items.where((element) => element.miNumber == search).toSet(),
+      );
 
-      // _items = accurateList;
+      _items.addAll(_accurateList);
 
-      //  setFilteredList(onlyActualData: false, onlyInvalidData: false);
+      setFilteredList(
+        onlyActualData: false,
+        onlyInvalidData: false,
+        mitNotation: '',
+        mitTitleFilter: '',
+        orgTitle: '',
+      );
 
       _loadingState = false;
 
@@ -132,7 +143,7 @@ class ItemListProvider extends ChangeNotifier {
 
   void clearItemsList() {
     _loadingState = false;
-    _filteredList = items;
+    _filteredList = items.toList();
     notifyListeners();
   }
 
