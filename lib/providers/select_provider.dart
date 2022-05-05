@@ -50,4 +50,12 @@ class SelectProvider extends ChangeNotifier {
     _selectedList.clear();
     notifyListeners();
   }
+
+  void addToFavorites({required List<Items> itemsList}) {
+    /*  прочитать список из хранилища 
+   проверить есть ли в списке
+   добавить в список
+   сохранить список в хранилище   
+   */
+  }
 }
