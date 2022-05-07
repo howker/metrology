@@ -20,7 +20,7 @@ class ShareButton extends StatelessWidget {
           [pdfFile.path],
           text: 'Сведения о поверке от "Инфоповерки"',
         );
-        // await PdfApi.openFile(pdfFile);
+        //await PdfApi.openFile(pdfFile);
       },
     );
   }

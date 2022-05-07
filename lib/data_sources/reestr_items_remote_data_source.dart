@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:infopoverka/data_sources/api_client.dart';
 import 'package:infopoverka/locator_service.dart';
 import 'package:infopoverka/models/element.dart';
-
 import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/utils/ui_messages.dart';
 
@@ -56,21 +55,22 @@ class ReestrItemsRemoteDataSource {
       );
 
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        var element = ElementResult.fromJson(
+        final element = Element.fromJson(
           json.decode(response.toString()) as Map<String, dynamic>,
         );
         final items = Items(
           vriId: vriId,
-          orgTitle: 'orgTitle',
-          mitNumber: 'mitNumber',
-          mitTitle: 'mitTitle',
-          mitNotation: 'mitNotation',
-          miModification: 'miModification',
-          miNumber: 'miNumber',
-          verificationDate: 'verificationDate',
-          validDate: 'validDate',
-          resultDocnum: 'resultDocnum',
-          applicability: false,
+          orgTitle: element.result.vriInfo.organization ?? '',
+          mitNumber: element.result.miInfo.singleMI.mitypeNumber ?? '',
+          mitTitle: element.result.miInfo.singleMI.mitypeTitle ?? '',
+          mitNotation: element.result.miInfo.singleMI.mitypeType ?? '',
+          miModification: element.result.miInfo.singleMI.modification ?? '',
+          miNumber: element.result.miInfo.singleMI.manufactureNum ?? '',
+          verificationDate: element.result.vriInfo.vrfDate ?? '',
+          validDate: element.result.vriInfo.validDate ?? '',
+          resultDocnum: element.result.vriInfo.applicable?.certNum ?? '',
+          applicability:
+              element.result.vriInfo.applicable == null ? false : true,
         );
         return items;
       }

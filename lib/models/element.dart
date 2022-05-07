@@ -8,12 +8,6 @@ class Element {
   Element.fromJson(Map<String, dynamic> json) {
     result = ElementResult.fromJson(json['result'] as Map<String, dynamic>);
   }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['result'] = result.toJson();
-    return data;
-  }
 }
 
 class ElementResult {
@@ -28,13 +22,6 @@ class ElementResult {
     miInfo = MiInfo.fromJson(json['miInfo'] as Map<String, dynamic>);
     vriInfo = VriInfo.fromJson(json['vriInfo'] as Map<String, dynamic>);
   }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['miInfo'] = miInfo.toJson();
-    data['vriInfo'] = vriInfo.toJson();
-    return data;
-  }
 }
 
 class MiInfo {
@@ -46,21 +33,15 @@ class MiInfo {
   MiInfo.fromJson(Map<String, dynamic> json) {
     singleMI = SingleMI.fromJson(json['singleMI'] as Map<String, dynamic>);
   }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['singleMI'] = singleMI.toJson();
-    return data;
-  }
 }
 
 class SingleMI {
-  late final String mitypeNumber;
-  late final String mitypeURL;
-  late final String mitypeType;
-  late final String mitypeTitle;
-  late final String manufactureNum;
-  late final String modification;
+  late final String? mitypeNumber;
+  late final String? mitypeURL;
+  late final String? mitypeType;
+  late final String? mitypeTitle;
+  late final String? manufactureNum;
+  late final String? modification;
   SingleMI({
     required this.mitypeNumber,
     required this.mitypeURL,
@@ -78,28 +59,17 @@ class SingleMI {
     manufactureNum = json['manufactureNum'] as String;
     modification = json['modification'] as String;
   }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['mitypeNumber'] = mitypeNumber;
-    data['mitypeURL'] = mitypeURL;
-    data['mitypeType'] = mitypeType;
-    data['mitypeTitle'] = mitypeTitle;
-    data['manufactureNum'] = manufactureNum;
-    data['modification'] = modification;
-    return data;
-  }
 }
 
 class VriInfo {
-  late final String organization;
-  late final String signCipher;
-  late final String miOwner;
-  late final String vrfDate;
-  late final String validDate;
-  late final String vriType;
-  late final String docTitle;
-  late final Applicable applicable;
+  late final String? organization;
+  late final String? signCipher;
+  late final String? miOwner;
+  late final String? vrfDate;
+  late final String? validDate;
+  late final String? vriType;
+  late final String? docTitle;
+  late final Applicable? applicable;
   VriInfo({
     required this.organization,
     required this.signCipher,
@@ -124,24 +94,11 @@ class VriInfo {
           Applicable.fromJson(json['applicable'] as Map<String, dynamic>);
     }
   }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['organization'] = organization;
-    data['signCipher'] = signCipher;
-    data['miOwner'] = miOwner;
-    data['vrfDate'] = vrfDate;
-    data['validDate'] = validDate;
-    data['vriType'] = vriType;
-    data['docTitle'] = docTitle;
-    data['applicable'] = applicable.toJson();
-    return data;
-  }
 }
 
 class Applicable {
-  late final String certNum;
-  late final String stickerNum;
+  late final String? certNum;
+  late final String? stickerNum;
   late final bool signPass;
   late final bool signMi;
   Applicable({
@@ -152,15 +109,7 @@ class Applicable {
   });
 
   Applicable.fromJson(Map<String, dynamic> json) {
-    certNum = json['certNum'] as String;
+    certNum = json['certNum'] as String?;
     stickerNum = json['stickerNum'] as String;
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['certNum'] = certNum;
-    data['stickerNum'] = stickerNum;
-
-    return data;
   }
 }
