@@ -15,7 +15,7 @@ class FavoriteButton extends StatelessWidget {
       onTap: () {
         log('tap');
       },
-      child: item.isFavorite
+      child: !item.isFavorite
           ? const Icon(
               Icons.star_outline_outlined,
               color: Colors.grey,
