@@ -38,7 +38,8 @@ class PdfApi {
                 ),
                 pw.SizedBox(height: 10),
                 pw.GridView(
-                  childAspectRatio: 0.15,
+                  mainAxisSpacing: 2,
+                  childAspectRatio: 0.2,
                   crossAxisCount: 2,
                   children: [
                     pw.Container(

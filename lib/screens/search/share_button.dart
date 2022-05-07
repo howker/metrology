@@ -16,11 +16,11 @@ class ShareButton extends StatelessWidget {
       child: const Icon(Icons.share),
       onPressed: () async {
         final pdfFile = await PdfApi.generatePdfDoc(selectedList.toList());
-        await Share.shareFiles(
-          [pdfFile.path],
-          text: 'Сведения о поверке от "Инфоповерки"',
-        );
-        //await PdfApi.openFile(pdfFile);
+        // await Share.shareFiles(
+        //   [pdfFile.path],
+        //   text: 'Сведения о поверке от "Инфоповерки"',
+        // );
+        await PdfApi.openFile(pdfFile);
       },
     );
   }
