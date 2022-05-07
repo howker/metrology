@@ -70,7 +70,7 @@ class ReestrItemsRemoteDataSource {
           validDate: element.result.vriInfo.validDate ?? '',
           resultDocnum: element.result.vriInfo.applicable?.certNum ?? '',
           applicability:
-              element.result.vriInfo.applicable == null ? false : true,
+              element.result.vriInfo.applicable?.certNum == '' ? false : true,
         );
         return items;
       }

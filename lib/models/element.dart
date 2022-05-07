@@ -82,16 +82,39 @@ class VriInfo {
   });
 
   VriInfo.fromJson(Map<String, dynamic> json) {
-    organization = json['organization'] as String;
-    signCipher = json['signCipher'] as String;
-    miOwner = json['miOwner'] as String;
-    vrfDate = json['vrfDate'] as String;
-    validDate = json['validDate'] as String;
-    vriType = json['vriType'] as String;
-    docTitle = json['docTitle'] as String;
+    if (json['organization'] != null) {
+      organization = json['organization'] as String;
+    }
+    if (json['signCipher'] != null) {
+      signCipher = json['signCipher'] as String;
+    }
+    if (json['miOwner'] != null) {
+      miOwner = json['miOwner'] as String;
+    }
+    if (json['vrfDate'] != null) {
+      vrfDate = json['vrfDate'] as String;
+    }
+    if (json['validDate'] != null) {
+      validDate = json['validDate'] as String;
+    } else {
+      validDate = '';
+    }
+    if (json['vriType'] != null) {
+      vriType = json['vriType'] as String;
+    }
+    if (json['docTitle'] != null) {
+      docTitle = json['docTitle'] as String;
+    }
     if (json['applicable'] != null) {
       applicable =
           Applicable.fromJson(json['applicable'] as Map<String, dynamic>);
+    } else {
+      applicable = Applicable(
+        certNum: '',
+        signMi: false,
+        signPass: false,
+        stickerNum: '',
+      );
     }
   }
 }
