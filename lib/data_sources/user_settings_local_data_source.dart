@@ -8,7 +8,7 @@ class UserSettingsLocalDataSource {
   }
 }
 
-Future<File> saveDocument() async {
+Future<File> saveFile() async {
   const name = 'favorites_list';
   final dir = await getApplicationDocumentsDirectory();
   final file = File('${dir.path}/$name');

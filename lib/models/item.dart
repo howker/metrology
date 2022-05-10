@@ -74,6 +74,8 @@ class Items {
     required this.validDate,
     required this.resultDocnum,
     required this.applicability,
+    required this.isSelected,
+    required this.isFavorite,
   });
 
   Items.fromJson(Map<String, dynamic> json) {

@@ -37,6 +37,8 @@ class ItemListProvider extends ChangeNotifier {
     validDate: '',
     resultDocnum: '',
     applicability: false,
+    isFavorite: false,
+    isSelected: false,
   );
 
   ItemListProvider({required this.itemsRepo});

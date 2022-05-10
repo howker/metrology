@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:infopoverka/data/items_repository.dart';
 import 'package:infopoverka/locator_service.dart' as di;
+import 'package:infopoverka/models/item.dart';
+import 'package:infopoverka/models/items_hive_adapter.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
@@ -31,6 +34,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
 
+  final path = Directory.current.path;
+  Hive.init(path);
+  Hive.registerAdapter(ItemsHiveAdapter());
+
+  const favoritesItems = 'favorite_items';
+  //await Hive.openBox<Items>(favoritesItems);
   runApp(const MyApp());
 }
 

@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:infopoverka/screens/home/bottom_navi_bar.dart';
+
+class FavoritesScreen extends StatelessWidget {
+  const FavoritesScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(),
+        bottomNavigationBar: const BottomNaviBar(),
+      ),
+    );
+  }
+}

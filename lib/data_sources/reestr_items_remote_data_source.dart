@@ -71,6 +71,8 @@ class ReestrItemsRemoteDataSource {
           resultDocnum: element.result.vriInfo.applicable?.certNum ?? '',
           applicability:
               element.result.vriInfo.applicable?.certNum == '' ? false : true,
+          isFavorite: false,
+          isSelected: false,
         );
         return items;
       }
