@@ -15,6 +15,12 @@ class LocalDataSource {
     await itemsBox.add(item);
     return true;
   }
+
+  Future<bool> deleteItemFromFavorites({required Items item}) async {
+    final itemsBox = await Hive.openBox<Items>('favorite_items');
+    await itemsBox.delete(item);
+    return true;
+  }
 }
 
 

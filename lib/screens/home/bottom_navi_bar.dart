@@ -25,9 +25,6 @@ class BottomNaviBar extends StatelessWidget {
         height: 60,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         onDestinationSelected: (selectedIndex) {
-          if (selectedIndex == 1) {
-            context.read<FavoritesProvider>().getFavoritesItems();
-          }
           context.read<ScreenProvider>().setCurrentScreenIndex(selectedIndex);
         },
         animationDuration: const Duration(seconds: 3),

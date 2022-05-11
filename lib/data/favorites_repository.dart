@@ -23,4 +23,13 @@ class FavoritesRepository {
       return false;
     }
   }
+
+  Future<bool> deleteItemFromFavorites({required Items item}) async {
+    try {
+      await localDataSource.deleteItemFromFavorites(item: item);
+      return true;
+    } on Exception {
+      return false;
+    }
+  }
 }
