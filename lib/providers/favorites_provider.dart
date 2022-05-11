@@ -12,14 +12,14 @@ class FavoritesProvider extends ChangeNotifier {
   Future<void> addItemToFavorites({required Items item}) async {
     item.isFavorite = true;
     await favoritesRepo.addItemToFavorites(item: item);
-
+    await getFavoritesItems();
     notifyListeners();
   }
 
   Future<void> deleteItemFromFavorites({required Items item}) async {
     item.isFavorite = false;
 //    await favoritesRepo.addItemToFavorites(item: item);
-
+    await getFavoritesItems();
     notifyListeners();
   }
 

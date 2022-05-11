@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/favorites_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
+import 'package:infopoverka/screens/home/bottom_navi_bar.dart';
 
 import 'package:infopoverka/screens/search/item_card_widget.dart';
 import 'package:provider/provider.dart';
@@ -10,11 +11,11 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FavoritesProvider>().getFavoritesItems();
     final favoritesList = context.watch<FavoritesProvider>().favoritesList;
     if (favoritesList.isEmpty) {
       return SafeArea(
         child: Scaffold(
+          bottomNavigationBar: const BottomNaviBar(),
           appBar: AppBar(
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
@@ -30,6 +31,7 @@ class FavoritesScreen extends StatelessWidget {
       );
     } else {
       return Scaffold(
+        bottomNavigationBar: const BottomNaviBar(),
         appBar: AppBar(),
         body: ListView.builder(
           padding: const EdgeInsets.only(top: 5),

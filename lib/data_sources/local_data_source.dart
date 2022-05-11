@@ -6,6 +6,7 @@ class LocalDataSource {
     var favoritesList = <Items>[];
     final itemsBox = await Hive.openBox<Items>('favorite_items');
     favoritesList = itemsBox.values.toList();
+
     return favoritesList;
   }
 
