@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/favorites_provider.dart';
+import 'package:infopoverka/providers/screen_provider.dart';
 
 import 'package:infopoverka/screens/search/item_card_widget.dart';
 import 'package:provider/provider.dart';
@@ -9,11 +10,19 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FavoritesProvider>().getFavoritesItems();
     final favoritesList = context.watch<FavoritesProvider>().favoritesList;
     if (favoritesList.isEmpty) {
       return SafeArea(
         child: Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                context.read<ScreenProvider>().setCurrentScreenIndex(0);
+              },
+            ),
+          ),
           body: const Center(
             child: Text('Список избранного пуст'),
           ),

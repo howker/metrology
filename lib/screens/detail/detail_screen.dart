@@ -52,10 +52,12 @@ class DetailScreen extends StatelessWidget {
               context.watch<SelectProvider>().selectedList.isEmpty
                   ? const SizedBox.shrink()
                   : const ShareButton(),
-          body: Column(
-            children: [
-              ItemCard(item: items),
-            ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                ItemCard(item: items),
+              ],
+            ),
           ),
         ),
       );
