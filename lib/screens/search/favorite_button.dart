@@ -1,9 +1,13 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+
 import 'package:infopoverka/models/item.dart';
+import 'package:infopoverka/providers/favorites_provider.dart';
+import 'package:provider/provider.dart';
 
 class FavoriteButton extends StatelessWidget {
   final Items item;
+
   const FavoriteButton({
     required this.item,
     Key? key,
@@ -13,7 +17,7 @@ class FavoriteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        log('tap');
+        context.read<FavoritesProvider>().addItemToFavorites(item: item);
       },
       child: !item.isFavorite
           ? const Icon(

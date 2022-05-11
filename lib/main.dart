@@ -2,11 +2,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:infopoverka/data/favorites_repository.dart';
 import 'package:infopoverka/data/items_repository.dart';
+
 import 'package:infopoverka/locator_service.dart' as di;
 import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/models/items_hive_adapter.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
+import 'package:infopoverka/providers/favorites_provider.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
@@ -35,6 +38,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await Hive.initFlutter();
+  Hive.registerAdapter(ItemsHiveAdapter());
 
   runApp(const MyApp());
 }
@@ -61,6 +65,11 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<ScreenProvider>(
           create: (_) => ScreenProvider(),
+        ),
+        ChangeNotifierProvider<FavoritesProvider>(
+          create: (_) => FavoritesProvider(
+            favoritesRepo: di.sl.get<FavoritesRepository>(),
+          ),
         ),
       ],
       child: const MaterialApp(
