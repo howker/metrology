@@ -4,10 +4,7 @@ import 'package:infopoverka/models/item.dart';
 
 class FavoritesProvider extends ChangeNotifier {
   final FavoritesRepository favoritesRepo;
-  List<Items> get favoritesList {
-    getFavoritesItems();
-    return _favoritesList;
-  }
+  List<Items> get favoritesList => _favoritesList;
 
   List<Items> _favoritesList = [];
   FavoritesProvider({required this.favoritesRepo});
@@ -19,14 +16,14 @@ class FavoritesProvider extends ChangeNotifier {
   Future<void> addItemToFavorites({required Items item}) async {
     item.isFavorite = true;
     await favoritesRepo.addItemToFavorites(item: item);
-
+    await getFavoritesItems();
     notifyListeners();
   }
 
   Future<void> deleteItemFromFavorites({required Items item}) async {
     item.isFavorite = false;
     await favoritesRepo.deleteItemFromFavorites(item: item);
-
+    await getFavoritesItems();
     notifyListeners();
   }
 

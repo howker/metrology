@@ -20,8 +20,14 @@ class FavoriteButton extends StatelessWidget {
       onTap: () {
         if (!item.isFavorite) {
           context.read<FavoritesProvider>().addItemToFavorites(item: item);
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Добавлено в избранное'),
+          ));
         } else {
           context.read<FavoritesProvider>().deleteItemFromFavorites(item: item);
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Удалено из избранного'),
+          ));
         }
       },
       child: !item.isFavorite

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infopoverka/providers/favorites_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,7 @@ class BottomNaviBar extends StatelessWidget {
         height: 60,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         onDestinationSelected: (selectedIndex) {
+          context.read<FavoritesProvider>().getFavoritesItems();
           context.read<ScreenProvider>().setCurrentScreenIndex(selectedIndex);
         },
         animationDuration: const Duration(seconds: 3),
