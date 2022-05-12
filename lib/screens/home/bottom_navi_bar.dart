@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:infopoverka/providers/favorites_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
 import 'package:provider/provider.dart';
 

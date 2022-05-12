@@ -15,14 +15,13 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    item.isFavorite = context.watch<FavoritesProvider>().isFavorite(item);
     return InkWell(
       onTap: () {
         if (!item.isFavorite) {
           context.read<FavoritesProvider>().addItemToFavorites(item: item);
-          context.read<FavoritesProvider>().isFavoriteToggle(item: item);
         } else {
           context.read<FavoritesProvider>().deleteItemFromFavorites(item: item);
-          context.read<FavoritesProvider>().isFavoriteToggle(item: item);
         }
       },
       child: !item.isFavorite
