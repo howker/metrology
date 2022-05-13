@@ -33,20 +33,18 @@ class FavoritesScreen extends StatelessWidget {
       return Scaffold(
         bottomNavigationBar: const BottomNaviBar(),
         appBar: AppBar(),
-        body: 
-        //TODO value listenable
-        // ListView.builder(
-        //   padding: const EdgeInsets.only(top: 5),
-        //   shrinkWrap: true,
-        //   itemCount: favoritesList.length,
-        //   itemBuilder: (context, index) {
-        //     return Column(
-        //       children: [
-        //         ItemCard(item: favoritesList[index]),
-        //       ],
-        //     );
-        //   },
-        // ),
+        body: ListView.builder(
+          padding: const EdgeInsets.only(top: 5),
+          shrinkWrap: true,
+          itemCount: favoritesList.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                ItemCard(item: favoritesList[index]),
+              ],
+            );
+          },
+        ),
       );
     }
   }

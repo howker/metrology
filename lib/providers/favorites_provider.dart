@@ -29,7 +29,7 @@ class FavoritesProvider extends ChangeNotifier {
 
   Future<void> getFavoritesItems() async {
     final list = await favoritesRepo.getFavoritesListFromStorage();
-    if (list != null && list.isNotEmpty) {
+    if (list != null) {
       _favoritesList = list;
     }
 
