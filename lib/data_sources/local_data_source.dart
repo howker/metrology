@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:infopoverka/models/item.dart';
+import 'package:infopoverka/utils/ui_messages.dart';
 
 class LocalDataSource {
   List<Items> favoritesList = <Items>[];
@@ -14,13 +15,16 @@ class LocalDataSource {
 
   Future<bool> addItemToFavorites({required Items item}) async {
     final itemsBox = await Hive.openBox<Items>('favorite_items');
-    if (!itemsBox.values.contains(item)) {
-      await itemsBox.add(item);
-      favoritesList = itemsBox.values.toList();
+    favoritesList = itemsBox.values.toList();
 
-      return true;
+    for (var i = 0; i < favoritesList.length; i++) {
+      if (favoritesList[i].vriId == item.vriId) {
+        await UIMessages.showSimpleToast('СИ уже находится в избранном');
+        return false;
+      }
     }
-    return false;
+    await itemsBox.add(item);
+    return true;
   }
 
   Future<bool> deleteItemFromFavorites({required Items item}) async {
@@ -28,23 +32,15 @@ class LocalDataSource {
 
     favoritesList = itemsBox.values.toList();
     final keys = itemsBox.keys.toList();
-    log(keys.toString());
+
     for (var i = 0; i < favoritesList.length; i++) {
       if (favoritesList[i] == item) {
         await itemsBox.delete(keys[i]);
-        //await itemsBox.deleteAt(i);
-        log('deleted : ${keys[i]}');
       }
     }
-
-    log(itemsBox.keys.toString());
-
     return true;
   }
 }
-
-
-
 
 
 //TODO добавить календарь ожидания проверки - поверено ли СИ? Показать локальное уведомление
