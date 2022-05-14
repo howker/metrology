@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:infopoverka/data/items_repository.dart';
 import 'package:infopoverka/models/item.dart';
@@ -119,8 +121,10 @@ class ItemListProvider extends ChangeNotifier {
       _accurateList.addAll(
         _items.where((element) => element.miNumber == search).toSet(),
       );
-
+      _items.clear(); //activate it for accurate search
       _items.addAll(_accurateList);
+
+//TODO(me): add check _items elements - is this item in favorites? if yes - set item favorite status
 
       setFilteredList(
         onlyActualData: false,
