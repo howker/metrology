@@ -1,11 +1,3 @@
-/*  Фильтры:
-Только с актуальной поверкой
-Только с просроченной поверкой
-По типу СИ mit_title
-По модификации СИ mit_notation
-По поверителю org_title
- */
-
 import 'package:flutter/material.dart';
 import 'package:infopoverka/screens/filter/actual_data_switcher.dart';
 import 'package:infopoverka/screens/filter/clear_all_filters_elevated_button.dart';

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/favorites_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
+import 'package:infopoverka/providers/select_provider.dart';
+import 'package:infopoverka/screens/favorites/favorites_screen_app_bar.dart';
 import 'package:infopoverka/screens/home/bottom_navi_bar.dart';
-
 import 'package:infopoverka/screens/search/item_card_widget.dart';
+import 'package:infopoverka/screens/search/search_screen_appbar.dart';
+import 'package:infopoverka/screens/search/share_button.dart';
 import 'package:provider/provider.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -31,8 +34,12 @@ class FavoritesScreen extends StatelessWidget {
       );
     } else {
       return Scaffold(
+        floatingActionButton:
+            context.watch<SelectProvider>().selectedList.isEmpty
+                ? const SizedBox.shrink()
+                : const ShareButton(),
         bottomNavigationBar: const BottomNaviBar(),
-        appBar: AppBar(),
+        appBar: const FavoritesScreenAppBar(),
         body: ListView.builder(
           padding: const EdgeInsets.only(top: 5),
           shrinkWrap: true,
