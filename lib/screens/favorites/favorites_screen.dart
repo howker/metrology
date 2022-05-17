@@ -5,7 +5,6 @@ import 'package:infopoverka/providers/select_provider.dart';
 import 'package:infopoverka/screens/favorites/favorites_screen_app_bar.dart';
 import 'package:infopoverka/screens/home/bottom_navi_bar.dart';
 import 'package:infopoverka/screens/search/item_card_widget.dart';
-import 'package:infopoverka/screens/search/search_screen_appbar.dart';
 import 'package:infopoverka/screens/search/share_button.dart';
 import 'package:provider/provider.dart';
 

@@ -26,16 +26,6 @@ class DetailScreen extends StatelessWidget {
           ), //
         ),
       );
-    }
-    if (items == null) {
-      return const SafeArea(
-        child: Scaffold(
-          appBar: EmptyAppBar(),
-          body: Center(
-            child: Text('Ничего не найдено'),
-          ),
-        ),
-      );
     } else {
       return SafeArea(
         child: Scaffold(

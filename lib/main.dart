@@ -1,12 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:infopoverka/data/favorites_repository.dart';
 import 'package:infopoverka/data/items_repository.dart';
-
 import 'package:infopoverka/locator_service.dart' as di;
-import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/models/items_hive_adapter.dart';
 import 'package:infopoverka/providers/buttons_provider.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
@@ -16,7 +13,6 @@ import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
 import 'package:infopoverka/providers/select_provider.dart';
 import 'package:infopoverka/root_screen.dart';
-import 'package:infopoverka/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
 // TODO(me): for animation all elements : animations: ^2.0.2
@@ -81,7 +77,6 @@ class MyApp extends StatelessWidget {
       child: const MaterialApp(
         themeMode: ThemeMode.dark,
         home: RootScreen(),
-        //HomeScreen(),
       ),
     );
   }
