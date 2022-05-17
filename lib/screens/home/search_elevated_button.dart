@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infopoverka/providers/buttons_provider.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/search/search_screen.dart';
@@ -16,26 +17,31 @@ class SearchElevatedButton extends StatelessWidget {
     final startDate = context.watch<DataRangeProvider>().startDateValue;
     final finishDate = context.watch<DataRangeProvider>().finishDateValue;
 
-    return ElevatedButton.icon(
-      onPressed: () {
-        InputUtils.unFocus();
+    return AbsorbPointer(
+      absorbing: context.watch<ButtonsProvider>().isButtonActive,
+      child: ElevatedButton.icon(
+        onPressed: !context.watch<ButtonsProvider>().isButtonActive
+            ? () {
+                InputUtils.unFocus();
+                context.read<ButtonsProvider>().buttonClicked();
+                context.read<ItemListProvider>().clearItemsList();
 
-        context.read<ItemListProvider>().clearItemsList();
+                context.read<ItemListProvider>().loadItemsList(
+                      userSearch: searchRequest,
+                      startYear: startDate,
+                      finishYear: finishDate,
+                      startRecord: 0,
+                    );
 
-        context.read<ItemListProvider>().loadItemsList(
-              userSearch: searchRequest,
-              startYear: startDate,
-              finishYear: finishDate,
-              startRecord: 0,
-            );
-
-        final Route route = MaterialPageRoute<dynamic>(
-          builder: (context) => const SearchScreen(),
-        );
-        Navigator.push<void>(context, route);
-      },
-      icon: const Icon(Icons.search_rounded),
-      label: const Text('Искать'),
+                final Route route = MaterialPageRoute<dynamic>(
+                  builder: (context) => const SearchScreen(),
+                );
+                Navigator.push<void>(context, route);
+              }
+            : null,
+        icon: const Icon(Icons.search_rounded),
+        label: const Text('Искать'),
+      ),
     );
   }
 }

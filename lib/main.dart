@@ -8,6 +8,7 @@ import 'package:infopoverka/data/items_repository.dart';
 import 'package:infopoverka/locator_service.dart' as di;
 import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/models/items_hive_adapter.dart';
+import 'package:infopoverka/providers/buttons_provider.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/favorites_provider.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
@@ -72,6 +73,9 @@ class MyApp extends StatelessWidget {
           create: (_) => FavoritesProvider(
             favoritesRepo: di.sl.get<FavoritesRepository>(),
           ),
+        ),
+        ChangeNotifierProvider<ButtonsProvider>(
+          create: (_) => ButtonsProvider(),
         ),
       ],
       child: const MaterialApp(
