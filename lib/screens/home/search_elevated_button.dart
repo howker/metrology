@@ -18,12 +18,12 @@ class SearchElevatedButton extends StatelessWidget {
     final finishDate = context.watch<DataRangeProvider>().finishDateValue;
 
     return AbsorbPointer(
-      absorbing: context.watch<ButtonsProvider>().isButtonActive,
+      absorbing: context.watch<ButtonsProvider>().isSearchButtonActive,
       child: ElevatedButton.icon(
-        onPressed: !context.watch<ButtonsProvider>().isButtonActive
+        onPressed: !context.watch<ButtonsProvider>().isSearchButtonActive
             ? () {
                 InputUtils.unFocus();
-                context.read<ButtonsProvider>().buttonClicked();
+                context.read<ButtonsProvider>().searchButtonClicked();
                 context.read<ItemListProvider>().clearItemsList();
 
                 context.read<ItemListProvider>().loadItemsList(

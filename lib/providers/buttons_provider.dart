@@ -3,18 +3,33 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class ButtonsProvider extends ChangeNotifier {
-  bool get isButtonActive => _isButtonActive;
+  bool get isSearchButtonActive => _isSearchButtonActive;
+  bool get isQrButtonActive => _isQrButtonActive;
 
-  bool _isButtonActive = false;
+  bool _isSearchButtonActive = false;
+  bool _isQrButtonActive = false;
 
-  void buttonClicked() {
-    _isButtonActive = true;
+  void searchButtonClicked() {
+    _isSearchButtonActive = true;
     notifyListeners();
 
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        _isButtonActive = false;
+        _isSearchButtonActive = false;
+        notifyListeners();
+      },
+    );
+  }
+
+  void qrButtonClicked() {
+    _isQrButtonActive = true;
+    notifyListeners();
+
+    Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        _isQrButtonActive = false;
         notifyListeners();
       },
     );
