@@ -36,6 +36,7 @@ Future<void> main() async {
   await di.init();
   await Hive.initFlutter();
   Hive.registerAdapter(ItemsHiveAdapter());
+  await Hive.openBox<bool>('accurateBox');
 
   runApp(const MyApp());
 }

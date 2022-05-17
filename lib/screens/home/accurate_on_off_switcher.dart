@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class AccurateOnOffSwitcher extends StatelessWidget {
   const AccurateOnOffSwitcher({
@@ -7,18 +8,33 @@ class AccurateOnOffSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          AnimatedSwitcher(
-            duration: const Duration(seconds: 5),
-            child: Switch(value: true, onChanged: (value) {}),
+    return ValueListenableBuilder(
+      builder: (context, Box box, _) {
+        final isAccurateSearchMode =
+            box.get('accurateBox', defaultValue: true) as bool;
+        return SizedBox(
+          height: 40,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedSwitcher(
+                duration: const Duration(seconds: 5),
+                child: Switch(
+                  value: isAccurateSearchMode,
+                  onChanged: (value) {
+                    box.put(
+                      'accurateBox',
+                      value,
+                    );
+                  },
+                ),
+              ),
+              const Text('точный поиск'),
+            ],
           ),
-          const Text('точный поиск'),
-        ],
-      ),
+        );
+      },
+      valueListenable: Hive.box<bool>('accurateBox').listenable(),
     );
   }
 }
