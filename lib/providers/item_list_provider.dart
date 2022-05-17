@@ -1,12 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:infopoverka/data/favorites_repository.dart';
 import 'package:infopoverka/data/items_repository.dart';
 import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/utils/valid_data_check.dart';
 
 class ItemListProvider extends ChangeNotifier {
   final ItemsRepository itemsRepo;
+  final FavoritesRepository favoritesRepo;
   final Set<Items> _items = {};
   final Set<Items> _accurateList = {};
 
@@ -43,7 +43,10 @@ class ItemListProvider extends ChangeNotifier {
     isSelected: false,
   );
 
-  ItemListProvider({required this.itemsRepo});
+  ItemListProvider({
+    required this.favoritesRepo,
+    required this.itemsRepo,
+  });
 
   void setFilteredList({
     required bool onlyActualData,
@@ -122,9 +125,12 @@ class ItemListProvider extends ChangeNotifier {
         _items.where((element) => element.miNumber == search).toSet(),
       );
       _items.clear(); //activate it for accurate search
-      _items.addAll(_accurateList);
 
-//TODO(me): add check _items elements - is this item in favorites? if yes - set item favorite status
+      if (_accurateList.isNotEmpty) {
+        await setElementsIsFavorite();
+      }
+
+      _items.addAll(_accurateList);
 
       setFilteredList(
         onlyActualData: false,
@@ -168,4 +174,17 @@ class ItemListProvider extends ChangeNotifier {
 
   Future<Items?> getItemByVriId(String vriId) async =>
       itemsRepo.getItemByVriId(vriId: vriId);
+
+  Future<void> setElementsIsFavorite() async {
+    final favoritesList = await favoritesRepo.getFavoritesListFromStorage();
+    if (favoritesList != null) {
+      for (final i in _accurateList) {
+        for (final j in favoritesList) {
+          if (i.vriId == j.vriId) {
+            i.isFavorite = true;
+          }
+        }
+      }
+    }
+  }
 }

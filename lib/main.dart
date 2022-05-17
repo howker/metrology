@@ -51,8 +51,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ItemListProvider>(
-          create: (_) =>
-              ItemListProvider(itemsRepo: di.sl.get<ItemsRepository>()),
+          create: (_) => ItemListProvider(
+            itemsRepo: di.sl.get<ItemsRepository>(),
+            favoritesRepo: di.sl.get<FavoritesRepository>(),
+          ),
         ),
         ChangeNotifierProvider<DataRangeProvider>(
           create: (_) => DataRangeProvider(),
