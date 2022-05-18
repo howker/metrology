@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infopoverka/providers/favorites_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
 import 'package:infopoverka/providers/select_provider.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,7 @@ class FavoritesScreenAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     final selectedList = context.watch<SelectProvider>().selectedList;
+    final items = context.watch<FavoritesProvider>().favoritesList;
     return AppBar(
       centerTitle: true,
       actions: [
@@ -24,12 +26,9 @@ class FavoritesScreenAppBar extends StatelessWidget
         else
           IconButton(
             onPressed: () {
-              // context
-              //     .read<SelectProvider>()
-              //     .setSelectAllState(itemsList: items);
-              // context
-              //     .read<SelectProvider>()
-              //     .addAllItemsToSelectedList(itemsList: items);
+              context
+                  .read<SelectProvider>()
+                  .addAllItemsToSelectedList(itemsList: items);
             },
             icon: const Icon(Icons.checklist_rtl),
           ),
@@ -37,7 +36,7 @@ class FavoritesScreenAppBar extends StatelessWidget
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
-          context.read<SelectProvider>().clearSelectedList();
+          //context.read<SelectProvider>().clearSelectedList();
           context.read<ScreenProvider>().setCurrentScreenIndex(0);
         },
       ),
