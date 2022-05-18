@@ -178,8 +178,16 @@ class ItemListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Items?> getItemByVriId(String vriId) async =>
-      itemsRepo.getItemByVriId(vriId: vriId);
+  Future<Items?> getItemByVriId(String vriId) async {
+    var item = await itemsRepo.getItemByVriId(vriId: vriId);
+    final setItems = <Items>{};
+    if (item != null) {
+      setItems.add(item);
+      final rawSet = await setElementsIsFavorite(setItems);
+      item = rawSet.first;
+    }
+    return item;
+  }
 
   Future<Set<Items>> setElementsIsFavorite(Set<Items> itemsList) async {
     final favoritesList = await favoritesRepo.getFavoritesListFromStorage();
