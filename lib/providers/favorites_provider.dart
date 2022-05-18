@@ -5,8 +5,10 @@ import 'package:infopoverka/models/item.dart';
 class FavoritesProvider extends ChangeNotifier {
   final FavoritesRepository favoritesRepo;
   List<Items> get favoritesList => _favoritesList;
+  bool get loadingState => _loadingState;
 
   List<Items> _favoritesList = [];
+  bool _loadingState = false;
   FavoritesProvider({required this.favoritesRepo});
 
   bool isFavorite(Items item) {
@@ -28,11 +30,12 @@ class FavoritesProvider extends ChangeNotifier {
   }
 
   Future<void> getFavoritesItems() async {
+    _loadingState = true;
     final list = await favoritesRepo.getFavoritesListFromStorage();
     if (list != null) {
       _favoritesList = list;
     }
-
+    _loadingState = false;
     notifyListeners();
   }
 }

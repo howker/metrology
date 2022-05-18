@@ -14,6 +14,17 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoritesList = context.watch<FavoritesProvider>().favoritesList;
+    if (context.watch<FavoritesProvider>().loadingState == true) {
+      return SafeArea(
+        child: Scaffold(
+          bottomNavigationBar: const BottomNaviBar(),
+          appBar: AppBar(),
+          body: const Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      );
+    }
     if (favoritesList.isEmpty) {
       return SafeArea(
         child: Scaffold(
