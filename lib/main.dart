@@ -37,6 +37,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ItemsHiveAdapter());
   await Hive.openBox<bool>('accurateBox');
+  await Hive.openBox<bool>('darkModeBox');
 
   runApp(const MyApp());
 }
@@ -75,9 +76,16 @@ class MyApp extends StatelessWidget {
           create: (_) => ButtonsProvider(),
         ),
       ],
-      child: const MaterialApp(
-        themeMode: ThemeMode.dark,
-        home: RootScreen(),
+      child: ValueListenableBuilder(
+        builder: (context, Box box, _) {
+          final darkMode = box.get('darkModeBox', defaultValue: false) as bool;
+          return MaterialApp(
+            themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
+            darkTheme: ThemeData.dark(),
+            home: const RootScreen(),
+          );
+        },
+        valueListenable: Hive.box<bool>('darkModeBox').listenable(),
       ),
     );
   }
