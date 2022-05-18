@@ -25,6 +25,7 @@ class FavoriteButton extends StatelessWidget {
             context.read<FavoritesProvider>().addItemToFavorites(item: item);
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Добавлено в избранное'),
+              duration: Duration(milliseconds: 500),
             ));
           } else {
             context
@@ -32,6 +33,7 @@ class FavoriteButton extends StatelessWidget {
                 .deleteItemFromFavorites(item: item);
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Удалено из избранного'),
+              duration: Duration(milliseconds: 500),
             ));
           }
         },
