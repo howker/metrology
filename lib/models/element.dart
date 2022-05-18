@@ -52,12 +52,36 @@ class SingleMI {
   });
 
   SingleMI.fromJson(Map<String, dynamic> json) {
-    mitypeNumber = json['mitypeNumber'] as String;
-    mitypeURL = json['mitypeURL'] as String;
-    mitypeType = json['mitypeType'] as String;
-    mitypeTitle = json['mitypeTitle'] as String;
-    manufactureNum = json['manufactureNum'] as String;
-    modification = json['modification'] as String;
+    if (json['mitypeNumber'] != null) {
+      mitypeNumber = json['mitypeNumber'] as String;
+    } else {
+      mitypeNumber = '';
+    }
+    if (json['mitypeURL'] != null) {
+      mitypeURL = json['mitypeURL'] as String;
+    } else {
+      mitypeURL = '';
+    }
+    if (json['mitypeType'] != null) {
+      mitypeType = json['mitypeType'] as String;
+    } else {
+      mitypeType = '';
+    }
+    if (json['mitypeTitle'] != null) {
+      mitypeTitle = json['mitypeTitle'] as String;
+    } else {
+      mitypeTitle = '';
+    }
+    if (json['manufactureNum'] != null) {
+      manufactureNum = json['manufactureNum'] as String;
+    } else {
+      manufactureNum = '';
+    }
+    if (json['modification'] != null) {
+      modification = json['modification'] as String;
+    } else {
+      modification = '';
+    }
   }
 }
 
@@ -84,15 +108,23 @@ class VriInfo {
   VriInfo.fromJson(Map<String, dynamic> json) {
     if (json['organization'] != null) {
       organization = json['organization'] as String;
+    } else {
+      organization = '';
     }
     if (json['signCipher'] != null) {
       signCipher = json['signCipher'] as String;
+    } else {
+      signCipher = '';
     }
     if (json['miOwner'] != null) {
       miOwner = json['miOwner'] as String;
+    } else {
+      miOwner = '';
     }
     if (json['vrfDate'] != null) {
       vrfDate = json['vrfDate'] as String;
+    } else {
+      vrfDate = '';
     }
     if (json['validDate'] != null) {
       validDate = json['validDate'] as String;
@@ -101,9 +133,13 @@ class VriInfo {
     }
     if (json['vriType'] != null) {
       vriType = json['vriType'] as String;
+    } else {
+      vriType = '';
     }
     if (json['docTitle'] != null) {
       docTitle = json['docTitle'] as String;
+    } else {
+      docTitle = '';
     }
     if (json['applicable'] != null) {
       applicable =
@@ -132,7 +168,15 @@ class Applicable {
   });
 
   Applicable.fromJson(Map<String, dynamic> json) {
-    certNum = json['certNum'] as String?;
-    stickerNum = json['stickerNum'] as String;
+    if (json['certNum'] != null) {
+      certNum = json['certNum'] as String?;
+    } else {
+      certNum = '';
+    }
+    if (json['stickerNum'] != null) {
+      stickerNum = json['stickerNum'] as String;
+    } else {
+      stickerNum = '';
+    }
   }
 }

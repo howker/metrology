@@ -79,17 +79,61 @@ class Items {
   });
 
   Items.fromJson(Map<String, dynamic> json) {
-    vriId = json['vri_id'] as String?;
-    orgTitle = json['org_title'] as String?;
-    mitNumber = json['mit_number'] as String?;
-    mitTitle = json['mit_title'] as String?;
-    mitNotation = json['mit_notation'] as String?;
-    miModification = json['mi_modification'] as String?;
-    miNumber = json['mi_number'] as String?;
-    verificationDate = json['verification_date'] as String?;
-    validDate = json['valid_date'] as String?;
-    resultDocnum = json['result_docnum'] as String?;
-    applicability = json['applicability'] as bool?;
+    if (json['vri_id'] != null) {
+      vriId = json['vri_id'] as String;
+    } else {
+      vriId = '';
+    }
+    if (json['org_title'] != null) {
+      orgTitle = json['org_title'] as String;
+    } else {
+      orgTitle = '';
+    }
+    if (json['mit_number'] != null) {
+      mitNumber = json['mit_number'] as String;
+    } else {
+      mitNumber = '';
+    }
+    if (json['mit_title'] != null) {
+      mitTitle = json['mit_title'] as String;
+    } else {
+      mitTitle = '';
+    }
+    if (json['mit_notation'] != null) {
+      mitNotation = json['mit_notation'] as String;
+    } else {
+      mitNotation = '';
+    }
+    if (json['mi_modification'] != null) {
+      miModification = json['mi_modification'] as String;
+    } else {
+      miModification = '';
+    }
+    if (json['mi_number'] != null) {
+      miNumber = json['mi_number'] as String;
+    } else {
+      miNumber = '';
+    }
+    if (json['verification_date'] != null) {
+      verificationDate = json['verification_date'] as String;
+    } else {
+      verificationDate = '';
+    }
+    if (json['valid_date'] != null) {
+      validDate = json['valid_date'] as String;
+    } else {
+      validDate = '';
+    }
+    if (json['result_docnum'] != null) {
+      resultDocnum = json['result_docnum'] as String;
+    } else {
+      resultDocnum = '';
+    }
+    if (json['applicability'] != null) {
+      applicability = json['applicability'] as bool;
+    } else {
+      applicability = false;
+    }
   }
 
   Map<String, dynamic> toJson() {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/buttons_provider.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
+import 'package:infopoverka/providers/screen_provider.dart';
 import 'package:infopoverka/screens/search/search_screen.dart';
 import 'package:infopoverka/utils/input_utils.dart';
 import 'package:provider/provider.dart';

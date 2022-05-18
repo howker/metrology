@@ -26,15 +26,6 @@ class SearchScreenAppBar extends StatelessWidget
         else
           IconButton(
             onPressed: () {
-              //TODO(me): add all to favorites
-            },
-            icon: const Icon(Icons.star_outline_outlined),
-          ),
-        if (selectedList.isEmpty)
-          const SizedBox.shrink()
-        else
-          IconButton(
-            onPressed: () {
               context
                   .read<SelectProvider>()
                   .addAllItemsToSelectedList(itemsList: items);
