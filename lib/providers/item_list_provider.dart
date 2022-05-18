@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:infopoverka/data/favorites_repository.dart';
 import 'package:infopoverka/data/items_repository.dart';
 import 'package:infopoverka/models/item.dart';
@@ -120,17 +121,22 @@ class ItemListProvider extends ChangeNotifier {
 
       _items.addAll(item.result.items);
 
-      // TODO(me): add user settings fo enable/disable accurate search,
-      _accurateList.addAll(
-        _items.where((element) => element.miNumber == search).toSet(),
-      );
-      _items.clear(); //activate it for accurate search
+      final box = await Hive.openBox<bool>('accurateBox');
+      final isAccurateSearchMode = box.get('accurateBox') as bool;
 
-      if (_accurateList.isNotEmpty) {
-        await setElementsIsFavorite();
+      if (isAccurateSearchMode) {
+        _accurateList.addAll(
+          _items.where((element) => element.miNumber == search).toSet(),
+        );
+        _items.clear(); //activate it for accurate search
+        if (_accurateList.isNotEmpty) {
+          final accurateSet = await setElementsIsFavorite(_accurateList);
+          _items.addAll(accurateSet);
+        }
+      } else {
+        final rawSet = await setElementsIsFavorite(_items);
+        _items.addAll(rawSet);
       }
-
-      _items.addAll(_accurateList);
 
       setFilteredList(
         onlyActualData: false,
@@ -175,10 +181,10 @@ class ItemListProvider extends ChangeNotifier {
   Future<Items?> getItemByVriId(String vriId) async =>
       itemsRepo.getItemByVriId(vriId: vriId);
 
-  Future<void> setElementsIsFavorite() async {
+  Future<Set<Items>> setElementsIsFavorite(Set<Items> itemsList) async {
     final favoritesList = await favoritesRepo.getFavoritesListFromStorage();
     if (favoritesList != null) {
-      for (final i in _accurateList) {
+      for (final i in itemsList) {
         for (final j in favoritesList) {
           if (i.vriId == j.vriId) {
             i.isFavorite = true;
@@ -186,5 +192,6 @@ class ItemListProvider extends ChangeNotifier {
         }
       }
     }
+    return itemsList;
   }
 }
