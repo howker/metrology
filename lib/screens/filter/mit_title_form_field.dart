@@ -20,42 +20,45 @@ class MitTitleFormField extends StatelessWidget {
       text: context.watch<FilterProvider>().mitTitleFormFieldText,
     );
     final items = context.watch<ItemListProvider>().filteredList;
-    return TypeAheadFormField(
-      hideOnEmpty: true,
-      noItemsFoundBuilder: (context) => const Text(''),
-      textFieldConfiguration: TextFieldConfiguration(
-        onTap: () {
-          //
-        },
-        controller: typeAheadController,
-        style: Theme.of(context).textTheme.bodyLarge,
-        decoration: const InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          labelText: 'Фильтровать по типу СИ',
-          border: OutlineInputBorder(),
+    return Visibility(
+      //visible: false,
+      child: TypeAheadFormField(
+        hideOnEmpty: true,
+        noItemsFoundBuilder: (context) => const Text(''),
+        textFieldConfiguration: TextFieldConfiguration(
+          onTap: () {
+            //
+          },
+          controller: typeAheadController,
+          style: Theme.of(context).textTheme.bodyLarge,
+          decoration: const InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            labelText: 'Фильтровать по типу СИ',
+            border: OutlineInputBorder(),
+          ),
         ),
-      ),
-      itemBuilder: (context, Items suggestion) {
-        return Text(suggestion.mitTitle!);
-      },
-      onSuggestionSelected: (Items suggestion) {
-        context
-            .read<FilterProvider>()
-            .setMitTitleFormFieldText(suggestion.mitTitle!);
+        itemBuilder: (context, Items suggestion) {
+          return Text(suggestion.mitTitle!);
+        },
+        onSuggestionSelected: (Items suggestion) {
+          context
+              .read<FilterProvider>()
+              .setMitTitleFormFieldText(suggestion.mitTitle!);
 
-        context.read<ItemListProvider>().setFilteredList(
-              onlyActualData: onlyActualDataSwitcherState,
-              onlyInvalidData: onlyInvalidDataSwitcherState,
-              mitTitleFilter: suggestion.mitTitle!,
-              mitNotation: suggestion.mitNotation!,
-              orgTitle: suggestion.orgTitle!,
-            );
-      },
-      suggestionsCallback: (pattern) {
-        return items.where(
-          (element) => element.mitTitle!.toLowerCase().contains(pattern),
-        );
-      },
+          context.read<ItemListProvider>().setFilteredList(
+                onlyActualData: onlyActualDataSwitcherState,
+                onlyInvalidData: onlyInvalidDataSwitcherState,
+                mitTitleFilter: suggestion.mitTitle!,
+                mitNotation: suggestion.mitNotation!,
+                orgTitle: suggestion.orgTitle!,
+              );
+        },
+        suggestionsCallback: (pattern) {
+          return items.where(
+            (element) => element.mitTitle!.toLowerCase().contains(pattern),
+          );
+        },
+      ),
     );
   }
 }
