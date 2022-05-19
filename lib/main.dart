@@ -12,6 +12,7 @@ import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
 import 'package:infopoverka/providers/select_provider.dart';
+import 'package:infopoverka/providers/theme_provider.dart';
 import 'package:infopoverka/root_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -75,18 +76,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ButtonsProvider>(
           create: (_) => ButtonsProvider(),
         ),
+        ChangeNotifierProvider<ThemeProvider>(
+          create: (_) => ThemeProvider(),
+        ),
       ],
-      child: ValueListenableBuilder(
-        builder: (context, Box box, _) {
-          final darkMode = box.get('darkModeBox', defaultValue: false) as bool;
-          return MaterialApp(
-            themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
-            darkTheme: ThemeData.dark(),
-            home: const RootScreen(),
-          );
-        },
-        valueListenable: Hive.box<bool>('darkModeBox').listenable(),
-      ),
+      child: const RootScreen(),
     );
   }
 }

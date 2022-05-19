@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
+import 'package:infopoverka/providers/theme_provider.dart';
 import 'package:infopoverka/screens/favorites/favorites_screen.dart';
 import 'package:infopoverka/screens/home/home_screen.dart';
 import 'package:infopoverka/screens/settings/settings_screen.dart';
@@ -17,6 +18,11 @@ class RootScreen extends StatelessWidget {
       const SettingsScreen(),
     ];
     return MaterialApp(
+      themeMode: context.watch<ThemeProvider>().getIsDark
+          ? ThemeMode.dark
+          : ThemeMode.light,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       home: screens[index],
     );
   }
