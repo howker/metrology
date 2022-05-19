@@ -24,6 +24,9 @@ class MitTitleFormField extends StatelessWidget {
       hideOnEmpty: true,
       noItemsFoundBuilder: (context) => const Text(''),
       textFieldConfiguration: TextFieldConfiguration(
+        onTap: () {
+          //
+        },
         controller: typeAheadController,
         style: Theme.of(context).textTheme.bodyLarge,
         decoration: const InputDecoration(

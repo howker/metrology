@@ -15,20 +15,24 @@ class SettingsScreen extends StatelessWidget {
         title: const Text('Настройки'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Switch.adaptive(
-                value: isDark,
-                onChanged: (newValue) {
-                  context.read<ThemeProvider>().changeTheme();
-                },
-              ),
-              const Text('Тёмная тема'),
-            ],
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Тёмная тема'),
+                Switch.adaptive(
+                  value: isDark,
+                  onChanged: (newValue) {
+                    context.read<ThemeProvider>().changeTheme();
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
