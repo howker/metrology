@@ -3,6 +3,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
+import 'package:infopoverka/providers/visibility_provider.dart';
 import 'package:provider/provider.dart';
 
 class MitTitleFormField extends StatelessWidget {
@@ -21,7 +22,7 @@ class MitTitleFormField extends StatelessWidget {
     );
     final items = context.watch<ItemListProvider>().filteredList;
     return Visibility(
-      //visible: false,
+      visible: context.watch<VisibilityProvider>().mitTitleFormFieldvisibility,
       child: TypeAheadFormField(
         hideOnEmpty: true,
         noItemsFoundBuilder: (context) => const Text(''),

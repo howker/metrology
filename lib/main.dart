@@ -13,6 +13,7 @@ import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
 import 'package:infopoverka/providers/select_provider.dart';
 import 'package:infopoverka/providers/theme_provider.dart';
+import 'package:infopoverka/providers/visibility_provider.dart';
 import 'package:infopoverka/root_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -78,6 +79,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<ThemeProvider>(
           create: (_) => ThemeProvider(),
+        ),
+        ChangeNotifierProvider<VisibilityProvider>(
+          create: (_) => VisibilityProvider(),
         ),
       ],
       child: const RootScreen(),
