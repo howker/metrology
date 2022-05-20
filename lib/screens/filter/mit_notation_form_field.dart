@@ -3,6 +3,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
+import 'package:infopoverka/providers/visibility_provider.dart';
 import 'package:provider/provider.dart';
 
 class MitNotationFormField extends StatelessWidget {
@@ -20,45 +21,54 @@ class MitNotationFormField extends StatelessWidget {
       text: context.watch<FilterProvider>().mitNotationFieldText,
     );
     final items = context.watch<ItemListProvider>().filteredList;
-    return TypeAheadFormField(
-      hideOnEmpty: true,
-      noItemsFoundBuilder: (context) => const Text(''),
-      textFieldConfiguration: TextFieldConfiguration(
-        controller: typeAheadController,
-        style: Theme.of(context).textTheme.bodyLarge,
-        decoration: const InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          labelText: 'Фильтровать по модификации СИ',
-          border: OutlineInputBorder(),
+    return Visibility(
+      visible:
+          context.watch<VisibilityProvider>().mitNotationFormFieldVisibility,
+      child: TypeAheadFormField(
+        hideOnEmpty: true,
+        noItemsFoundBuilder: (context) => const Text(''),
+        textFieldConfiguration: TextFieldConfiguration(
+          onTap: () =>
+              context.read<VisibilityProvider>().mitNotationFormSetActive(),
+          onEditingComplete: () =>
+              context.read<VisibilityProvider>().allFormsSetActive(),
+          controller: typeAheadController,
+          style: Theme.of(context).textTheme.bodyLarge,
+          decoration: const InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            labelText: 'Фильтровать по модификации СИ',
+            border: OutlineInputBorder(),
+          ),
         ),
-      ),
-      itemBuilder: (context, Items suggestion) {
-        return Text(suggestion.mitNotation!);
-      },
-      onSuggestionSelected: (Items suggestion) {
-        context
-            .read<FilterProvider>()
-            .setMitNotationFieldText(suggestion.mitNotation!);
+        itemBuilder: (context, Items suggestion) {
+          return Text(suggestion.mitNotation!);
+        },
+        onSuggestionSelected: (Items suggestion) {
+          context
+              .read<FilterProvider>()
+              .setMitNotationFieldText(suggestion.mitNotation!);
 
-        context.read<ItemListProvider>().setFilteredList(
-              onlyActualData: onlyActualDataSwitcherState,
-              onlyInvalidData: onlyInvalidDataSwitcherState,
-              mitTitleFilter: suggestion.mitTitle!,
-              mitNotation: suggestion.mitNotation!,
-              orgTitle: suggestion.orgTitle!,
-            );
-      },
-      suggestionsCallback: (pattern) {
-        return items.where(
-          (element) {
-            if (element.mitNotation != null) {
-              return element.mitNotation!.toLowerCase().contains(pattern);
-            } else {
-              return false;
-            }
-          },
-        );
-      },
+          context.read<ItemListProvider>().setFilteredList(
+                onlyActualData: onlyActualDataSwitcherState,
+                onlyInvalidData: onlyInvalidDataSwitcherState,
+                mitTitleFilter: suggestion.mitTitle!,
+                mitNotation: suggestion.mitNotation!,
+                orgTitle: suggestion.orgTitle!,
+              );
+          context.read<VisibilityProvider>().allFormsSetActive();
+        },
+        suggestionsCallback: (pattern) {
+          return items.where(
+            (element) {
+              if (element.mitNotation != null) {
+                return element.mitNotation!.toLowerCase().contains(pattern);
+              } else {
+                return false;
+              }
+            },
+          );
+        },
+      ),
     );
   }
 }

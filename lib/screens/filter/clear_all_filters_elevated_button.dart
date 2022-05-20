@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
+import 'package:infopoverka/providers/visibility_provider.dart';
 import 'package:infopoverka/utils/input_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +26,7 @@ class ClearAllFiltersTextButton extends StatelessWidget {
               mitNotation: '',
               orgTitle: '',
             );
+        context.read<VisibilityProvider>().allFormsSetActive();
       },
       child: const Text('Очистить все фильтры'),
     );

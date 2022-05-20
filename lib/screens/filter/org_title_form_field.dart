@@ -3,6 +3,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
+import 'package:infopoverka/providers/visibility_provider.dart';
 import 'package:provider/provider.dart';
 
 class OrgTitleFormField extends StatelessWidget {
@@ -20,45 +21,53 @@ class OrgTitleFormField extends StatelessWidget {
       text: context.watch<FilterProvider>().orgTitleFieldText,
     );
     final items = context.watch<ItemListProvider>().filteredList;
-    return TypeAheadFormField(
-      hideOnEmpty: true,
-      noItemsFoundBuilder: (context) => const Text(''),
-      textFieldConfiguration: TextFieldConfiguration(
-        controller: typeAheadController,
-        style: Theme.of(context).textTheme.bodyLarge,
-        decoration: const InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          labelText: 'Фильтровать по поверителю',
-          border: OutlineInputBorder(),
+    return Visibility(
+      visible: context.watch<VisibilityProvider>().orgTitleFormFieldVisibility,
+      child: TypeAheadFormField(
+        hideOnEmpty: true,
+        noItemsFoundBuilder: (context) => const Text(''),
+        textFieldConfiguration: TextFieldConfiguration(
+          onTap: () =>
+              context.read<VisibilityProvider>().mitOrgTitleFormSetActive(),
+          onEditingComplete: () =>
+              context.read<VisibilityProvider>().allFormsSetActive(),
+          controller: typeAheadController,
+          style: Theme.of(context).textTheme.bodyLarge,
+          decoration: const InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            labelText: 'Фильтровать по поверителю',
+            border: OutlineInputBorder(),
+          ),
         ),
-      ),
-      itemBuilder: (context, Items suggestion) {
-        return Text(suggestion.orgTitle!);
-      },
-      onSuggestionSelected: (Items suggestion) {
-        context
-            .read<FilterProvider>()
-            .setOrgTitleFieldText(suggestion.orgTitle!);
+        itemBuilder: (context, Items suggestion) {
+          return Text(suggestion.orgTitle!);
+        },
+        onSuggestionSelected: (Items suggestion) {
+          context
+              .read<FilterProvider>()
+              .setOrgTitleFieldText(suggestion.orgTitle!);
 
-        context.read<ItemListProvider>().setFilteredList(
-              onlyActualData: onlyActualDataSwitcherState,
-              onlyInvalidData: onlyInvalidDataSwitcherState,
-              mitTitleFilter: suggestion.mitTitle!,
-              mitNotation: suggestion.mitNotation!,
-              orgTitle: suggestion.orgTitle!,
-            );
-      },
-      suggestionsCallback: (pattern) {
-        return items.where(
-          (element) {
-            if (element.orgTitle != null) {
-              return element.orgTitle!.toLowerCase().contains(pattern);
-            } else {
-              return false;
-            }
-          },
-        );
-      },
+          context.read<ItemListProvider>().setFilteredList(
+                onlyActualData: onlyActualDataSwitcherState,
+                onlyInvalidData: onlyInvalidDataSwitcherState,
+                mitTitleFilter: suggestion.mitTitle!,
+                mitNotation: suggestion.mitNotation!,
+                orgTitle: suggestion.orgTitle!,
+              );
+          context.read<VisibilityProvider>().allFormsSetActive();
+        },
+        suggestionsCallback: (pattern) {
+          return items.where(
+            (element) {
+              if (element.orgTitle != null) {
+                return element.orgTitle!.toLowerCase().contains(pattern);
+              } else {
+                return false;
+              }
+            },
+          );
+        },
+      ),
     );
   }
 }

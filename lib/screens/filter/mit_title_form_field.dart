@@ -27,9 +27,12 @@ class MitTitleFormField extends StatelessWidget {
         hideOnEmpty: true,
         noItemsFoundBuilder: (context) => const Text(''),
         textFieldConfiguration: TextFieldConfiguration(
-          onTap: () {
-            //
-          },
+          onTap: () =>
+              context.read<VisibilityProvider>().mitTitleFormSetActive(),
+          onEditingComplete: () =>
+              context.read<VisibilityProvider>().allFormsSetActive(),
+          onSubmitted: (val) =>
+              context.read<VisibilityProvider>().allFormsSetActive(),
           controller: typeAheadController,
           style: Theme.of(context).textTheme.bodyLarge,
           decoration: const InputDecoration(
@@ -53,6 +56,7 @@ class MitTitleFormField extends StatelessWidget {
                 mitNotation: suggestion.mitNotation!,
                 orgTitle: suggestion.orgTitle!,
               );
+          context.read<VisibilityProvider>().allFormsSetActive();
         },
         suggestionsCallback: (pattern) {
           return items.where(
