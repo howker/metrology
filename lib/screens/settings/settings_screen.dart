@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/theme_provider.dart';
-import 'package:infopoverka/screens/home/bottom_navi_bar.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -10,7 +9,6 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = context.watch<ThemeProvider>().isDark;
     return Scaffold(
-      bottomNavigationBar: const BottomNaviBar(),
       appBar: AppBar(
         title: const Text('Настройки'),
         centerTitle: true,

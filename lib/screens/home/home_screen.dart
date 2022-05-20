@@ -3,7 +3,6 @@ import 'package:infopoverka/key_packages.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/home/accurate_on_off_switcher.dart';
-import 'package:infopoverka/screens/home/bottom_navi_bar.dart';
 import 'package:infopoverka/screens/home/change_range_button.dart';
 import 'package:infopoverka/screens/home/qr_floating_button.dart';
 import 'package:infopoverka/screens/home/search_elevated_button.dart';
@@ -27,7 +26,6 @@ class HomeScreen extends StatelessWidget {
           style: AppTextStyles.kSFBody14,
         ),
       ),
-      bottomNavigationBar: const BottomNaviBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(

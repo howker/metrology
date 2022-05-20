@@ -3,7 +3,6 @@ import 'package:infopoverka/providers/favorites_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
 import 'package:infopoverka/providers/select_provider.dart';
 import 'package:infopoverka/screens/favorites/favorites_screen_app_bar.dart';
-import 'package:infopoverka/screens/home/bottom_navi_bar.dart';
 import 'package:infopoverka/screens/search/item_card_widget.dart';
 import 'package:infopoverka/screens/search/share_button.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +16,6 @@ class FavoritesScreen extends StatelessWidget {
     if (context.watch<FavoritesProvider>().loadingState == true) {
       return SafeArea(
         child: Scaffold(
-          bottomNavigationBar: const BottomNaviBar(),
           appBar: AppBar(),
           body: const Center(
             child: CircularProgressIndicator(),
@@ -28,7 +26,6 @@ class FavoritesScreen extends StatelessWidget {
     if (favoritesList.isEmpty) {
       return SafeArea(
         child: Scaffold(
-          bottomNavigationBar: const BottomNaviBar(),
           appBar: AppBar(
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
@@ -48,7 +45,6 @@ class FavoritesScreen extends StatelessWidget {
             context.watch<SelectProvider>().selectedList.isEmpty
                 ? const SizedBox.shrink()
                 : const ShareButton(),
-        bottomNavigationBar: const BottomNaviBar(),
         appBar: const FavoritesScreenAppBar(),
         body: ListView.builder(
           padding: const EdgeInsets.only(top: 5),
