@@ -18,7 +18,14 @@ class RootScreen extends StatelessWidget {
       themeMode: context.watch<ThemeProvider>().getIsDark
           ? ThemeMode.dark
           : ThemeMode.light,
-      theme: ThemeData.light(),
+      theme: ThemeData.light().copyWith(
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          },
+        ),
+      ),
       darkTheme: ThemeData.dark(),
       home: Scaffold(
         bottomNavigationBar: const BottomNaviBar(),

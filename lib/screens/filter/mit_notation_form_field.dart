@@ -4,6 +4,7 @@ import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/providers/visibility_provider.dart';
+import 'package:infopoverka/utils/input_utils.dart';
 import 'package:provider/provider.dart';
 
 class MitNotationFormField extends StatelessWidget {
@@ -32,6 +33,9 @@ class MitNotationFormField extends StatelessWidget {
               context.read<VisibilityProvider>().mitNotationFormSetActive(),
           onEditingComplete: () =>
               context.read<VisibilityProvider>().allFormsSetActive(),
+          onSubmitted: (val) {
+            InputUtils.hideKeyboard();
+          },
           controller: typeAheadController,
           style: Theme.of(context).textTheme.bodyLarge,
           decoration: const InputDecoration(

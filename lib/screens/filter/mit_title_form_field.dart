@@ -4,6 +4,7 @@ import 'package:infopoverka/models/item.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/providers/visibility_provider.dart';
+import 'package:infopoverka/utils/input_utils.dart';
 import 'package:provider/provider.dart';
 
 class MitTitleFormField extends StatelessWidget {
@@ -31,8 +32,10 @@ class MitTitleFormField extends StatelessWidget {
               context.read<VisibilityProvider>().mitTitleFormSetActive(),
           onEditingComplete: () =>
               context.read<VisibilityProvider>().allFormsSetActive(),
-          onSubmitted: (val) =>
-              context.read<VisibilityProvider>().allFormsSetActive(),
+          onSubmitted: (val) {
+            context.read<VisibilityProvider>().allFormsSetActive();
+            InputUtils.hideKeyboard();
+          },
           controller: typeAheadController,
           style: Theme.of(context).textTheme.bodyLarge,
           decoration: const InputDecoration(
