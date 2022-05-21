@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
-import 'package:infopoverka/providers/screen_provider.dart';
 import 'package:infopoverka/providers/select_provider.dart';
-import 'package:infopoverka/screens/home/bottom_navi_bar.dart';
 import 'package:infopoverka/screens/search/cancel_button.dart';
 import 'package:infopoverka/screens/search/empty_appbar.dart';
 import 'package:infopoverka/screens/search/filter_button.dart';

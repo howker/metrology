@@ -8,8 +8,8 @@ class AccurateOnOffSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      builder: (context, Box box, _) {
+    return ValueListenableBuilder<Box>(
+      builder: (context, box, _) {
         final isAccurateSearchMode =
             box.get('accurateBox', defaultValue: true) as bool;
         return SizedBox(

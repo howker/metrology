@@ -69,8 +69,7 @@ class ReestrItemsRemoteDataSource {
           verificationDate: element.result.vriInfo.vrfDate ?? '',
           validDate: element.result.vriInfo.validDate ?? '',
           resultDocnum: element.result.vriInfo.applicable?.certNum ?? '',
-          applicability:
-              element.result.vriInfo.applicable?.certNum == '' ? false : true,
+          applicability: element.result.vriInfo.applicable?.certNum != '',
           isFavorite: false,
           isSelected: false,
         );

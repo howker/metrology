@@ -17,8 +17,6 @@ import 'package:infopoverka/providers/visibility_provider.dart';
 import 'package:infopoverka/root_screen.dart';
 import 'package:provider/provider.dart';
 
-// TODO(me): for animation all elements : animations: ^2.0.2
-
 ///this block is solution for error:
 ///CERTIFICATE_VERIFY_FAILED: unable to get local issuer certificate Error
 class MyHttpOverrides extends HttpOverrides {

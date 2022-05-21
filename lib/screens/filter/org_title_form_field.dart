@@ -24,7 +24,7 @@ class OrgTitleFormField extends StatelessWidget {
     final items = context.watch<ItemListProvider>().filteredList;
     return Visibility(
       visible: context.watch<VisibilityProvider>().orgTitleFormFieldVisibility,
-      child: TypeAheadFormField(
+      child: TypeAheadFormField<Items>(
         hideOnEmpty: true,
         noItemsFoundBuilder: (context) => const Text(''),
         textFieldConfiguration: TextFieldConfiguration(
@@ -43,10 +43,10 @@ class OrgTitleFormField extends StatelessWidget {
             border: OutlineInputBorder(),
           ),
         ),
-        itemBuilder: (context, Items suggestion) {
+        itemBuilder: (context, suggestion) {
           return Text(suggestion.orgTitle!);
         },
-        onSuggestionSelected: (Items suggestion) {
+        onSuggestionSelected: (suggestion) {
           context
               .read<FilterProvider>()
               .setOrgTitleFieldText(suggestion.orgTitle!);

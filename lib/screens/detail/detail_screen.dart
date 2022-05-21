@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/providers/select_provider.dart';
-import 'package:infopoverka/screens/search/empty_appbar.dart';
 import 'package:infopoverka/screens/search/item_card_widget.dart';
 import 'package:infopoverka/screens/search/share_button.dart';
 import 'package:provider/provider.dart';

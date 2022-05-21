@@ -25,7 +25,7 @@ class MitNotationFormField extends StatelessWidget {
     return Visibility(
       visible:
           context.watch<VisibilityProvider>().mitNotationFormFieldVisibility,
-      child: TypeAheadFormField(
+      child: TypeAheadFormField<Items>(
         hideOnEmpty: true,
         noItemsFoundBuilder: (context) => const Text(''),
         textFieldConfiguration: TextFieldConfiguration(
@@ -44,10 +44,10 @@ class MitNotationFormField extends StatelessWidget {
             border: OutlineInputBorder(),
           ),
         ),
-        itemBuilder: (context, Items suggestion) {
+        itemBuilder: (context, suggestion) {
           return Text(suggestion.mitNotation!);
         },
-        onSuggestionSelected: (Items suggestion) {
+        onSuggestionSelected: (suggestion) {
           context
               .read<FilterProvider>()
               .setMitNotationFieldText(suggestion.mitNotation!);
