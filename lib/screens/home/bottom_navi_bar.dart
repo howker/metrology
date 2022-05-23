@@ -50,3 +50,5 @@ class BottomNaviBar extends StatelessWidget {
     );
   }
 }
+
+//TODO сделать боттом нави бар с вырезом
