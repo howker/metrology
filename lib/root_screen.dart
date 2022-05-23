@@ -38,5 +38,5 @@ class RootScreen extends StatelessWidget {
 const screens = <Widget>[
   HomeScreen(),
   FavoritesScreen(),
-  SettingsScreen(),
+  //SettingsScreen(),
 ];

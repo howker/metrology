@@ -40,11 +40,11 @@ class BottomNaviBar extends StatelessWidget {
             label: 'Избранное',
             selectedIcon: Icon(Icons.star),
           ),
-          NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            label: 'Настройки',
-            selectedIcon: Icon(Icons.settings_rounded),
-          ),
+          // NavigationDestination(
+          //   icon: Icon(Icons.settings_outlined),
+          //   label: 'Настройки',
+          //   selectedIcon: Icon(Icons.settings_rounded),
+          // ),
         ],
       ),
     );

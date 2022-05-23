@@ -6,6 +6,7 @@ import 'package:infopoverka/screens/home/accurate_on_off_switcher.dart';
 import 'package:infopoverka/screens/home/change_range_button.dart';
 import 'package:infopoverka/screens/home/qr_floating_button.dart';
 import 'package:infopoverka/screens/home/search_elevated_button.dart';
+import 'package:infopoverka/screens/settings/settings_screen.dart';
 import 'package:infopoverka/utils/input_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +20,12 @@ class HomeScreen extends StatelessWidget {
     InputUtils.hideKeyboard();
 
     return Scaffold(
+      drawer: const Drawer(
+        child: SettingsScreen(),
+      ),
       floatingActionButton: const QrFloatingButton(),
       appBar: AppBar(
+        backgroundColor: Colors.red.shade400,
         title: const Text(
           'Поиск сведений о результатах поверки СИ',
           style: AppTextStyles.kSFBody14,
