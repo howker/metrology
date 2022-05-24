@@ -40,3 +40,6 @@ const screens = <Widget>[
   FavoritesScreen(),
   //SettingsScreen(),
 ];
+
+
+ //  : Color.fromARGB(255, 57, 59, 75), - BottomNaviBar color
