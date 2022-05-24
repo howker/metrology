@@ -24,23 +24,26 @@ class _QrFloatingButtonState extends State<QrFloatingButton> {
         builder: (_, color, __) {
           return ColorFiltered(
             colorFilter: ColorFilter.mode(color!, BlendMode.modulate),
-            child: FloatingActionButton(
-              elevation: 10,
-              shape: CircleBorder(
-                side: BorderSide(color: color, width: 3.0),
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: FloatingActionButton(
+                elevation: 10,
+                shape: CircleBorder(
+                  side: BorderSide(color: color, width: 3.0),
+                ),
+                backgroundColor:
+                    !context.watch<ButtonsProvider>().isQrButtonActive
+                        ? Color.fromARGB(255, 9, 146, 14)
+                        : Colors.grey,
+                child: const Icon(Icons.qr_code),
+                onPressed: () {
+                  context.read<ButtonsProvider>().qrButtonClicked();
+                  final Route route = MaterialPageRoute<dynamic>(
+                    builder: (context) => const QrScanner(),
+                  );
+                  Navigator.push<void>(context, route);
+                },
               ),
-              backgroundColor:
-                  !context.watch<ButtonsProvider>().isQrButtonActive
-                      ? Color.fromARGB(255, 9, 146, 14)
-                      : Colors.grey,
-              child: const Icon(Icons.qr_code),
-              onPressed: () {
-                context.read<ButtonsProvider>().qrButtonClicked();
-                final Route route = MaterialPageRoute<dynamic>(
-                  builder: (context) => const QrScanner(),
-                );
-                Navigator.push<void>(context, route);
-              },
             ),
           );
         },

@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
         child: SettingsScreen(),
       ),
       floatingActionButton: const QrFloatingButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
         backgroundColor: Colors.red.shade400,
         title: const Text(
