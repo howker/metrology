@@ -26,14 +26,16 @@ class SearchScreen extends StatelessWidget {
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Spacer(),
-                LoadingYearIndicator(),
-                Spacer(),
-                CircularProgressIndicator(),
-                Spacer(),
-                CancelButton(),
-                Spacer(),
+              children: [
+                const Spacer(),
+                const LoadingYearIndicator(),
+                const Spacer(),
+                CircularProgressIndicator(
+                  color: Colors.green.shade900,
+                ),
+                const Spacer(),
+                const CancelButton(),
+                const Spacer(),
               ],
             ),
           ), //

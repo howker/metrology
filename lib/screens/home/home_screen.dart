@@ -38,7 +38,6 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 10),
-              const AccurateOnOffSwitcher(),
               SizedBox(
                 height: 55,
                 width: double.infinity,
@@ -49,9 +48,7 @@ class HomeScreen extends StatelessWidget {
                     prefixIcon: const AnimatedArrow(),
                     label: Text(
                       '     Введите номер СИ',
-
                       style: Theme.of(context).textTheme.overline,
-                      //textAlign: TextAlign.center
                     ),
                   ),
                   controller: textEditingController,
@@ -84,6 +81,7 @@ class HomeScreen extends StatelessWidget {
               ),
               ChangeRangeButton(),
               const SearchElevatedButton(),
+              const AccurateOnOffSwitcher(),
             ],
           ),
         ),

@@ -11,7 +11,7 @@ class LoadingYearIndicator extends StatelessWidget {
     final currentSearchingYear =
         context.watch<ItemListProvider>().currentSearchingYear;
     return Shimmer.fromColors(
-      baseColor: Colors.blue,
+      baseColor: Colors.green,
       highlightColor: Colors.white,
       child: Text(
         currentSearchingYear,

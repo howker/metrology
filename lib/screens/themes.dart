@@ -20,7 +20,7 @@ final lightTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      elevation: 0,
+      elevation: 5,
       primary: lmElevatedButtonColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -113,7 +113,7 @@ final darkTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      elevation: 0,
+      elevation: 5,
       primary: dmElevatedButtonColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
