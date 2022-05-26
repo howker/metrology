@@ -34,8 +34,8 @@ class HomeScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 10),
             const AccurateOnOffSwitcher(),
             SizedBox(
               height: 55,

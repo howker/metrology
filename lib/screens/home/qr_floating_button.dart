@@ -26,16 +26,16 @@ class _QrFloatingButtonState extends State<QrFloatingButton> {
             colorFilter: ColorFilter.mode(color!, BlendMode.modulate),
             child: Padding(
               padding: const EdgeInsets.all(5.0),
-              child: FloatingActionButton(
+              child: FloatingActionButton.extended(
                 elevation: 10,
-                shape: CircleBorder(
+                shape: RoundedRectangleBorder(
                   side: BorderSide(color: color, width: 3.0),
+                  borderRadius: BorderRadius.circular(30),
                 ),
                 backgroundColor:
                     !context.watch<ButtonsProvider>().isQrButtonActive
                         ? Color.fromARGB(255, 9, 146, 14)
                         : Colors.grey,
-                child: const Icon(Icons.qr_code),
                 onPressed: () {
                   context.read<ButtonsProvider>().qrButtonClicked();
                   final Route route = MaterialPageRoute<dynamic>(
@@ -43,6 +43,12 @@ class _QrFloatingButtonState extends State<QrFloatingButton> {
                   );
                   Navigator.push<void>(context, route);
                 },
+                label: Row(
+                  children: const [
+                    Icon(Icons.qr_code),
+                    Text(' Сканировать QR'),
+                  ],
+                ),
               ),
             ),
           );
