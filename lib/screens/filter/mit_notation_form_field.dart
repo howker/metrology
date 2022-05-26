@@ -45,7 +45,10 @@ class MitNotationFormField extends StatelessWidget {
           ),
         ),
         itemBuilder: (context, suggestion) {
-          return Text(suggestion.mitNotation!);
+          return Text(
+            suggestion.mitNotation!,
+            style: Theme.of(context).textTheme.headline2,
+          );
         },
         onSuggestionSelected: (suggestion) {
           context

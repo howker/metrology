@@ -25,23 +25,29 @@ class FilterScreen extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
-            children: const [
-              Align(
+            children: [
+              const Align(
                 alignment: Alignment.centerRight,
                 child: ClearAllFiltersTextButton(),
               ),
-              MitTitleFormField(),
-              SizedBox(height: 6),
-              MitNotationFormField(),
-              SizedBox(height: 6),
-              OrgTitleFormField(),
-              Spacer(),
-              ActualDataSwitcher(),
-              Text('с актуальной поверкой'),
-              Divider(thickness: 1),
-              InvalidDataSwitcher(),
-              Text('с просроченной поверкой'),
-              Spacer(flex: 5),
+              const MitTitleFormField(),
+              const SizedBox(height: 6),
+              const MitNotationFormField(),
+              const SizedBox(height: 6),
+              const OrgTitleFormField(),
+              const Spacer(),
+              const ActualDataSwitcher(),
+              Text(
+                'с актуальной поверкой',
+                style: Theme.of(context).textTheme.headline2,
+              ),
+              const Divider(thickness: 1),
+              const InvalidDataSwitcher(),
+              Text(
+                'с просроченной поверкой',
+                style: Theme.of(context).textTheme.headline2,
+              ),
+              const Spacer(flex: 5),
             ],
           ),
         ),

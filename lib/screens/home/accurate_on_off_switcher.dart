@@ -29,7 +29,10 @@ class AccurateOnOffSwitcher extends StatelessWidget {
                   },
                 ),
               ),
-              const Text('точный поиск по номеру'),
+              Text(
+                'точный поиск по номеру',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
             ],
           ),
         );

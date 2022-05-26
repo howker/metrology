@@ -44,7 +44,10 @@ class OrgTitleFormField extends StatelessWidget {
           ),
         ),
         itemBuilder: (context, suggestion) {
-          return Text(suggestion.orgTitle!);
+          return Text(
+            suggestion.orgTitle!,
+            style: Theme.of(context).textTheme.headline2,
+          );
         },
         onSuggestionSelected: (suggestion) {
           context

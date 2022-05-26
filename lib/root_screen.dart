@@ -4,7 +4,7 @@ import 'package:infopoverka/providers/theme_provider.dart';
 import 'package:infopoverka/screens/favorites/favorites_screen.dart';
 import 'package:infopoverka/screens/home/bottom_navi_bar.dart';
 import 'package:infopoverka/screens/home/home_screen.dart';
-import 'package:infopoverka/screens/settings/settings_screen.dart';
+import 'package:infopoverka/screens/themes.dart';
 import 'package:provider/provider.dart';
 
 class RootScreen extends StatelessWidget {
@@ -15,18 +15,8 @@ class RootScreen extends StatelessWidget {
     final index = context.watch<ScreenProvider>().currentScreenIndex;
 
     return MaterialApp(
-      themeMode: context.watch<ThemeProvider>().getIsDark
-          ? ThemeMode.dark
-          : ThemeMode.light,
-      theme: ThemeData.light().copyWith(
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: <TargetPlatform, PageTransitionsBuilder>{
-            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          },
-        ),
-      ),
-      darkTheme: ThemeData.dark(),
+      theme: context.watch<ThemeProvider>().getIsDark ? darkTheme : lightTheme,
+      darkTheme: darkTheme,
       home: Scaffold(
         bottomNavigationBar: const BottomNaviBar(),
         body: screens[index],
@@ -38,8 +28,4 @@ class RootScreen extends StatelessWidget {
 const screens = <Widget>[
   HomeScreen(),
   FavoritesScreen(),
-  //SettingsScreen(),
 ];
-
-
- //  : Color.fromARGB(255, 57, 59, 75), - BottomNaviBar color

@@ -45,7 +45,10 @@ class MitTitleFormField extends StatelessWidget {
           ),
         ),
         itemBuilder: (context, suggestion) {
-          return Text(suggestion.mitTitle!);
+          return Text(
+            suggestion.mitTitle!,
+            style: Theme.of(context).textTheme.headline2,
+          );
         },
         onSuggestionSelected: (suggestion) {
           context

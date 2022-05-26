@@ -11,6 +11,7 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      backgroundColor: Colors.green,
       child: const Icon(Icons.filter_list_alt),
       onPressed: () {
         context.read<SelectProvider>().clearSelectedList();

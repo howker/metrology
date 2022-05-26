@@ -14,6 +14,7 @@ class ShareButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedList = context.watch<SelectProvider>().selectedList;
     return FloatingActionButton(
+      backgroundColor: Colors.green,
       child: const Icon(Icons.share),
       onPressed: () async {
         final pdfFile = await PdfApi.generatePdfDoc(selectedList.toList());

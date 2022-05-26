@@ -46,7 +46,10 @@ class SearchScreen extends StatelessWidget {
       );
     } else {
       return Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButtonLocation:
+            context.watch<SelectProvider>().selectedList.isEmpty
+                ? FloatingActionButtonLocation.centerFloat
+                : FloatingActionButtonLocation.endFloat,
         floatingActionButton:
             context.watch<SelectProvider>().selectedList.isEmpty
                 ? const FilterButton()
