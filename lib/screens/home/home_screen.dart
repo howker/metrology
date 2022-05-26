@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/home/accurate_on_off_switcher.dart';
+import 'package:infopoverka/screens/home/animated_arrow.dart';
 import 'package:infopoverka/screens/home/change_range_button.dart';
 import 'package:infopoverka/screens/home/qr_floating_button.dart';
 import 'package:infopoverka/screens/home/search_elevated_button.dart';
@@ -44,11 +45,11 @@ class HomeScreen extends StatelessWidget {
                 child: TextFormField(
                   style: Theme.of(context).textTheme.headline1,
                   decoration: InputDecoration(
-                    prefixIcon: const Icon(
-                      Icons.arrow_forward,
-                    ),
+                    floatingLabelAlignment: FloatingLabelAlignment.center,
+                    prefixIcon: const AnimatedArrow(),
                     label: Text(
-                      'Введите номер СИ',
+                      '     Введите номер СИ',
+
                       style: Theme.of(context).textTheme.overline,
                       //textAlign: TextAlign.center
                     ),
