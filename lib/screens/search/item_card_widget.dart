@@ -36,8 +36,12 @@ class ItemCard extends StatelessWidget {
               color: item.isSelected ? Colors.blue.shade100 : Colors.white,
             ),
             child: ExpansionTile(
+              collapsedIconColor: Colors.black,
               leading: FavoriteButton(item: item),
-              title: Text(item.mitTitle ?? ''),
+              title: Text(
+                item.mitTitle ?? '',
+                style: const TextStyle(color: Colors.black),
+              ),
               subtitle: AbsorbPointer(
                 child: Row(
                   children: [

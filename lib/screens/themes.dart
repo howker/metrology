@@ -92,7 +92,19 @@ final lightTheme = ThemeData(
   ),
 );
 
+///Тёмная тема*************************************************************
 final darkTheme = ThemeData(
+  listTileTheme: const ListTileThemeData(
+    contentPadding: EdgeInsets.symmetric(horizontal: 10),
+    dense: true,
+    horizontalTitleGap: 10.0,
+    minLeadingWidth: 0,
+    enableFeedback: true,
+    textColor: _darkBlack,
+    tileColor: _darkBlack,
+    selectedColor: _darkBlack,
+    selectedTileColor: _darkBlack,
+  ),
   pageTransitionsTheme: const PageTransitionsTheme(
     builders: <TargetPlatform, PageTransitionsBuilder>{
       TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),

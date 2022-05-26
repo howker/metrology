@@ -15,15 +15,14 @@ class BottomNaviBar extends StatelessWidget {
     return NavigationBarTheme(
       data: NavigationBarThemeData(
         indicatorColor: Colors.blue.shade100,
-        labelTextStyle: MaterialStateProperty.all(const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        )),
+        labelTextStyle: MaterialStateProperty.all(
+          Theme.of(context).textTheme.headline2,
+        ),
       ),
       child: NavigationBar(
         selectedIndex: index,
         height: 60,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+        //labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         onDestinationSelected: (selectedIndex) {
           context.read<FavoritesProvider>().getFavoritesItems();
           context.read<ScreenProvider>().setCurrentScreenIndex(selectedIndex);
@@ -32,7 +31,7 @@ class BottomNaviBar extends StatelessWidget {
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
-            label: 'Домой',
+            label: 'Главная',
             selectedIcon: Icon(Icons.home),
           ),
           NavigationDestination(
@@ -40,11 +39,6 @@ class BottomNaviBar extends StatelessWidget {
             label: 'Избранное',
             selectedIcon: Icon(Icons.star),
           ),
-          // NavigationDestination(
-          //   icon: Icon(Icons.settings_outlined),
-          //   label: 'Настройки',
-          //   selectedIcon: Icon(Icons.settings_rounded),
-          // ),
         ],
       ),
     );

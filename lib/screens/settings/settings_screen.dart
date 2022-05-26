@@ -10,7 +10,13 @@ class SettingsScreen extends StatelessWidget {
     final isDark = context.watch<ThemeProvider>().isDark;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Настройки'),
+        title: Text(
+          'Настройки',
+          style: Theme.of(context)
+              .textTheme
+              .headline1
+              ?.copyWith(color: Colors.white),
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -20,7 +26,10 @@ class SettingsScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Тёмная тема'),
+                Text(
+                  'Тёмная тема',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
                 Switch.adaptive(
                   value: isDark,
                   onChanged: (newValue) {
