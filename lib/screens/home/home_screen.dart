@@ -33,56 +33,58 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            const AccurateOnOffSwitcher(),
-            SizedBox(
-              height: 55,
-              width: double.infinity,
-              child: TextFormField(
-                style: Theme.of(context).textTheme.headline1,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(
-                    Icons.arrow_forward,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              const AccurateOnOffSwitcher(),
+              SizedBox(
+                height: 55,
+                width: double.infinity,
+                child: TextFormField(
+                  style: Theme.of(context).textTheme.headline1,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(
+                      Icons.arrow_forward,
+                    ),
+                    label: Text(
+                      'Введите номер СИ',
+                      style: Theme.of(context).textTheme.overline,
+                      //textAlign: TextAlign.center
+                    ),
                   ),
-                  label: Text(
-                    'Введите номер СИ',
-                    style: Theme.of(context).textTheme.overline,
-                    //textAlign: TextAlign.center
-                  ),
+                  controller: textEditingController,
+                  onFieldSubmitted: (text) {
+                    InputUtils.hideKeyboard();
+                    searchRequest = text;
+                    context
+                        .read<ItemListProvider>()
+                        .setSearchRequest(searchRequest);
+                  },
+                  onEditingComplete: () {
+                    InputUtils.hideKeyboard();
+                    searchRequest = textEditingController.text;
+                    context
+                        .read<ItemListProvider>()
+                        .setSearchRequest(searchRequest);
+                  },
+                  onChanged: (text) {
+                    searchRequest = text;
+                    context
+                        .read<ItemListProvider>()
+                        .setSearchRequest(searchRequest);
+                  },
                 ),
-                controller: textEditingController,
-                onFieldSubmitted: (text) {
-                  InputUtils.hideKeyboard();
-                  searchRequest = text;
-                  context
-                      .read<ItemListProvider>()
-                      .setSearchRequest(searchRequest);
-                },
-                onEditingComplete: () {
-                  InputUtils.hideKeyboard();
-                  searchRequest = textEditingController.text;
-                  context
-                      .read<ItemListProvider>()
-                      .setSearchRequest(searchRequest);
-                },
-                onChanged: (text) {
-                  searchRequest = text;
-                  context
-                      .read<ItemListProvider>()
-                      .setSearchRequest(searchRequest);
-                },
               ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Искать с ${context.watch<DataRangeProvider>().startDateValue} по ${context.watch<DataRangeProvider>().finishDateValue} год',
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-            ChangeRangeButton(),
-            const SearchElevatedButton(),
-          ],
+              const SizedBox(height: 10),
+              Text(
+                'Искать с ${context.watch<DataRangeProvider>().startDateValue} по ${context.watch<DataRangeProvider>().finishDateValue} год',
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+              ChangeRangeButton(),
+              const SearchElevatedButton(),
+            ],
+          ),
         ),
       ),
     );

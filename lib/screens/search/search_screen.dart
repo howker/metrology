@@ -25,10 +25,15 @@ class SearchScreen extends StatelessWidget {
           appBar: AppBar(),
           body: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: const [
+                Spacer(),
                 LoadingYearIndicator(),
+                Spacer(),
                 CircularProgressIndicator(),
+                Spacer(),
                 CancelButton(),
+                Spacer(),
               ],
             ),
           ), //

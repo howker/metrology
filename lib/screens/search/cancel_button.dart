@@ -13,7 +13,7 @@ class CancelButton extends StatelessWidget {
       onPressed: () {
         sl.get<ReestrItemsRemoteDataSource>().token.cancel('Запрос отменён');
       },
-      child: const Text('CANCEL'),
+      child: const Text('Прервать поиск'),
     );
   }
 }
