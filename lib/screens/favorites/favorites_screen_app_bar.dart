@@ -41,7 +41,11 @@ class FavoritesScreenAppBar extends StatelessWidget
         },
       ),
       title: selectedList.isEmpty
-          ? const SizedBox.shrink()
+          ? Text(
+              'Избранное',
+              style: Theme.of(context).textTheme.bodyText2,
+              textAlign: TextAlign.center,
+            )
           : Text(selectedList.length.toString()),
     );
   }
