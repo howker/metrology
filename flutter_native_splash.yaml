@@ -3,8 +3,8 @@ flutter_native_splash:
   image: "assets/images/logo.png"
   #background_image: "assets/images/background_image.png"  
 
-  android_12:
-    image: "assets/images/logo.png"
+  #android_12:
+    #image: "assets/images/logo.png"
     #background_image: "assets/images/background.png"    
   
   web: false 
