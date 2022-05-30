@@ -16,12 +16,8 @@ class DetailScreen extends StatelessWidget {
       return SafeArea(
         child: Scaffold(
           appBar: AppBar(),
-          body: Center(
-            child: Column(
-              children: const [
-                CircularProgressIndicator(),
-              ],
-            ),
+          body: const Center(
+            child: CircularProgressIndicator(color: Colors.green),
           ), //
         ),
       );

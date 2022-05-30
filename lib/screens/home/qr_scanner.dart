@@ -13,7 +13,7 @@ class QrScanner extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: () {
         context.read<ItemListProvider>().loadItemsByVriId(
-              vriId: '1-56744627',
+              vriId: '1-153888417',
             ); //1-153888417  - непригодно СИ //1-56744627 - евроальфа
         final Route route = MaterialPageRoute<dynamic>(
           builder: (context) => const DetailScreen(),

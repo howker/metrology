@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:infopoverka/data/favorites_repository.dart';
 import 'package:infopoverka/data/items_repository.dart';
@@ -34,9 +33,8 @@ Future<void> main() async {
   ///CERTIFICATE_VERIFY_FAILED: unable to get local issuer certificate Error
   HttpOverrides.global = MyHttpOverrides();
 
-  //WidgetsFlutterBinding.ensureInitialized();
-  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
+
   await di.init();
   await Hive.initFlutter();
   Hive.registerAdapter(ItemsHiveAdapter());
@@ -51,7 +49,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FlutterNativeSplash.remove();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ItemListProvider>(
