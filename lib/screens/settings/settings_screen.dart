@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:infopoverka/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -22,12 +25,13 @@ class SettingsScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Тёмная тема',
+                  '   Тёмная тема',
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 Switch.adaptive(
@@ -37,6 +41,19 @@ class SettingsScreen extends StatelessWidget {
                   },
                 ),
               ],
+            ),
+            TextButton(
+              onPressed: () {
+                if (Platform.isAndroid) {
+                  SystemNavigator.pop();
+                } else {
+                  exit(0);
+                }
+              },
+              child: Text(
+                'Выход',
+                style: Theme.of(context).textTheme.headline2,
+              ),
             ),
           ],
         ),

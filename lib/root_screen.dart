@@ -15,6 +15,7 @@ class RootScreen extends StatelessWidget {
     final index = context.watch<ScreenProvider>().currentScreenIndex;
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: context.watch<ThemeProvider>().getIsDark ? darkTheme : lightTheme,
       darkTheme: darkTheme,
       home: Scaffold(
