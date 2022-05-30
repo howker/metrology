@@ -35,8 +35,11 @@ class FavoritesScreen extends StatelessWidget {
               },
             ),
           ),
-          body: const Center(
-            child: Text('Список избранного пуст'),
+          body: Center(
+            child: Text(
+              'Список избранного пуст',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
           ),
         ),
       );
