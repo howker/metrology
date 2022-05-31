@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -39,10 +38,18 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ItemsHiveAdapter());
   await Hive.openBox<bool>('accurateBox');
-  await Hive.box<bool>('accurateBox').put('accurateBox', true);
+  final accurateSearch =
+      Hive.box<bool>('accurateBox').get('accurateBox', defaultValue: false);
+  if (accurateSearch == null) {
+    await Hive.box<bool>('accurateBox').put('accurateBox', true);
+  }
 
   await Hive.openBox<bool>('darkModeBox');
-  await Hive.box<bool>('darkModeBox').put('darkModeBox', false);
+  final isDark =
+      Hive.box<bool>('darkModeBox').get('darkModeBox', defaultValue: false);
+  if (isDark == null) {
+    await Hive.box<bool>('darkModeBox').put('darkModeBox', false);
+  }
 
   runApp(const MyApp());
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/screens/home/accurate_on_off_switcher.dart';
@@ -15,32 +16,24 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime? lastPressed;
+    var timeBackPressed = DateTime.now();
     final textEditingController = TextEditingController();
     var searchRequest = '';
     InputUtils.hideKeyboard();
 
     return WillPopScope(
       onWillPop: () async {
-        final now = DateTime.now();
-        const maxDuration = Duration(seconds: 2);
-        final isWarning =
-            lastPressed == null || now.difference(lastPressed!) > maxDuration;
+        final difference = DateTime.now().difference(timeBackPressed);
+        final isExitWarning = difference >= const Duration(seconds: 2);
 
-        if (isWarning) {
-          lastPressed = DateTime.now();
+        timeBackPressed = DateTime.now();
 
-          const snackBar = SnackBar(
-            content: Text('Для выхода двойной клик'),
-            duration: maxDuration,
-          );
-
-          ScaffoldMessenger.of(context)
-            ..removeCurrentSnackBar()
-            ..showSnackBar(snackBar);
-
+        if (isExitWarning) {
+          const message = 'Для выхода нажмите назад ещё раз';
+          await Fluttertoast.showToast(msg: message, fontSize: 14);
           return false;
         } else {
+          await Fluttertoast.cancel();
           return true;
         }
       },

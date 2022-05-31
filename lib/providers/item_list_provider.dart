@@ -122,7 +122,12 @@ class ItemListProvider extends ChangeNotifier {
       _items.addAll(item.result.items);
 
       final box = await Hive.openBox<bool>('accurateBox');
-      final isAccurateSearchMode = box.get('accurateBox') as bool;
+      var isAccurateSearchMode = true;
+      if (box.isEmpty) {
+        isAccurateSearchMode = true;
+      } else {
+        isAccurateSearchMode = box.get('accurateBox') as bool;
+      }
 
       if (isAccurateSearchMode) {
         _accurateList.addAll(

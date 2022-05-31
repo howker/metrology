@@ -34,7 +34,7 @@ class _QrFloatingButtonState extends State<QrFloatingButton> {
                 ),
                 backgroundColor:
                     !context.watch<ButtonsProvider>().isQrButtonActive
-                        ? Color.fromARGB(255, 9, 146, 14)
+                        ? const Color.fromARGB(255, 9, 146, 14)
                         : Colors.grey,
                 onPressed: () {
                   context.read<ButtonsProvider>().qrButtonClicked();
