@@ -9,7 +9,8 @@ environment:
   sdk: ">=2.16.1 <3.0.0"
 
 
-dependencies:     
+dependencies:
+  animated_splash_screen: ^1.2.0
   cupertino_icons: ^1.0.2
   dio: ^4.0.6  
   flutter:
@@ -23,6 +24,7 @@ dependencies:
   http: ^0.13.4
   intl: ^0.17.0
   json_annotation: ^4.4.0
+  lottie: ^1.3.0
   mobile_scanner: ^1.1.0
 
   # open pdf document
@@ -69,4 +71,7 @@ flutter:
   fonts:
     - family: Helvetica
       fonts:
-        - asset: assets/fonts/Helvetica.ttf  
+        - asset: assets/fonts/Helvetica.ttf 
+  assets:
+    - assets/animation/loading_balls.json
+    

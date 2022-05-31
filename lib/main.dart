@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:infopoverka/data/favorites_repository.dart';
@@ -14,7 +15,8 @@ import 'package:infopoverka/providers/screen_provider.dart';
 import 'package:infopoverka/providers/select_provider.dart';
 import 'package:infopoverka/providers/theme_provider.dart';
 import 'package:infopoverka/providers/visibility_provider.dart';
-import 'package:infopoverka/root_screen.dart';
+import 'package:infopoverka/screens/splash/splash_screen.dart';
+
 import 'package:provider/provider.dart';
 
 ///this block is solution for error:
@@ -94,7 +96,7 @@ class MyApp extends StatelessWidget {
           create: (_) => VisibilityProvider(),
         ),
       ],
-      child: const RootScreen(),
+      child: const SplashScreen(),
     );
   }
 }
