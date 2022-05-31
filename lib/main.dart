@@ -39,7 +39,10 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ItemsHiveAdapter());
   await Hive.openBox<bool>('accurateBox');
+  await Hive.box<bool>('accurateBox').put('accurateBox', true);
+
   await Hive.openBox<bool>('darkModeBox');
+  await Hive.box<bool>('darkModeBox').put('darkModeBox', false);
 
   runApp(const MyApp());
 }
