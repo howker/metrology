@@ -43,11 +43,14 @@ class SearchScreen extends StatelessWidget {
       );
     }
     if (items.isEmpty) {
-      return const SafeArea(
+      return SafeArea(
         child: Scaffold(
-          appBar: EmptyAppBar(),
+          appBar: const EmptyAppBar(),
           body: Center(
-            child: Text('Ничего не найдено'),
+            child: Text(
+              'Ничего не найдено',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
           ),
         ),
       );
