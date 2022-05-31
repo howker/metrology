@@ -44,6 +44,7 @@ class HomeScreen extends StatelessWidget {
         floatingActionButton: const QrFloatingButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         appBar: AppBar(
+          centerTitle: true,
           title: Text(
             'Поиск сведений о результатах\nповерки СИ',
             style: Theme.of(context).textTheme.bodyText2,

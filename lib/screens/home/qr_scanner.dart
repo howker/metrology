@@ -11,9 +11,13 @@ class QrScanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final cameraController = MobileScannerController();
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {}),
       appBar: AppBar(
-        title: const Text('Сканировать QR код'),
+        centerTitle: true,
+        title: Text(
+          'Сканировать QR код',
+          style: Theme.of(context).textTheme.bodyText2,
+          textAlign: TextAlign.center,
+        ),
         actions: [
           IconButton(
             color: Colors.white,
