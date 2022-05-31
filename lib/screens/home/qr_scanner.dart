@@ -11,15 +11,7 @@ class QrScanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final cameraController = MobileScannerController();
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        context.read<ItemListProvider>().loadItemsByVriId(
-              vriId: '1-153888417',
-            ); //1-153888417  - непригодно СИ //1-56744627 - евроальфа
-        final Route route = MaterialPageRoute<dynamic>(
-          builder: (context) => const DetailScreen(),
-        );
-        Navigator.push<void>(context, route);
-      }),
+      floatingActionButton: FloatingActionButton(onPressed: () {}),
       appBar: AppBar(
         title: const Text('Сканировать QR код'),
         actions: [
@@ -46,6 +38,14 @@ class QrScanner extends StatelessWidget {
         onDetect: (barcode, args) {
           final code = barcode.rawValue;
           debugPrint('Barcode found! $code');
+
+          context.read<ItemListProvider>().loadItemsByVriId(
+                vriId: code.toString(),
+              ); //1-153888417  - непригодно СИ //1-56744627 - евроальфа
+          final Route route = MaterialPageRoute<dynamic>(
+            builder: (context) => const DetailScreen(),
+          );
+          Navigator.pushReplacement<void, void>(context, route);
         },
       ),
     );
