@@ -22,7 +22,6 @@ class BottomNaviBar extends StatelessWidget {
       child: NavigationBar(
         selectedIndex: index,
         height: 60,
-        //labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         onDestinationSelected: (selectedIndex) {
           context.read<FavoritesProvider>().getFavoritesItems();
           context.read<ScreenProvider>().setCurrentScreenIndex(selectedIndex);
@@ -44,5 +43,3 @@ class BottomNaviBar extends StatelessWidget {
     );
   }
 }
-
-//TODO сделать боттом нави бар с вырезом

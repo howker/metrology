@@ -11,6 +11,7 @@ environment:
 
 dependencies:
   animated_splash_screen: ^1.2.0
+  connectivity_plus: ^2.3.2
   cupertino_icons: ^1.0.2
   dio: ^4.0.6  
   flutter:
@@ -74,4 +75,5 @@ flutter:
         - asset: assets/fonts/Helvetica.ttf 
   assets:
     - assets/animation/loading_balls.json
+    - assets/animation/no_connection.json
     
