@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:infopoverka/data_sources/pdf_api.dart';
 import 'package:infopoverka/providers/select_provider.dart';
 import 'package:provider/provider.dart';
-// ignore: unused_import
 import 'package:share_plus/share_plus.dart';
 
 class ShareButton extends StatelessWidget {
@@ -18,11 +17,11 @@ class ShareButton extends StatelessWidget {
       child: const Icon(Icons.share),
       onPressed: () async {
         final pdfFile = await PdfApi.generatePdfDoc(selectedList.toList());
-        // await Share.shareFiles(
-        //   [pdfFile.path],
-        //   text: 'Сведения о поверке от "Инфоповерки"',
-        // );
-        await PdfApi.openFile(pdfFile); // TODO(me): убрать после тестирования
+        await Share.shareFiles(
+          [pdfFile.path],
+          text: 'Сведения о поверке от "Инфоповерки"',
+        );
+        //await PdfApi.openFile(pdfFile); // TODO(me): убрать после тестирования
       },
     );
   }
