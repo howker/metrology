@@ -7,6 +7,7 @@ import 'package:infopoverka/data/items_repository.dart';
 import 'package:infopoverka/locator_service.dart' as di;
 import 'package:infopoverka/models/items_hive_adapter.dart';
 import 'package:infopoverka/providers/buttons_provider.dart';
+import 'package:infopoverka/providers/connectivity_provider.dart';
 import 'package:infopoverka/providers/data_range_provider.dart';
 import 'package:infopoverka/providers/favorites_provider.dart';
 import 'package:infopoverka/providers/filter_provider.dart';
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<ConnectivityProvider>().startMonitoring();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ItemListProvider>(
@@ -94,6 +96,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<VisibilityProvider>(
           create: (_) => VisibilityProvider(),
+        ),
+        ChangeNotifierProvider<ConnectivityProvider>(
+          create: (_) => ConnectivityProvider(),
         ),
       ],
       child: const SplashScreen(),
