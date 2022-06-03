@@ -62,7 +62,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<ConnectivityProvider>().startMonitoring();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ItemListProvider>(
