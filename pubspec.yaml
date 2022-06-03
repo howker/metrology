@@ -78,4 +78,5 @@ flutter:
   assets:
     - assets/animation/loading_balls.json
     - assets/animation/no_connection.json
+    - assets/animation/loading_indicator.json
     

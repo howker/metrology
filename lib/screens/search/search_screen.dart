@@ -9,6 +9,7 @@ import 'package:infopoverka/screens/search/item_card_widget.dart';
 import 'package:infopoverka/screens/search/loading_year_indicator.dart';
 import 'package:infopoverka/screens/search/search_screen_appbar.dart';
 import 'package:infopoverka/screens/search/share_button.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -31,9 +32,7 @@ class SearchScreen extends StatelessWidget {
                 const Spacer(),
                 const LoadingYearIndicator(),
                 const Spacer(),
-                CircularProgressIndicator(
-                  color: Colors.green.shade900,
-                ),
+                Lottie.asset('assets/animation/loading_indicator.json'),
                 const Spacer(),
                 const CancelButton(),
                 const Spacer(),
