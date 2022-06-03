@@ -13,12 +13,10 @@ class SettingsScreen extends StatelessWidget {
     final isDark = context.watch<ThemeProvider>().isDark;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'Настройки',
-          style: Theme.of(context)
-              .textTheme
-              .headline1
-              ?.copyWith(color: Colors.white),
+          style: Theme.of(context).textTheme.bodyText2,
         ),
         centerTitle: true,
       ),
