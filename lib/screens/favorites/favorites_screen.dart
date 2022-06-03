@@ -8,7 +8,6 @@ import 'package:infopoverka/screens/search/share_button.dart';
 import 'package:provider/provider.dart';
 
 class FavoritesScreen extends StatelessWidget {
-  static final tween = Tween<double>(begin: 0, end: 1);
   const FavoritesScreen({Key? key}) : super(key: key);
 
   @override
@@ -55,19 +54,10 @@ class FavoritesScreen extends StatelessWidget {
           shrinkWrap: true,
           itemCount: favoritesList.length,
           itemBuilder: (context, index) {
-            return TweenAnimationBuilder<double>(
-              duration: const Duration(seconds: 1),
-              tween: tween,
-              builder: (_, value, __) {
-                return Opacity(
-                  opacity: value,
-                  child: Column(
-                    children: [
-                      ItemCard(item: favoritesList[index]),
-                    ],
-                  ),
-                );
-              },
+            return Column(
+              children: [
+                ItemCard(item: favoritesList[index]),
+              ],
             );
           },
         ),
