@@ -42,8 +42,11 @@ class HomeScreen extends StatelessWidget {
       },
       child: context.watch<ConnectivityProvider>().isOnline
           ? Scaffold(
-              drawer: const Drawer(
-                child: SettingsScreen(),
+              drawer: const SizedBox(
+                width: 200,
+                child: Drawer(
+                  child: SettingsScreen(),
+                ),
               ),
               floatingActionButton: const QrFloatingButton(),
               floatingActionButtonLocation:
