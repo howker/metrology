@@ -6,6 +6,7 @@ import 'package:infopoverka/providers/select_provider.dart';
 import 'package:infopoverka/screens/favorites/favorites_screen_app_bar.dart';
 import 'package:infopoverka/screens/search/item_card_widget.dart';
 import 'package:infopoverka/screens/search/share_button.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -18,8 +19,8 @@ class FavoritesScreen extends StatelessWidget {
       return SafeArea(
         child: Scaffold(
           appBar: AppBar(),
-          body: const Center(
-            child: CircularProgressIndicator(),
+          body: Center(
+            child: Lottie.asset('assets/animation/loading_indicator.json'),
           ),
         ),
       );
