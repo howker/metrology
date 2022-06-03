@@ -8,7 +8,7 @@ class ApiClient {
       baseUrl: 'https://fgis.gost.ru/fundmetrology/eapi/',
       connectTimeout: 50000,
       receiveTimeout: 50000,
-      sendTimeout: 5000,
+      sendTimeout: 50000,
     ),
   );
 

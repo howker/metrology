@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:infopoverka/providers/connectivity_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
