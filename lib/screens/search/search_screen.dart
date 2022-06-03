@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:infopoverka/providers/item_list_provider.dart';
 import 'package:infopoverka/providers/select_provider.dart';
 import 'package:infopoverka/screens/search/cancel_button.dart';
@@ -70,10 +71,13 @@ class SearchScreen extends StatelessWidget {
           shrinkWrap: true,
           itemCount: items.length,
           itemBuilder: (context, index) {
-            return Column(
-              children: [
-                ItemCard(item: items[index]),
-              ],
+            return AnimationConfiguration.staggeredList(
+              position: index,
+              duration: const Duration(milliseconds: 100),
+              child: SlideAnimation(
+                verticalOffset: 50.0,
+                child: FadeInAnimation(child: ItemCard(item: items[index])),
+              ),
             );
           },
         ),

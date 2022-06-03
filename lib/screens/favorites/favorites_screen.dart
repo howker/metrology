@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:infopoverka/providers/favorites_provider.dart';
 import 'package:infopoverka/providers/screen_provider.dart';
 import 'package:infopoverka/providers/select_provider.dart';
@@ -54,10 +55,19 @@ class FavoritesScreen extends StatelessWidget {
           shrinkWrap: true,
           itemCount: favoritesList.length,
           itemBuilder: (context, index) {
-            return Column(
-              children: [
-                ItemCard(item: favoritesList[index]),
-              ],
+            return AnimationConfiguration.staggeredList(
+              position: index,
+              duration: const Duration(milliseconds: 300),
+              child: SlideAnimation(
+                verticalOffset: 50.0,
+                child: FadeInAnimation(
+                  child: Column(
+                    children: [
+                      ItemCard(item: favoritesList[index]),
+                    ],
+                  ),
+                ),
+              ),
             );
           },
         ),
