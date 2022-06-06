@@ -119,6 +119,11 @@ class ItemListProvider extends ChangeNotifier {
 
       item = await getItem(userSearch, _year.toString()) as Item;
 
+//TODO сделать увеличение result.items а то только 100
+      // if (item.result.count > 100) {
+      //   startRecord = startRecord + 100;
+      // }
+
       _items.addAll(item.result.items);
 
       final box = await Hive.openBox<bool>('accurateBox');
