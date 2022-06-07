@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:infopoverka/data/favorites_repository.dart';
@@ -107,8 +109,8 @@ class ItemListProvider extends ChangeNotifier {
     required String userSearch,
     required String startYear,
     required String finishYear,
-    required int startRecord,
   }) async {
+    var startRecord = 0;
     _items.clear();
     _accurateList.clear();
     final intFinishYear = int.parse(finishYear);
@@ -117,14 +119,27 @@ class ItemListProvider extends ChangeNotifier {
       _loadingState = true;
       _currentSearchingYear = _year.toString();
 
-      item = await getItem(userSearch, _year.toString()) as Item;
+      if (startRecord == 0) {
+        item = await getItem(userSearch, _year.toString(), 0) as Item;
+        _items.addAll(item.result.items);
+        if (item.result.count > 100) {
+          startRecord = 100;
+        }
+      }
+      if (item.result.count > 100) {
+        for (; startRecord < item.result.count;) {
+          item =
+              await getItem(userSearch, _year.toString(), startRecord) as Item;
+          _items.addAll(item.result.items);
 
-//TODO сделать увеличение result.items а то только 100
-      // if (item.result.count > 100) {
-      //   startRecord = startRecord + 100;
-      // }
-
-      _items.addAll(item.result.items);
+          if (startRecord < item.result.count - 100) {
+            startRecord += 100;
+          } else {
+            startRecord = item.result.count - 100;
+          }
+        }
+        log(startRecord.toString());
+      }
 
       final box = await Hive.openBox<bool>('accurateBox');
       var isAccurateSearchMode = true;
@@ -175,7 +190,7 @@ class ItemListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getItem(String userSearch, String year) async =>
+  Future getItem(String userSearch, String year, int record) async =>
       itemsRepo.getItem(search: search, year: year, startRecord: startRecord);
 
   Future<void> loadItemsByVriId({
