@@ -110,7 +110,6 @@ class ItemListProvider extends ChangeNotifier {
     required String startYear,
     required String finishYear,
   }) async {
-    //var startRecord = 0;
     _items.clear();
     _accurateList.clear();
     final intFinishYear = int.parse(finishYear);
