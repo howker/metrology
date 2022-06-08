@@ -120,12 +120,13 @@ class ItemListProvider extends ChangeNotifier {
 
       if (startRecord == 0) {
         item = await getItem(userSearch, _year.toString(), 0) as Item;
-        _items.addAll(item.result.items);
-
         if (item.result.count == 0) {
+          _loadingState = false;
           notifyListeners();
           break;
         }
+        _items.addAll(item.result.items);
+
         if (item.result.count > 100) {
           startRecord = 100;
         }
@@ -138,6 +139,7 @@ class ItemListProvider extends ChangeNotifier {
           _items.addAll(item.result.items);
 
           if (item.result.count == 0) {
+            _loadingState = false;
             notifyListeners();
             break;
           }
@@ -145,6 +147,7 @@ class ItemListProvider extends ChangeNotifier {
           if (startRecord <= (item.result.count - 100) && startRecord != 0) {
             startRecord += 100;
           } else if (startRecord > 0 && startRecord != 0) {
+            _loadingState = false;
             notifyListeners();
             break;
           }
@@ -205,7 +208,7 @@ class ItemListProvider extends ChangeNotifier {
   }
 
   Future getItem(String userSearch, String year, int record) async =>
-      itemsRepo.getItem(search: search, startRecord: startRecord, year: year);
+      itemsRepo.getItem(search: userSearch, startRecord: record, year: year);
 
   Future<void> loadItemsByVriId({
     required String vriId,

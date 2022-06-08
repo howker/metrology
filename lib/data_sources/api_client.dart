@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:infopoverka/utils/ui_messages.dart';
 
 class ApiClient {
+  CancelToken token = CancelToken();
   Dio dio = Dio(
     BaseOptions(
       baseUrl: 'https://fgis.gost.ru/fundmetrology/eapi/',
@@ -28,6 +29,11 @@ class ApiClient {
         onError: (error, handler) {
           if (error.type == DioErrorType.connectTimeout) {
             UIMessages.showSimpleToast('connectTimeout');
+            token.cancel();
+          }
+          if (error.type == DioErrorType.response) {
+            UIMessages.showSimpleToast(error.message);
+            token.cancel();
           }
           log('It was error: $error');
         },

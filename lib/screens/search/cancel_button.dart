@@ -11,7 +11,11 @@ class CancelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        sl.get<ReestrItemsRemoteDataSource>().token.cancel('Запрос отменён');
+        sl
+            .get<ReestrItemsRemoteDataSource>()
+            .apiClient
+            .token
+            .cancel('Запрос отменён');
       },
       child: const Text('Прервать поиск'),
     );

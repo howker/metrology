@@ -12,7 +12,7 @@ class ReestrItemsRemoteDataSource {
 
   Item item = Item(result: Result(count: 0, items: [], rows: 0, start: 0));
 
-  CancelToken token = CancelToken();
+  //CancelToken token = CancelToken();
 
   Future<Item> getItem({
     required String search,
@@ -23,7 +23,7 @@ class ReestrItemsRemoteDataSource {
       apiClient.initInterceptors();
       final response = await apiClient.dio.get<dynamic>(
         'vri?rows=100&search=$search&year=$year&start=$startRecord',
-        cancelToken: token,
+        cancelToken: apiClient.token,
         onReceiveProgress: (count, total) =>
             log('Count...: $count ---------- Total:$total'),
       );
@@ -34,14 +34,14 @@ class ReestrItemsRemoteDataSource {
         );
       }
     } on DioError catch (e) {
-      if (e.type == DioErrorType.other) {
-        //TODO тестировать
-        token.cancel();
+      // if (e.type == DioErrorType.other) {
+
+      //   token.cancel();
+      // }
+      if (apiClient.token.isCancelled) {
+        apiClient.token = CancelToken();
       }
-      if (token.isCancelled) {
-        token = CancelToken();
-      }
-      await UIMessages.showSimpleToast(e.message);
+      // await UIMessages.showSimpleToast(e.message);
 
       return item;
     }
@@ -55,7 +55,7 @@ class ReestrItemsRemoteDataSource {
       apiClient.initInterceptors();
       final response = await apiClient.dio.get<dynamic>(
         'vri/$vriId',
-        cancelToken: token,
+        cancelToken: apiClient.token,
       );
 
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -80,10 +80,10 @@ class ReestrItemsRemoteDataSource {
         return items;
       }
     } on DioError catch (e) {
-      if (token.isCancelled) {
-        token = CancelToken();
+      if (apiClient.token.isCancelled) {
+        apiClient.token = CancelToken();
       }
-      await UIMessages.showSimpleToast(e.message);
+      //await UIMessages.showSimpleToast(e.message);
     }
     return null;
   }
