@@ -14,8 +14,7 @@ class LoadingYearIndicator extends StatelessWidget {
       baseColor: Colors.green,
       highlightColor: Colors.white,
       child: Text(
-        'Поиск',
-        //currentSearchingYear, //TODO вернуть строку как исправят бэк
+        currentSearchingYear,
         style: const TextStyle(
           fontSize: 50,
           fontWeight: FontWeight.bold,

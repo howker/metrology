@@ -114,65 +114,81 @@ class ItemListProvider extends ChangeNotifier {
     _accurateList.clear();
     final intFinishYear = int.parse(finishYear);
 
-    // for (_year = int.parse(startYear); _year <= intFinishYear; _year++) {
-    _loadingState = true;
-    _currentSearchingYear = _year.toString();
+    for (_year = int.parse(startYear); _year <= intFinishYear; _year++) {
+      _loadingState = true;
+      _currentSearchingYear = _year.toString();
 
-    if (startRecord == 0) {
-      item = await getItem(userSearch, _year.toString(), 0) as Item;
-      _items.addAll(item.result.items);
-      if (item.result.count > 100) {
-        startRecord = 100;
-      }
-    }
-    if (item.result.count > 100) {
-      for (; startRecord < item.result.count;) {
-        item = await getItem(userSearch, _year.toString(), startRecord) as Item;
+      if (startRecord == 0) {
+        item = await getItem(userSearch, _year.toString(), 0) as Item;
         _items.addAll(item.result.items);
 
-        if (startRecord < item.result.count - 100 && startRecord != 0) {
-          startRecord += 100;
-        } else if (startRecord <= 0) {
-          startRecord = item.result.count - 100;
+        if (item.result.count == 0) {
+          notifyListeners();
+          break;
         }
-        log('startRecord:    ------------------' + startRecord.toString());
+        if (item.result.count > 100) {
+          startRecord = 100;
+        }
       }
-    }
 
-    final box = await Hive.openBox<bool>('accurateBox');
-    var isAccurateSearchMode = true;
-    if (box.isEmpty) {
-      isAccurateSearchMode = true;
-    } else {
-      isAccurateSearchMode = box.get('accurateBox') as bool;
-    }
+      if (item.result.count > 100) {
+        for (; startRecord < item.result.count;) {
+          item =
+              await getItem(userSearch, _year.toString(), startRecord) as Item;
+          _items.addAll(item.result.items);
 
-    if (isAccurateSearchMode) {
-      _accurateList.addAll(
-        _items.where((element) => element.miNumber == search).toSet(),
+          if (item.result.count == 0) {
+            notifyListeners();
+            break;
+          }
+
+          if (startRecord <= (item.result.count - 100) && startRecord != 0) {
+            startRecord += 100;
+          } else if (startRecord > 0 && startRecord != 0) {
+            notifyListeners();
+            break;
+          }
+          log('startRecord:    ------------------' +
+              startRecord.toString() +
+              'of' +
+              item.result.count.toString());
+        }
+      }
+
+      final box = await Hive.openBox<bool>('accurateBox');
+      var isAccurateSearchMode = true;
+      if (box.isEmpty) {
+        isAccurateSearchMode = true;
+      } else {
+        isAccurateSearchMode = box.get('accurateBox') as bool;
+      }
+
+      if (isAccurateSearchMode) {
+        _accurateList.addAll(
+          _items.where((element) => element.miNumber == search).toSet(),
+        );
+        _items.clear(); //activate it for accurate search
+        if (_accurateList.isNotEmpty) {
+          final accurateSet = await setElementsIsFavorite(_accurateList);
+          _items.addAll(accurateSet);
+        }
+      } else {
+        final rawSet = await setElementsIsFavorite(_items);
+        _items.addAll(rawSet);
+      }
+
+      setFilteredList(
+        onlyActualData: false,
+        onlyInvalidData: false,
+        mitNotation: '',
+        mitTitleFilter: '',
+        orgTitle: '',
       );
-      _items.clear(); //activate it for accurate search
-      if (_accurateList.isNotEmpty) {
-        final accurateSet = await setElementsIsFavorite(_accurateList);
-        _items.addAll(accurateSet);
-      }
-    } else {
-      final rawSet = await setElementsIsFavorite(_items);
-      _items.addAll(rawSet);
+
+      _loadingState = false;
+
+      notifyListeners();
     }
-
-    setFilteredList(
-      onlyActualData: false,
-      onlyInvalidData: false,
-      mitNotation: '',
-      mitTitleFilter: '',
-      orgTitle: '',
-    );
-
-    _loadingState = false;
-
-    //notifyListeners();
-    // }
 
     notifyListeners();
   }
@@ -189,7 +205,7 @@ class ItemListProvider extends ChangeNotifier {
   }
 
   Future getItem(String userSearch, String year, int record) async =>
-      itemsRepo.getItem(search: search, startRecord: startRecord);
+      itemsRepo.getItem(search: search, startRecord: startRecord, year: year);
 
   Future<void> loadItemsByVriId({
     required String vriId,

@@ -16,15 +16,13 @@ class ReestrItemsRemoteDataSource {
 
   Future<Item> getItem({
     required String search,
-    // required String year,
+    required String year,
     required int startRecord,
   }) async {
     try {
       apiClient.initInterceptors();
       final response = await apiClient.dio.get<dynamic>(
-        //TODO вернуть строку когда исправят на бэке
-        //'vri?rows=100&search=$search&year=$year&start=$startRecord',
-        'vri?rows=100&search=$search&start=$startRecord', //Временно
+        'vri?rows=100&search=$search&year=$year&start=$startRecord',
         cancelToken: token,
         onReceiveProgress: (count, total) =>
             log('Count...: $count ---------- Total:$total'),
@@ -36,6 +34,10 @@ class ReestrItemsRemoteDataSource {
         );
       }
     } on DioError catch (e) {
+      if (e.type == DioErrorType.other) {
+        //TODO тестировать
+        token.cancel();
+      }
       if (token.isCancelled) {
         token = CancelToken();
       }
