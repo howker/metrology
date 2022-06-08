@@ -20,6 +20,10 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = context.watch<ItemListProvider>().filteredList;
+    final currentSearchingRecord =
+        context.watch<ItemListProvider>().currentSearchingRecord;
+
+    final quantityRecords = context.watch<ItemListProvider>().quantityRecords;
 
     if (context.watch<ItemListProvider>().loadingState == true) {
       return SafeArea(
@@ -31,6 +35,11 @@ class SearchScreen extends StatelessWidget {
               children: [
                 const Spacer(),
                 const LoadingYearIndicator(),
+                const Spacer(),
+                Text(
+                  'Получено $currentSearchingRecord записей из $quantityRecords',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
                 const Spacer(),
                 Lottie.asset('assets/animation/loading_indicator.json'),
                 const Spacer(),

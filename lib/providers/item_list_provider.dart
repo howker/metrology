@@ -19,6 +19,8 @@ class ItemListProvider extends ChangeNotifier {
   int startRecord = 0;
 
   String get currentSearchingYear => _currentSearchingYear;
+  String get currentSearchingRecord => _currentSearchingRecord;
+  String get quantityRecords => _quantityRecords;
   Set<Items> get items => _items;
   bool get loadingState => _loadingState;
   String get search => _search;
@@ -28,6 +30,8 @@ class ItemListProvider extends ChangeNotifier {
   List<Items> _filteredList = [];
   String _search = '';
   String _currentSearchingYear = '';
+  String _currentSearchingRecord = '0';
+  String _quantityRecords = '100';
   bool _loadingState = false;
   int _year = 2018;
   Items _itemByVriId = Items(
@@ -110,6 +114,8 @@ class ItemListProvider extends ChangeNotifier {
     required String startYear,
     required String finishYear,
   }) async {
+    _currentSearchingRecord = '0';
+    _quantityRecords = '100';
     _items.clear();
     _accurateList.clear();
     final intFinishYear = int.parse(finishYear);
@@ -122,6 +128,10 @@ class ItemListProvider extends ChangeNotifier {
         item = await getItem(userSearch, _year.toString(), 0) as Item;
         if (item.result.count == 0) {
           _loadingState = false;
+          startRecord = 0;
+          _currentSearchingRecord = startRecord.toString();
+          _quantityRecords = item.result.count.toString();
+
           notifyListeners();
           break;
         }
@@ -140,17 +150,31 @@ class ItemListProvider extends ChangeNotifier {
 
           if (item.result.count == 0) {
             _loadingState = false;
+            startRecord = 0;
+            _currentSearchingRecord = startRecord.toString();
+            _quantityRecords = item.result.count.toString();
             notifyListeners();
             break;
           }
 
           if (startRecord <= (item.result.count - 100) && startRecord != 0) {
             startRecord += 100;
+            _currentSearchingRecord = startRecord.toString();
+            _quantityRecords = item.result.count.toString();
+            notifyListeners();
           } else if (startRecord > 0 && startRecord != 0) {
             _loadingState = false;
+            startRecord = 0;
+            _currentSearchingRecord = startRecord.toString();
+            _quantityRecords = item.result.count.toString();
             notifyListeners();
             break;
           }
+
+          _currentSearchingRecord = startRecord.toString();
+          _quantityRecords = item.result.count.toString();
+          notifyListeners();
+
           log('startRecord:    ------------------' +
               startRecord.toString() +
               'of' +

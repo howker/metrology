@@ -35,6 +35,9 @@ class ApiClient {
             UIMessages.showSimpleToast(error.message);
             token.cancel();
           }
+          if (error.type == DioErrorType.cancel) {
+            UIMessages.showSimpleToast(error.message);
+          }
           log('It was error: $error');
         },
       ),
