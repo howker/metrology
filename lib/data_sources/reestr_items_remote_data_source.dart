@@ -16,13 +16,15 @@ class ReestrItemsRemoteDataSource {
 
   Future<Item> getItem({
     required String search,
-    required String year,
+    // required String year,
     required int startRecord,
   }) async {
     try {
       apiClient.initInterceptors();
       final response = await apiClient.dio.get<dynamic>(
-        'vri?rows=100&search=$search&year=$year&start=$startRecord',
+        //TODO вернуть строку когда исправят на бэке
+        //'vri?rows=100&search=$search&year=$year&start=$startRecord',
+        'vri?rows=100&search=$search&start=$startRecord', //Временно
         cancelToken: token,
         onReceiveProgress: (count, total) =>
             log('Count...: $count ---------- Total:$total'),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:infopoverka/data/favorites_repository.dart';
@@ -107,54 +109,71 @@ class ItemListProvider extends ChangeNotifier {
     required String userSearch,
     required String startYear,
     required String finishYear,
-    required int startRecord,
   }) async {
+    //var startRecord = 0;
     _items.clear();
     _accurateList.clear();
     final intFinishYear = int.parse(finishYear);
 
-    for (_year = int.parse(startYear); _year <= intFinishYear; _year++) {
-      _loadingState = true;
-      _currentSearchingYear = _year.toString();
+    // for (_year = int.parse(startYear); _year <= intFinishYear; _year++) {
+    _loadingState = true;
+    _currentSearchingYear = _year.toString();
 
-      item = await getItem(userSearch, _year.toString()) as Item;
-
+    if (startRecord == 0) {
+      item = await getItem(userSearch, _year.toString(), 0) as Item;
       _items.addAll(item.result.items);
-
-      final box = await Hive.openBox<bool>('accurateBox');
-      var isAccurateSearchMode = true;
-      if (box.isEmpty) {
-        isAccurateSearchMode = true;
-      } else {
-        isAccurateSearchMode = box.get('accurateBox') as bool;
+      if (item.result.count > 100) {
+        startRecord = 100;
       }
-
-      if (isAccurateSearchMode) {
-        _accurateList.addAll(
-          _items.where((element) => element.miNumber == search).toSet(),
-        );
-        _items.clear(); //activate it for accurate search
-        if (_accurateList.isNotEmpty) {
-          final accurateSet = await setElementsIsFavorite(_accurateList);
-          _items.addAll(accurateSet);
-        }
-      } else {
-        final rawSet = await setElementsIsFavorite(_items);
-        _items.addAll(rawSet);
-      }
-
-      setFilteredList(
-        onlyActualData: false,
-        onlyInvalidData: false,
-        mitNotation: '',
-        mitTitleFilter: '',
-        orgTitle: '',
-      );
-
-      _loadingState = false;
-
-      notifyListeners();
     }
+    if (item.result.count > 100) {
+      for (; startRecord < item.result.count;) {
+        item = await getItem(userSearch, _year.toString(), startRecord) as Item;
+        _items.addAll(item.result.items);
+
+        if (startRecord < item.result.count - 100 && startRecord != 0) {
+          startRecord += 100;
+        } else if (startRecord <= 0) {
+          startRecord = item.result.count - 100;
+        }
+        log('startRecord:    ------------------' + startRecord.toString());
+      }
+    }
+
+    final box = await Hive.openBox<bool>('accurateBox');
+    var isAccurateSearchMode = true;
+    if (box.isEmpty) {
+      isAccurateSearchMode = true;
+    } else {
+      isAccurateSearchMode = box.get('accurateBox') as bool;
+    }
+
+    if (isAccurateSearchMode) {
+      _accurateList.addAll(
+        _items.where((element) => element.miNumber == search).toSet(),
+      );
+      _items.clear(); //activate it for accurate search
+      if (_accurateList.isNotEmpty) {
+        final accurateSet = await setElementsIsFavorite(_accurateList);
+        _items.addAll(accurateSet);
+      }
+    } else {
+      final rawSet = await setElementsIsFavorite(_items);
+      _items.addAll(rawSet);
+    }
+
+    setFilteredList(
+      onlyActualData: false,
+      onlyInvalidData: false,
+      mitNotation: '',
+      mitTitleFilter: '',
+      orgTitle: '',
+    );
+
+    _loadingState = false;
+
+    //notifyListeners();
+    // }
 
     notifyListeners();
   }
@@ -170,8 +189,8 @@ class ItemListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getItem(String userSearch, String year) async =>
-      itemsRepo.getItem(search: search, year: year, startRecord: startRecord);
+  Future getItem(String userSearch, String year, int record) async =>
+      itemsRepo.getItem(search: search, startRecord: startRecord);
 
   Future<void> loadItemsByVriId({
     required String vriId,

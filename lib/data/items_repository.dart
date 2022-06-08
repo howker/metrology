@@ -10,13 +10,13 @@ class ItemsRepository {
 
   Future<Item> getItem({
     required String search,
-    required String year,
+    //required String year,
     required int startRecord,
   }) async {
     try {
       final item = await reestrItemsRemoteDataSource.getItem(
         search: search,
-        year: year,
+        //year: year,
         startRecord: startRecord,
       );
       return item;
