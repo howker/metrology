@@ -16,27 +16,8 @@ class ChangeRangeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var startYear = DateFormat('yyyy').format(DateTime.now());
     var endYear = DateFormat('yyyy').format(DateTime.now());
-    return ElevatedButton(
+    return ElevatedButton.icon(
       onPressed: () {
-//Блок временно начало
-        // showDialog<dynamic>(
-        //   context: context,
-        //   builder: (context) => AlertDialog(
-        //     content: Text(
-        //       'Опция выбора диапазона поиска временно неактивна, т.к. на стороне сервера ФГИС АРШИН проводятся работы по оптимизации запросов.Поиск будет осуществлён по всем годам.',
-        //       style: Theme.of(context).textTheme.headlineSmall,
-        //       textAlign: TextAlign.start,
-        //     ),
-        //     actions: <Widget>[
-        //       TextButton(
-        //         onPressed: () => Navigator.pop(context, 'OK'),
-        //         child: const Text('OK'),
-        //       ),
-        //     ],
-        //   ),
-        // );
-//Блок временно конец
-
         showModalBottomSheet<dynamic>(
           isScrollControlled: true,
           isDismissible: false,
@@ -88,7 +69,8 @@ class ChangeRangeButton extends StatelessWidget {
           ),
         );
       },
-      child: const Text('Изменить диапазон поиска'),
+      icon: const Icon(Icons.calendar_month),
+      label: const Text('Диапазон поиска'),
     );
   }
 
