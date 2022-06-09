@@ -12,11 +12,23 @@ class PdfApi {
   static Future<File> generatePdfDoc(List<Items> items) async {
     const pageTheme = pw.PageTheme(
       pageFormat: PdfPageFormat.a4,
+      margin: pw.EdgeInsets.all(20),
     );
 
     final font = await rootBundle.load('assets/fonts/Helvetica.ttf');
     final ttf = pw.Font.ttf(font);
     var applicability = '';
+
+    final qrAppImage = pw.MemoryImage(
+      (await rootBundle.load('assets/images/QR_AppGallery.png'))
+          .buffer
+          .asUint8List(),
+    );
+    final appGalLogo = pw.MemoryImage(
+      (await rootBundle.load('assets/images/appGalLogo.png'))
+          .buffer
+          .asUint8List(),
+    );
 
     final pdf = pw.Document()
       ..addPage(
@@ -29,7 +41,23 @@ class PdfApi {
                   : applicability = 'Нет';
             }
             return pw.Column(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
               children: [
+                pw.Text(
+                  'Проверить сведения -отсканировать QR код с помощью ПО "Инфо-поверка"',
+                  style: pw.TextStyle(
+                    font: ttf,
+                    fontSize: 12,
+                  ),
+                ),
+                pw.SizedBox(height: 10),
+                pw.Container(
+                  alignment: pw.Alignment.center,
+                  height: pageTheme.pageFormat.availableHeight - 650,
+                  child: qrCreation(stringForQrData: items[0].vriId ?? ''),
+                ),
+                pw.Divider(),
+                pw.Spacer(),
                 pw.Text(
                   'Сведения о результатах поверки СИ',
                   textAlign: pw.TextAlign.center,
@@ -45,6 +73,7 @@ class PdfApi {
                   crossAxisCount: 2,
                   children: [
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.blue50,
                       child: pw.Text(
@@ -56,6 +85,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.blue50,
                       child: pw.Text(
@@ -68,6 +98,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.yellow50,
                       child: pw.Text(
@@ -79,6 +110,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.yellow50,
                       child: pw.Text(
@@ -90,6 +122,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.blue50,
                       child: pw.Text(
@@ -101,6 +134,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.blue50,
                       child: pw.Text(
@@ -112,6 +146,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.yellow50,
                       child: pw.Text(
@@ -123,6 +158,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.yellow50,
                       child: pw.Text(
@@ -134,6 +170,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.blue50,
                       child: pw.Text(
@@ -145,6 +182,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.blue50,
                       child: pw.Text(
@@ -156,6 +194,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.yellow50,
                       child: pw.Text(
@@ -167,6 +206,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.yellow50,
                       child: pw.Text(
@@ -178,6 +218,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.blue50,
                       child: pw.Text(
@@ -189,6 +230,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.blue50,
                       child: pw.Text(
@@ -200,6 +242,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.yellow50,
                       child: pw.Text(
@@ -211,6 +254,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.yellow50,
                       child: pw.Text(
@@ -222,6 +266,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.blue50,
                       child: pw.Text(
@@ -233,6 +278,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.blue50,
                       child: pw.Text(
@@ -244,6 +290,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.yellow50,
                       child: pw.Text(
@@ -255,6 +302,7 @@ class PdfApi {
                       ),
                     ),
                     pw.Container(
+                      padding: const pw.EdgeInsets.only(left: 10),
                       alignment: pw.Alignment.centerLeft,
                       color: PdfColors.yellow50,
                       child: pw.Text(
@@ -268,10 +316,34 @@ class PdfApi {
                   ],
                 ),
                 pw.Spacer(),
-                pw.Container(
-                  alignment: pw.Alignment.center,
-                  height: pageTheme.pageFormat.availableHeight - 650,
-                  child: qrCreation(stringForQrData: items[0].vriId ?? ''),
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.center,
+                  children: [
+                    pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.end,
+                      children: [
+                        pw.Text(
+                          'Подготовлено с помощью ПО "Инфо-поверка".',
+                          textAlign: pw.TextAlign.right,
+                          style: pw.TextStyle(
+                            font: ttf,
+                            fontSize: 12,
+                          ),
+                        ),
+                        pw.SizedBox(height: 5),
+                        pw.Container(
+                          width: 100,
+                          height: 50,
+                          child: pw.Image(appGalLogo),
+                        ),
+                      ],
+                    ),
+                    pw.Container(
+                      width: 80,
+                      height: 80,
+                      child: pw.Image(qrAppImage),
+                    ),
+                  ],
                 ),
               ],
             );
@@ -291,6 +363,21 @@ class PdfApi {
               return pw.Column(
                 children: [
                   pw.Text(
+                    'Проверить сведения -отсканировать QR код с помощью ПО "Инфо-поверка"',
+                    style: pw.TextStyle(
+                      font: ttf,
+                      fontSize: 12,
+                    ),
+                  ),
+                  pw.SizedBox(height: 10),
+                  pw.Container(
+                    alignment: pw.Alignment.center,
+                    height: pageTheme.pageFormat.availableHeight - 650,
+                    child: qrCreation(stringForQrData: items[i].vriId ?? ''),
+                  ),
+                  pw.Divider(),
+                  pw.Spacer(),
+                  pw.Text(
                     'Сведения о результатах поверки СИ',
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
@@ -300,10 +387,12 @@ class PdfApi {
                   ),
                   pw.SizedBox(height: 10),
                   pw.GridView(
-                    childAspectRatio: 0.1,
+                    mainAxisSpacing: 2,
+                    childAspectRatio: 0.2,
                     crossAxisCount: 2,
                     children: [
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.blue50,
                         child: pw.Text(
@@ -315,6 +404,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.blue50,
                         child: pw.Text(
@@ -326,6 +416,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.yellow50,
                         child: pw.Text(
@@ -337,6 +428,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.yellow50,
                         child: pw.Text(
@@ -348,6 +440,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.blue50,
                         child: pw.Text(
@@ -359,6 +452,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.blue50,
                         child: pw.Text(
@@ -370,6 +464,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.yellow50,
                         child: pw.Text(
@@ -381,6 +476,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.yellow50,
                         child: pw.Text(
@@ -392,6 +488,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.blue50,
                         child: pw.Text(
@@ -403,6 +500,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.blue50,
                         child: pw.Text(
@@ -414,6 +512,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.yellow50,
                         child: pw.Text(
@@ -425,6 +524,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.yellow50,
                         child: pw.Text(
@@ -436,6 +536,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.blue50,
                         child: pw.Text(
@@ -447,6 +548,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.blue50,
                         child: pw.Text(
@@ -458,6 +560,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.yellow50,
                         child: pw.Text(
@@ -469,6 +572,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.yellow50,
                         child: pw.Text(
@@ -480,6 +584,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.blue50,
                         child: pw.Text(
@@ -491,6 +596,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.blue50,
                         child: pw.Text(
@@ -502,6 +608,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.yellow50,
                         child: pw.Text(
@@ -513,6 +620,7 @@ class PdfApi {
                         ),
                       ),
                       pw.Container(
+                        padding: const pw.EdgeInsets.only(left: 10),
                         alignment: pw.Alignment.centerLeft,
                         color: PdfColors.yellow50,
                         child: pw.Text(
@@ -526,10 +634,34 @@ class PdfApi {
                     ],
                   ),
                   pw.Spacer(),
-                  pw.Container(
-                    alignment: pw.Alignment.center,
-                    height: pageTheme.pageFormat.availableHeight - 650,
-                    child: qrCreation(stringForQrData: items[i].vriId ?? ''),
+                  pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children: [
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.end,
+                        children: [
+                          pw.Text(
+                            'Подготовлено с помощью ПО "Инфо-поверка".',
+                            textAlign: pw.TextAlign.right,
+                            style: pw.TextStyle(
+                              font: ttf,
+                              fontSize: 12,
+                            ),
+                          ),
+                          pw.SizedBox(height: 5),
+                          pw.Container(
+                            width: 100,
+                            height: 50,
+                            child: pw.Image(appGalLogo),
+                          ),
+                        ],
+                      ),
+                      pw.Container(
+                        width: 80,
+                        height: 80,
+                        child: pw.Image(qrAppImage),
+                      ),
+                    ],
                   ),
                 ],
               );
@@ -539,7 +671,7 @@ class PdfApi {
       }
     }
 
-    return saveDocument(name: 'infopoverka_info.pdf', pdf: pdf);
+    return saveDocument(name: items.first.miNumber.toString(), pdf: pdf);
   }
 
   static pw.BarcodeWidget qrCreation({required String stringForQrData}) {

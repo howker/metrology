@@ -19,7 +19,7 @@ class ShareButton extends StatelessWidget {
         final pdfFile = await PdfApi.generatePdfDoc(selectedList.toList());
         await Share.shareFiles(
           [pdfFile.path],
-          text: 'Сведения о поверке от "Инфоповерки"',
+          text: 'Сведения о поверке от "Инфо-поверка"',
         );
         //await PdfApi.openFile(pdfFile); //TODO(me): убрать после тестирования
       },
