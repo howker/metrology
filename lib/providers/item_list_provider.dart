@@ -126,15 +126,15 @@ class ItemListProvider extends ChangeNotifier {
 
       if (startRecord == 0) {
         item = await getItem(userSearch, _year.toString(), 0) as Item;
-        if (item.result.count == 0) {
-          _loadingState = false;
-          startRecord = 0;
-          _currentSearchingRecord = startRecord.toString();
-          _quantityRecords = item.result.count.toString();
+        // if (item.result.count == 0) {
+        //   _loadingState = false;
+        //   startRecord = 0;
+        //   _currentSearchingRecord = startRecord.toString();
+        //   _quantityRecords = item.result.count.toString();
 
-          notifyListeners();
-          break;
-        }
+        //   notifyListeners();
+        //   break;
+        // }
         _items.addAll(item.result.items);
 
         if (item.result.count > 100) {
