@@ -686,12 +686,10 @@ class PdfApi {
     required String name,
     required pw.Document pdf,
   }) async {
-    final bytes = await pdf.save();
-
     final dir = await getTemporaryDirectory();
-    final file = File('${dir.path}/$name');
+    final file = File('${dir.path}/$name.pdf');
 
-    await file.writeAsBytes(bytes);
+    await file.writeAsBytes(await pdf.save());
 
     return file;
   }
